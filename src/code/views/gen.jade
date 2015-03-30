@@ -1,0 +1,15 @@
+extends layout
+
+block content
+  aside
+    h2= 'install ' + name
+    code= 'crystal install ' + name
+    h2 latest release
+    p= version
+    h2 keywords
+    p none.
+    h2 generators
+    p none.
+  article
+    h1= name
+    p= description
