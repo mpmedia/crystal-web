@@ -3,7 +3,7 @@ extends layout
 block content
   h1 login
   p login to crystal
-  form
-    input(placeholder='username')
-    input(placeholder='password', type='password')
-    button submit
+  form(action='#', onsubmit='return login()')
+    input(name='username', placeholder='username')
+    input(name='password', placeholder='password', type='password')
+    button(type='submit') login

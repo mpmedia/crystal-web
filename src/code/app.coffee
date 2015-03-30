@@ -34,7 +34,7 @@ app.get '/generators', (req, res) ->
   res.render 'generators', {
     generators: generators,
     title: 'crystal'
-    }
+  }
 app.get '/help', (req, res) ->
   res.render 'help', { title: 'crystal' }
 app.get '/login', (req, res) ->
@@ -58,7 +58,8 @@ request 'http://127.0.0.1:8080/generators', (error, response, body) ->
       html = jade.compile content, { filename: content_path }
       fs.writeFileSync "#{__dirname}/public/html/#{generator.name}.html", html({
         name: generator.name
-        description: generator.description
+        description: generator.description || 'No description.'
+        user: generator.user
         version: generator.versions[0]
       })
   
