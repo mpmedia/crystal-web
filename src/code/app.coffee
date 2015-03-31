@@ -8,18 +8,23 @@ request = require 'request'
 sass = require 'node-sass'
 session = require 'express-session'
 
-scss = sass.renderSync {
-  file: "#{__dirname}/sass/main.scss"
-  outputStyle: 'compressed'
-}
-fs.writeFileSync "#{__dirname}/public/css/main.css", scss.css
-
 app = express()
 app.set 'views', path.join(__dirname, 'views')
 app.set 'view engine', 'jade' 
 app.use '/scripts', express.static("#{__dirname}/public/js")
 app.use '/styles', express.static("#{__dirname}/public/css")
-app.use '/', express.static("#{__dirname}/public/html")
+app.use '/gen', (req, res, next) ->
+  generator = req.originalUrl.split('/')[2].split('.')[0]
+  file = "lib/public/html/gen/#{generator}.html"
+  if !fs.existsSync file
+    res.code(404)
+  res.sendfile file, { root: __dirname + '/..' }
+app.use '/user', (req, res, next) ->
+  user = req.originalUrl.split('/')[2].split('.')[0]
+  file = "lib/public/html/user/#{generator}.html"
+  if !fs.existsSync file
+    res.code(404)
+  res.sendfile file, { root: __dirname + '/..' }
 app.use cookie()
 app.use body()
 app.use session({ secret: 'bigsecret' })
@@ -46,22 +51,5 @@ app.get '/install', (req, res) ->
 app.get '/signup', (req, res) ->
   res.render 'signup', { title: 'crystal' }
 
-request 'http://127.0.0.1:8080/generators', (error, response, body) ->
-  if !error && response.statusCode == 200
-    layout_path = "#{__dirname}/views/layout.jade"
-    content_path = "#{__dirname}/views/gen.jade"
-    layout = fs.readFileSync layout_path, 'utf8'
-    content = fs.readFileSync content_path, 'utf8'
-    
-    generators = JSON.parse body
-    for generator in generators
-      html = jade.compile content, { filename: content_path }
-      fs.writeFileSync "#{__dirname}/public/html/#{generator.name}.html", html({
-        name: generator.name
-        description: generator.description || 'No description.'
-        user: generator.user
-        version: generator.versions[0]
-      })
-  
-  console.log 'Serving...'
-  app.listen 3000
+console.log 'Serving...'
+app.listen 3000

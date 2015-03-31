@@ -1,11 +1,20 @@
 a {
   color: #0099FF;
   text-decoration: none;
+  
+  &:hover {
+    text-decoration: underline;
+  }
 }
 
 body {
   font-family: Verdana;
   margin: 0;
+}
+
+code {
+  background-color: #EEE;
+  padding: 5px;
 }
 
 header {
@@ -41,12 +50,12 @@ section {
   width: 1000px;
   
   article {
-    width: 680px;
+    width: 630px;
   }
   
   aside {
     float: right;
-    width: 300px;
+    width: 350px;
   }
   
   h1 {
@@ -65,5 +74,27 @@ section {
   h3 {
     color: #999;
     font-size: 14px;
+  }
+  
+  li {
+    span {
+      color: #CCC;
+      margin-left: 5px;
+    }
+    
+    &:hover {
+      span {
+        color: #999;
+      }
+    }
+  }
+}
+
+#results {
+  background-color: #CCC;
+  
+  a {
+    display: block;
+    padding: 5px;
   }
 }

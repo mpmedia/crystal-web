@@ -10,8 +10,15 @@
 		"express": "~4.12.2",
 		"express-session": "~1.10.4",
 		"jade": "~1.9.2",
+		"marked": "~0.3.3",
 		"node-sass": "~2.1.1",
 		"node-sass-middleware": "~0.5.0",
-		"request": "~2.54.0"
+		"sync-request": "~2.0.1"
+	},
+	
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/studiotate/crystal-web.git"
 	}
+
 }
