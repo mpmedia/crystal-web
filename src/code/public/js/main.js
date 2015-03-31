@@ -63,3 +63,32 @@ var signup = function() {
   
   return false;
 };
+
+var search_i = 0;
+var search_terms = [
+  'laravel',
+  'datamapper',
+  'pip',
+  'authors',
+  'gorm',
+  'readme',
+  'sinatra',
+  'ormlite',
+  'gorp',
+  'django'
+];
+
+$(window).load(function() {
+  setInterval(function() {
+    var search_term = search_terms[search_i];
+    $('#search-term').attr('href', '/gen/' + search_term);
+    $('#search-term').text(search_term);
+    
+    if (search_i == search_terms.length-1) {
+      search_i = 0;
+    } else {
+      search_i++;
+    }
+    
+  }, 2000);
+});

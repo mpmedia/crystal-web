@@ -1,79 +1,80 @@
 extends layout
 
 block content
-  h1 crystal generators
-  h2 search
-  p search for generators created by the community
-  input(name='search', oninput='search()', placeholder='search for generators...')
-  div(id='results')
-  //each generator in generators
-  //  li
-  //    a(href=generator.name + '.html')= generator.name
-  h2 official crystal generators
-  h3 vif (very important file) generators
-  ul
-    li
-      a(href='gen/authors') authors
-      span AUTHORS file generator
-    li
-      a(href='gen/gitignore') gitignore
-      span .gitignore file generator
-    li
-      a(href='gen/readme') readme
-      span README.md file generator
-    li
-      a(href='gen/project') project
-      span Project generator
-  h3 license generators
-  ul
-    li
-      a(href='gen/apache2-license') apache2-license
-      span Apache License 2.0 generator
-    li
-      a(href='gen/artistic2-license') artistic2-license
-      span Artistic License 2.0 generator
-    li
-      a(href='gen/eclipse-license') eclipse-license
-      span Eclipse License 1.0 generator
-    li
-      a(href='gen/isc-license') isc-license
-      span ISC License generator
-    li
-      a(href='gen/mit-license') mit-license
-      span MIT License generator
-  h3 go generators
-  ul
-    li
-      a(href='gen/gorp') gorp
-      span gorp.go generator
-  h3 java generators
-  ul
-    li
-      a(href='gen/ormlite') ormlite
-      span ormlite.java generator
-  h3 javascript generators
-  ul
-    li
-      a(href='gen/backbone') backbone
-      span backbone.js generator
-    li
-      a(href='gen/bower') bower
-      span bower.js generator
-  h3 node.js generators
-  ul
-    li
-      a(href='gen/connect') connect
-      span connect.js generator
-    li
-      a(href='gen/express') express
-      span express.js generator
-    li
-      a(href='gen/npm') npm
-  h3 php generators
-  ul
-    li
-      a(href='gen/laravel') composer
-      span composer.php generator
-    li
-      a(href='gen/laravel') laravel
-      span laravel.php generator
+  section(id='generators')
+    h1 crystal generators
+    h2 search
+    p search for generators created by the community
+    input(name='search', oninput='search()', placeholder='search for generators...')
+    div(id='results')
+    //each generator in generators
+    //  li
+    //    a(href=generator.name + '.html')= generator.name
+    h2 official crystal generators
+    h3 vif (very important file) generators
+    ul
+      li
+        a(href='gen/authors') authors
+        span AUTHORS file generator
+      li
+        a(href='gen/gitignore') gitignore
+        span .gitignore file generator
+      li
+        a(href='gen/readme') readme
+        span README.md file generator
+      li
+        a(href='gen/project') project
+        span Project generator
+    h3 license generators
+    ul
+      li
+        a(href='gen/apache2-license') apache2-license
+        span Apache License 2.0 generator
+      li
+        a(href='gen/artistic2-license') artistic2-license
+        span Artistic License 2.0 generator
+      li
+        a(href='gen/eclipse-license') eclipse-license
+        span Eclipse License 1.0 generator
+      li
+        a(href='gen/isc-license') isc-license
+        span ISC License generator
+      li
+        a(href='gen/mit-license') mit-license
+        span MIT License generator
+    h3 go generators
+    ul
+      li
+        a(href='gen/gorp') gorp
+        span gorp.go generator
+    h3 java generators
+    ul
+      li
+        a(href='gen/ormlite') ormlite
+        span ormlite.java generator
+    h3 javascript generators
+    ul
+      li
+        a(href='gen/backbone') backbone
+        span backbone.js generator
+      li
+        a(href='gen/bower') bower
+        span bower.js generator
+    h3 node.js generators
+    ul
+      li
+        a(href='gen/connect') connect
+        span connect.js generator
+      li
+        a(href='gen/express') express
+        span express.js generator
+      li
+        a(href='gen/npm') npm
+    h3 php generators
+    ul
+      li
+        a(href='gen/laravel') composer
+        span composer.php generator
+      li
+        a(href='gen/laravel') laravel
+        span laravel.php generator

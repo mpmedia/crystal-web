@@ -18,7 +18,7 @@ code {
 }
 
 header {
-  background-color: #0099FF;
+  background-color: #000;
   overflow: auto;
   padding: 10px;
   
@@ -32,6 +32,7 @@ header {
   
   nav {
     float: right;
+    padding: 10px;
     
     ul {
       list-style: none;
@@ -39,7 +40,7 @@ header {
       
       li {
         display: inline-block;
-        margin-left: 10px;
+        margin-left: 20px;
       }
     }
   }
@@ -75,7 +76,75 @@ section {
     color: #999;
     font-size: 14px;
   }
+}
+
+#index {
+  text-align: center;
   
+  img.logo {
+    margin: 30px 0px 10px 0px;
+  }
+  
+  p.desc {
+    font-size: 18px;
+    padding-bottom: 10px;
+  }
+  
+  #features {
+    margin: 0px;
+    overflow: auto;
+    padding: 0px;
+    list-style-type: none;
+    
+    code {
+      font-size: 18px;
+    }
+    
+    li {
+      float: left;
+      margin: 0px;
+      padding: 0px;
+      width: 33.3%;
+    }
+  }
+}
+
+#lang-generators {
+  background-color: #EEE;
+  clear: both;
+  margin-top: 20px;
+  text-align: center;
+  
+  h1 {
+    font-family: 'Courier New';
+    margin: 0px;
+    padding-top: 40px;
+  }
+  
+  ul
+  {
+    font-size: 14px;
+    margin: 0px auto;
+    overflow: auto;
+    padding: 20px;
+    list-style-type: none;
+    width: 1000px;
+        
+    h2 {
+      font-size: 24px;
+    }
+    
+    li {
+      box-sizing: border-box;
+      float: left;
+      margin: 0px;
+      padding: 20px;
+      width: 25%;
+    }
+  }
+}
+
+#generators {
   li {
     span {
       color: #CCC;

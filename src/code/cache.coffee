@@ -133,7 +133,7 @@ request.get {
           fs.writeFileSync "#{__dirname}/public/html/gen/#{generator.name}.html", html({
             name: generator.name
             description: description
-            repository_name: generator.repository_url.replace(/^https?:\/\//i, '').replace(/\.git$/i, '')
+            repository_name: if generator.repository_url then generator.repository_url.replace(/^https?:\/\//i, '').replace(/\.git$/i, '') else null
             repository_url: generator.repository_url
             title: generator.name
             user: user

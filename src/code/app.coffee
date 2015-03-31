@@ -11,6 +11,7 @@ session = require 'express-session'
 app = express()
 app.set 'views', path.join(__dirname, 'views')
 app.set 'view engine', 'jade' 
+app.use '/images', express.static("#{__dirname}/public/images")
 app.use '/scripts', express.static("#{__dirname}/public/js")
 app.use '/styles', express.static("#{__dirname}/public/css")
 app.use '/gen', (req, res, next) ->
