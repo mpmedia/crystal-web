@@ -79,6 +79,9 @@ var search_terms = [
 ];
 
 $(window).load(function() {
+  $('.lang-yaml, .lang-sh').addClass('prettyprint');
+  prettyPrint();
+  
   setInterval(function() {
     var search_term = search_terms[search_i];
     $('#search-term').attr('href', '/gen/' + search_term);

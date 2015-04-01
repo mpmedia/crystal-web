@@ -14,6 +14,11 @@ app.set 'view engine', 'jade'
 app.use '/images', express.static("#{__dirname}/public/images")
 app.use '/scripts', express.static("#{__dirname}/public/js")
 app.use '/styles', express.static("#{__dirname}/public/css")
+app.use '/doc', (req, res, next) ->
+  file = "lib/public/html/doc.html"
+  if !fs.existsSync file
+    res.code(404)
+  res.sendfile file, { root: __dirname + '/..' }
 app.use '/gen', (req, res, next) ->
   generator = req.originalUrl.split('/')[2].split('.')[0]
   file = "lib/public/html/gen/#{generator}.html"

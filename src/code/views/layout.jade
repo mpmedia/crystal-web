@@ -3,14 +3,17 @@ html
   head
     base(href='/')
     title= title
+    script(src='/scripts/prettify.js')
+    script(src='/scripts/lang-yaml.js')
     script(src='http://code.jquery.com/jquery-2.1.3.min.js')
     script(src='/scripts/main.js')
+    link(rel='stylesheet', href='/styles/prettify.css')
     link(rel='stylesheet', href='/styles/main.css')
   body
     header
       div
         a(href='/')
-          img(height=40, src='images/crystal-logo-icon.svg')
+          img(height=40, src='images/logo.svg')
       nav
         ul
           li

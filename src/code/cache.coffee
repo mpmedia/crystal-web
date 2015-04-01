@@ -9,6 +9,15 @@ request = require 'request'
 sass = require 'node-sass'
 session = require 'express-session'
 
+# sync docs
+layout_path = "#{__dirname}/views/layout.jade"
+content_path = "#{__dirname}/views/docs.jade"
+layout = fs.readFileSync layout_path, 'utf8'
+content = fs.readFileSync content_path, 'utf8'
+html = jade.compile content, { filename: content_path }
+fs.writeFileSync "#{__dirname}/public/html/doc.html", html()
+
+# sync css
 scss = sass.renderSync {
   file: "#{__dirname}/sass/main.scss"
   outputStyle: 'compressed'
@@ -16,49 +25,6 @@ scss = sass.renderSync {
 fs.writeFileSync "#{__dirname}/public/css/main.css", scss.css
 
 api = "http://127.0.0.1:8080/"
-
-app = express()
-app.set 'views', path.join(__dirname, 'views')
-app.set 'view engine', 'jade' 
-app.use '/scripts', express.static("#{__dirname}/public/js")
-app.use '/styles', express.static("#{__dirname}/public/css")
-app.use '/gen', (req, res, next) ->
-  generator = req.originalUrl.split('/')[2].split('.')[0]
-  file = "lib/public/html/gen/#{generator}.html"
-  if !fs.existsSync file
-    res.code(404)
-  res.sendfile file, { root: __dirname + '/..' }
-app.use '/user', (req, res, next) ->
-  user = req.originalUrl.split('/')[2].split('.')[0]
-  file = "lib/public/html/user/#{generator}.html"
-  if !fs.existsSync file
-    res.code(404)
-  res.sendfile file, { root: __dirname + '/..' }
-app.use cookie()
-app.use body()
-app.use session({ secret: 'bigsecret' })
-
-generators = []
-
-app.get '/', (req, res) ->
-  res.render 'index', { title: 'crystal' }
-app.get '/docs', (req, res) ->
-  res.render 'docs', { title: 'crystal' }
-app.get '/generators', (req, res) ->
-  res.render 'generators', {
-    generators: generators,
-    title: 'crystal'
-  }
-app.get '/help', (req, res) ->
-  res.render 'help', { title: 'crystal' }
-app.get '/login', (req, res) ->
-  res.render 'login', { title: 'crystal' }
-app.get '/logout', (req, res) ->
-  res.render 'logout', { title: 'crystal' }
-app.get '/install', (req, res) ->
-  res.render 'install', { title: 'crystal' }
-app.get '/signup', (req, res) ->
-  res.render 'signup', { title: 'crystal' }
 
 request.get {
   auth: {

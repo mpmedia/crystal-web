@@ -14,7 +14,14 @@ body {
 
 code {
   background-color: #EEE;
+  padding: 0px 5px;
+}
+
+pre {
+  background-color: #EEE;
   padding: 5px;
+  overflow: auto;
+  width: 100%;
 }
 
 header {
@@ -46,15 +53,16 @@ header {
   }
 }
 
-section {
+.page {
   margin: 0px auto;
   width: 1000px;
   
-  article {
+  section article, section section {
     width: 630px;
   }
   
   aside {
+    background-color: #EEE;
     float: right;
     width: 350px;
   }
