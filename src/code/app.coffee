@@ -16,19 +16,19 @@ app.use '/styles', express.static("#{__dirname}/public/css")
 app.use '/doc', (req, res, next) ->
   file = "lib/public/html/doc.html"
   if !fs.existsSync file
-    res.code(404)
+    res.status(404).send('404')
   res.sendfile file, { root: __dirname + '/..' }
 app.use '/gen', (req, res, next) ->
   generator = req.originalUrl.split('/')[2].split('.')[0]
   file = "lib/public/html/gen/#{generator}.html"
   if !fs.existsSync file
-    res.code(404)
+    res.status(404).send('404')
   res.sendfile file, { root: __dirname + '/..' }
 app.use '/user', (req, res, next) ->
   user = req.originalUrl.split('/')[2].split('.')[0]
   file = "lib/public/html/user/#{generator}.html"
   if !fs.existsSync file
-    res.code(404)
+    res.status(404).send('404')
   res.sendfile file, { root: __dirname + '/..' }
 app.use cookie()
 app.use body()
