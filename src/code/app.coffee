@@ -57,4 +57,4 @@ app.get '/signup', (req, res) ->
   res.render 'signup', { title: 'crystal' }
 
 console.log 'Serving...'
-app.listen 3000
+app.listen 80

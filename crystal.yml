@@ -31,6 +31,7 @@ generators:
         marked: "~0.3.3"
         node-sass: "~2.0.1"
         node-sass-middleware: "~0.5.0"
+        request: "~2.54.0"
         sync-request: "~2.0.1"
     version: latest
   project:
@@ -41,4 +42,4 @@ scripts:
     - npm install
   run:
     - npm install
-    - coffee lib/app.coffee
+    - sudo coffee lib/app.coffee
