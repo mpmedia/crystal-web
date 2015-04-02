@@ -11,6 +11,7 @@
 		"express-session": "~1.10.4",
 		"jade": "~1.9.2",
 		"marked": "~0.3.3",
+		"mkdirp": "~0.5.0",
 		"node-sass": "~2.0.1",
 		"node-sass-middleware": "~0.5.0",
 		"request": "~2.54.0",

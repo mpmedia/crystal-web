@@ -4,6 +4,7 @@ express = require 'express'
 fs = require 'fs'
 jade = require 'jade'
 marked = require 'marked'
+mkdirp = require 'mkdirp'
 path = require 'path'
 request = require 'request'
 sass = require 'node-sass'
@@ -15,7 +16,10 @@ content_path = "#{__dirname}/views/docs.jade"
 layout = fs.readFileSync layout_path, 'utf8'
 content = fs.readFileSync content_path, 'utf8'
 html = jade.compile content, { filename: content_path }
-fs.writeFileSync "#{__dirname}/public/html/doc.html", html()
+html_dir = "#{__dirname}/public/html/"
+if !fs.existsSync html_dir
+  mkdirp html_dir
+fs.writeFileSync "#{html_dir}doc.html", html()
 
 # sync css
 scss = sass.renderSync {
