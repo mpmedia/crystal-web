@@ -79,7 +79,7 @@ var search_terms = [
 ];
 
 $(window).load(function() {
-  $('.lang-yaml, .lang-sh').addClass('prettyprint');
+  $('.lang-html, .lang-ruby, .lang-yaml, .lang-sh').addClass('prettyprint');
   prettyPrint();
   
   setInterval(function() {
