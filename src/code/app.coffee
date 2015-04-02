@@ -5,7 +5,6 @@ fs = require 'fs'
 jade = require 'jade'
 path = require 'path'
 request = require 'request'
-sass = require 'node-sass'
 session = require 'express-session'
 
 app = express()
