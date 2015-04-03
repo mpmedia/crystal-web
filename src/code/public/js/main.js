@@ -1,4 +1,4 @@
-var api = 'http://127.0.0.1:8080/';
+var api = 'https://api.crystal.sh/';
 
 var login = function() {
   $.ajax({
@@ -48,6 +48,10 @@ var search = function() {
 };
 
 var signup = function() {
+  $('input, button').prop('disabled', true);
+  $('button').text('Loading...');
+  $('form .error').hide();
+  
   $.ajax({
     method: 'POST',
     url: api + 'users',
@@ -56,8 +60,23 @@ var signup = function() {
       username: $('input[name="username"]').val(),
       password: $('input[name="password"]').val()
     },
+    error: function(data) {
+      if (data.responseText && data.responseText.match('duplicate')) {
+        if (data.responseText.match('email')) {
+          $('form .error').text('Email is in use. Please try another.').show();
+        } else {
+          $('form .error').text('Username is taken. Please try another.').show();
+        }
+      } else {
+        $('form .error').text('Unable to signup. Please try again.').show();
+      }
+      
+      $('input, button').prop('disabled', false);
+      $('button').text('Sign Up');
+    },
     success: function(data) {
-      console.log(data);
+      $('form').hide();
+      $('#success').show();
     }
   });
   

@@ -12,6 +12,24 @@ body {
   margin: 0;
 }
 
+button {
+  background-color: #CC0000;
+  border: 0px;
+  border-radius: 5px;
+  color: #FFF;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 5px;
+}
+
+button:hover {
+  background-color: #FF0000;
+}
+
+button[disabled] {
+  background-color: #999;
+}
+
 code {
   background-color: #EEE;
   padding: 0px 5px;
@@ -22,6 +40,12 @@ pre {
   padding: 5px;
   overflow: auto;
   width: 100%;
+}
+
+form {
+  div {
+    padding-bottom: 5px;
+  }
 }
 
 header {
@@ -51,6 +75,18 @@ header {
       }
     }
   }
+}
+
+input {
+  font-size: 14px;
+}
+
+label {
+  display: block;
+}
+
+.error {
+  color: #CC0000;
 }
 
 .page {
@@ -184,4 +220,8 @@ header {
     display: block;
     padding: 5px;
   }
+}
+
+#success {
+  display: none;
 }
