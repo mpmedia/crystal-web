@@ -47,25 +47,26 @@ app.use session({ secret: 'bigsecret' })
 
 generators = []
 
+title = 'Crystal - Open Source Code Generator for Popular Programming Languages and Frameworks'
 app.get '/', (req, res) ->
-  res.render 'index', { title: 'crystal code generator' }
+  res.render 'index', { title: title }
 app.get '/docs', (req, res) ->
-  res.render 'docs', { title: 'crystal code generator' }
+  res.render 'docs', { title: title }
 app.get '/generators', (req, res) ->
   res.render 'generators', {
     generators: generators,
-    title: 'crystal code generator'
+    title: title
   }
 app.get '/help', (req, res) ->
-  res.render 'help', { title: 'crystal code generator' }
+  res.render 'help', { title: title }
 app.get '/login', (req, res) ->
-  res.render 'login', { title: 'crystal code generator' }
+  res.render 'login', { title: title }
 app.get '/logout', (req, res) ->
-  res.render 'logout', { title: 'crystal code generator' }
+  res.render 'logout', { title: title }
 app.get '/install', (req, res) ->
-  res.render 'install', { title: 'crystal code generator' }
+  res.render 'install', { title: title }
 app.get '/signup', (req, res) ->
-  res.render 'signup', { title: 'crystal code generator' }
+  res.render 'signup', { title: title }
 
 console.log 'Serving...'
 app.listen 80
