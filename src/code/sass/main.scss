@@ -67,7 +67,8 @@ header {
     
     ul {
       list-style: none;
-      margin: 0;
+      margin: 0px;
+      padding: 0px;
       
       li {
         display: inline-block;
@@ -91,7 +92,8 @@ label {
 
 .page {
   margin: 0px auto;
-  width: 1000px;
+  max-width: 960px;
+  padding: 0px 20px 20px 20px;
   
   section article, section section {
     width: 630px;
@@ -182,7 +184,7 @@ label {
     overflow: auto;
     padding: 20px;
     list-style-type: none;
-    width: 1000px;
+    max-width: 960px;
         
     h2 {
       font-size: 24px;
@@ -224,4 +226,27 @@ label {
 
 #success {
   display: none;
+}
+
+@media screen and (max-width: 520px) {
+  header {
+    div {
+      display: none;
+    }
+    
+    nav {
+      float: none;
+      text-align: center;
+      
+      ul {
+        li {
+          margin: 0px 7px;
+        }
+      }
+    }
+  }
+  
+  #banner {
+    display: none;
+  }
 }
