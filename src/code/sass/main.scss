@@ -9,6 +9,7 @@ a {
 
 body {
   font-family: Verdana;
+  font-size: 16px;
   margin: 0;
 }
 
@@ -96,13 +97,13 @@ label {
   padding: 0px 20px 20px 20px;
   
   section article, section section {
-    width: 630px;
+    max-width: 630px;
   }
   
   aside {
     background-color: #EEE;
     float: right;
-    width: 350px;
+    max-width: 350px;
   }
   
   h1 {
