@@ -139,6 +139,7 @@ label {
   
   img.logo {
     margin: 30px 0px 10px 0px;
+    max-width: 90%;
   }
   
   p.desc {
@@ -248,5 +249,14 @@ label {
   
   #banner {
     display: none;
+  }
+  
+  #index {
+    #features {
+      li {
+        float: none;
+        width: 100%;
+      }
+    }
   }
 }
