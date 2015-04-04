@@ -37,24 +37,24 @@ app.use session({ secret: 'bigsecret' })
 generators = []
 
 app.get '/', (req, res) ->
-  res.render 'index', { title: 'crystal' }
+  res.render 'index', { title: 'crystal code generator' }
 app.get '/docs', (req, res) ->
-  res.render 'docs', { title: 'crystal' }
+  res.render 'docs', { title: 'crystal code generator' }
 app.get '/generators', (req, res) ->
   res.render 'generators', {
     generators: generators,
-    title: 'crystal'
+    title: 'crystal code generator'
   }
 app.get '/help', (req, res) ->
-  res.render 'help', { title: 'crystal' }
+  res.render 'help', { title: 'crystal code generator' }
 app.get '/login', (req, res) ->
-  res.render 'login', { title: 'crystal' }
+  res.render 'login', { title: 'crystal code generator' }
 app.get '/logout', (req, res) ->
-  res.render 'logout', { title: 'crystal' }
+  res.render 'logout', { title: 'crystal code generator' }
 app.get '/install', (req, res) ->
-  res.render 'install', { title: 'crystal' }
+  res.render 'install', { title: 'crystal code generator' }
 app.get '/signup', (req, res) ->
-  res.render 'signup', { title: 'crystal' }
+  res.render 'signup', { title: 'crystal code generator' }
 
 console.log 'Serving...'
 app.listen 80
