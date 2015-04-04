@@ -9,11 +9,11 @@ block content
       p= 'version ' + version
       p
         | published by 
-        a(href='/user/' + user + '.html')= user
+        a(href='/user/' + user + '.html', title=user + "'s Profile")= user
       p= versions + ' releases total'
       h2 repository
       p
-        a(href=repository_url, target='_blank')= repository_name
+        a(href=repository_url, target='_blank', title='"' + repository_name + '" Repository')= repository_name
       h2 keywords
       p none.
       h2 generators
