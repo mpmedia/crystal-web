@@ -3,6 +3,8 @@
 	"name": "crystal-web",
 	"version": "0.1.0",
 	"description": "crystal website",
+	"author": "Chris Tate <chris@studiotate.com>",
+	"private": true,
 	
 	"dependencies": {
 		"body-parser": "~1.12.2",
