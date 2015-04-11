@@ -13,6 +13,12 @@ repository:
   url: https://github.com/studiotate/crystal-web.git
 
 generators:
+  bower:
+    path: .
+    spec:
+      dependencies:
+        bootstrap: "3.3.4"
+    version: latest
   gitignore:
     path: .
     spec:
