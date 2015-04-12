@@ -39,7 +39,6 @@ generators:
         node-sass: "~2.0.1"
         node-sass-middleware: "~0.5.0"
         request: "~2.54.0"
-        reqs: "0.2.0"
         sync-request: "~2.0.1"
       private: true
     version: latest
@@ -48,7 +47,9 @@ generators:
 
 scripts:
   build:
+    - sudo npm install -g bower
+    - sudo npm install
     - sudo npm update
+    - bower install
   run:
-    - sudo npm update
     - sudo coffee lib/app.coffee

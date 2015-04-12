@@ -1,10 +1,8 @@
-body = require 'body-parser'
-cookie = require 'cookie-parser'
+body    = require 'body-parser'
+cookie  = require 'cookie-parser'
 express = require 'express'
-fs = require 'fs'
-jade = require 'jade'
-path = require 'path'
-request = require 'request'
+fs      = require 'fs'
+path    = require 'path'
 session = require 'express-session'
 
 app = express()
@@ -21,6 +19,7 @@ app.all /.*/, (req, res, next) ->
 
 app.set 'views', path.join(__dirname, 'views')
 app.set 'view engine', 'jade' 
+app.use '/font', express.static("#{__dirname}/public/font")
 app.use '/images', express.static("#{__dirname}/public/images")
 app.use '/scripts', express.static("#{__dirname}/public/js")
 app.use '/styles', express.static("#{__dirname}/public/css")
@@ -47,7 +46,7 @@ app.use session({ secret: 'bigsecret' })
 
 generators = []
 
-title = 'Crystal - Open Source Code Generator for Popular Programming Languages and Frameworks'
+title = 'Crystal - Open Source Code Generator for Every Language and Platform'
 app.get '/', (req, res) ->
   res.render 'index', { title: title }
 app.get '/docs', (req, res) ->
@@ -67,6 +66,8 @@ app.get '/install', (req, res) ->
   res.render 'install', { title: title }
 app.get '/signup', (req, res) ->
   res.render 'signup', { title: title }
+app.get '/tutorials', (req, res) ->
+  res.render 'tutorials', { title: title }
 
 console.log 'Serving...'
 app.listen 80

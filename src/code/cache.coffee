@@ -1,14 +1,11 @@
-body = require 'body-parser'
-cookie = require 'cookie-parser'
-express = require 'express'
-fs = require 'fs'
-jade = require 'jade'
-marked = require 'marked'
-mkdirp = require 'mkdirp'
-path = require 'path'
+process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0';
+
+fs      = require 'fs'
+jade    = require 'jade'
+marked  = require 'marked'
+mkdirp  = require 'mkdirp'
 request = require 'request'
-sass = require 'node-sass'
-session = require 'express-session'
+sass    = require 'node-sass'
 
 # sync docs
 layout_path = "#{__dirname}/views/layout.jade"

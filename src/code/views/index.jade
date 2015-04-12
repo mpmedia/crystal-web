@@ -2,8 +2,11 @@ extends layout
 
 block content
   section(class='page', id='index')
-    img(class='logo', height=300, src='images/crystal.svg')
-    p(class='logo') open source code generator for every language and platform
+    div(id="intro")
+      div
+        p(class='title') crystal v0.2 (quartz)
+        p(class='desc') Open Source Code Generator for Every Language and platform
+        button(href='tutorials/project') Learn More
     ul(id='features')
       li
         h2 install crystal
@@ -19,3 +22,72 @@ block content
         h2 create generators
         code crystal publish
         p publish your own
+  div(id='lang-generators')
+    h1 generators by language
+    ul
+      li
+        h2 python
+        img(height=200, src='images/python.svg')
+        p
+          a(href='gen/django') django
+          | , 
+          a(href='gen/pip') pip
+          |  & 
+          a(href='gen/ponyorm') ponyorm
+      li
+        h2 mongo
+        img(height=200, src='images/mongo.svg')
+        p
+          a(href='gen/mongomapper') mongomapper
+          |  & 
+          a(href='gen/mongoose') mongoose
+      li
+        h2 php
+        img(height=200, src='images/php.svg')
+        p
+          a(href='gen/laravel') laravel
+          | , 
+          a(href='gen/propel') propel
+          |  & 
+          a(href='gen/composer') composer
+      li
+        h2 ruby
+        img(height=200, src='images/ruby.svg')
+        p
+          a(href='gen/rails') rails
+          | , 
+          a(href='gen/sinatra') sinatra
+          |  & 
+          a(href='gen/datamapper') datamapper
+      li
+        h2 java
+        img(height=200, src='images/java.svg')
+        p
+          a(href='gen/ormlite') ormlite
+          |  & 
+          a(href='gen/hibernateorm') hibernateorm
+      li
+        h2 redis
+        img(height=200, src='images/redis.svg')
+        p
+          a(href='gen/redis') redis
+          | , 
+          a(href='gen/sinatra') sinatra
+          |  & more
+      li
+        h2 go
+        img(height=200, src='images/go.svg')
+        p
+          a(href='gen/gorp') gorp
+          | , 
+          a(href='gen/gorm') gorm
+          |  & 
+          a(href='gen/beedb') beedb
+      li
+        h2 mysql
+        img(height=200, src='images/mysql.svg')
+        p
+          a(href='gen/mysql') mysql
+          | , 
+          a(href='gen/cakephp') cakephp
+          |  & more
