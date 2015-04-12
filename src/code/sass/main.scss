@@ -3,21 +3,20 @@
   src: url(/font/main.woff);
 }
 
+* {
+  margin: 0px;
+}
+
+h1, h2, h3, h4, h5, h6, p {
+  padding-bottom: 20px;
+}
+
 a {
-  color: #FFFF00;
   text-decoration: none;
-  
-  &:hover {
-    color: #FFFF00;
-    text-decoration: none;
-  }
 }
 
 body {
-  background-attachment: fixed;
-  background-image: url(/images/quartz.jpg);
-  background-position: center 30px;
-  background-size: 100% auto;
+  color: #666;
   font-family: Verdana;
   font-size: 16px;
   margin: 0;
@@ -30,7 +29,7 @@ button {
   color: #FFFF00;
   cursor: pointer;
   font-size: 16px;
-  padding: 5px;
+  padding: 10px;
   text-align: center;
   width: 150px;
 }
@@ -70,10 +69,24 @@ label {
   display: block;
 }
 
+section {
+  a {
+    border-bottom: 1px #666 dotted;
+    color: #000;
+    text-decoration: none;
+    
+    &:hover {
+      border-bottom: 1px #000 solid;
+      text-decoration: none;
+    }
+  }
+}
+
 .error {
   color: #CC0000;
 }
 
+/*
 .page {
   margin: 0px auto;
   padding: 0px 20px 20px 20px;
@@ -106,3 +119,4 @@ label {
     font-size: 14px;
   }
 }
+*/

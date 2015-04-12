@@ -1,115 +1,113 @@
 extends layout
-
 block content
-  section(class='page', id='generators')
-    h1 crystal generators
-    //h2 search
-    //p search for generators created by the community
-    //input(name='search', oninput='search()', placeholder='search for generators...')
-    //div(id='results')
-    //each generator in generators
-    //  li
-    //    a(href=generator.name + '.html')= generator.name
-    h2 official crystal generators
-    h3 vif (very important file) generators
-    ul
-      li
-        a(href='gen/authors', title='"authors" Generator') authors
-        span AUTHORS file generator
-      li
-        a(href='gen/gitignore', title='"gitignore" Generator') gitignore
-        span .gitignore file generator
-      li
-        a(href='gen/readme', title='"readme" Generator') readme
-        span README.md file generator
-      li
-        a(href='gen/project', title='"project" Generator') project
-        span Project generator
-    h3 license generators
-    ul
-      li
-        a(href='gen/apache2-license', title='"apache2-license" Generator') apache2-license
-        span Apache License 2.0 generator
-      li
-        a(href='gen/artistic2-license', title='"artistic2-license" Generator') artistic2-license
-        span Artistic License 2.0 generator
-      li
-        a(href='gen/bsd2-license', title='"bsd2-license" Generator') bsd2-license
-        span BSD 2-clause "Simplified" License generator generator
-      li
-        a(href='gen/bsd3-license', title='"bsd3-license" Generator') bsd3-license
-        span BSD 3-clause "New" or "Revised" License generator
-      li
-        a(href='gen/cc0-license', title='"cc0-license" Generator') cc0-license
-        span Creative Commons Zero v1.0 Universal License generator
-      li
-        a(href='gen/eclipse-license', title='"eclipse-license" Generator') eclipse-license
-        span Eclipse License 1.0 generator
-      li
-        a(href='gen/gpl2-license', title='"gpl2-license" Generator') gpl2-license
-        span GNU General Public License v2.0 generator
-      li
-        a(href='gen/gpl3-license', title='"gpl3-license" Generator') gpl3-license
-        span GNU General Public License v3.0 generator
-      li
-        a(href='gen/gpl3-affero-license', title='"gpl3-affero-license" Generator') gpl3-affero-license
-        span GNU Affero General Public License v3.0
-      li
-        a(href='gen/isc-license', title='"isc-license" Generator') isc-license
-        span ISC License generator
-      li
-        a(href='gen/lgpl2-license', title='"lgpl2-license" Generator') lgpl2-license
-        span GNU Lesser General Public License v2.1 generator
-      li
-        a(href='gen/lgpl3-license', title='"lgpl3-license" Generator') lgpl3-license
-        span GNU Lesser General Public License v3.0 generator
-      li
-        a(href='gen/mit-license', title='"mit-license" Generator') mit-license
-        span MIT License generator
-      li
-        a(href='gen/mozilla2-license', title='"mozilla2-license" Generator') mozilla2-license
-        span Mozilla Public License 2.0 generator
-      li
-        a(href='gen/no-license', title='"no-license" Generator') no-license
-        span No License generator
-      li
-        a(href='gen/unlicense', title='"unlicense" Generator') unlicense-license
-        span UNLICENSE generator
-    h3 go generators
-    ul
-      li
-        a(href='gen/gorp', title='"gorp" Generator') gorp
-        span gorp.go generator
-    h3 javascript generators
-    ul
-      li
-        a(href='gen/backbone', title='"backbone" Generator') backbone
-        span backbone.js generator
-      li
-        a(href='gen/bower', title='"bower" Generator') bower
-        span bower.js generator
-    h3 node.js generators
-    ul
-      li
-        a(href='gen/express', title='"express" Generator') express
-        span express.js generator
-      li
-        a(href='gen/npm', title='"npm" Generator') npm
-    h3 php generators
-    ul
-      li
-        a(href='gen/laravel', title='"laravel" Generator') laravel
-        span laravel.php generator
-      li
-        a(href='gen/composer', title='"laravel" Generator') composer
-        span composer.json generator
-    h3 python generators
-    ul
-      li
-        a(href='gen/pip', title='"pip" Generator') pip
-        span pip requirements.txt generator
-    h3 ruby generators
-    ul
-      li
-        a(href='gen/datamapper', title='"datamapper" Generator') datamapper
-        span DataMapper generator
+  h1 crystal generators
+  //h2 search
+  //p search for generators created by the community
+  //input(name='search', oninput='search()', placeholder='search for generators...')
+  //div(id='results')
+  //each generator in generators
+  //  li
+  //    a(href=generator.name + '.html')= generator.name
+  h2 official crystal generators
+  h3 vif (very important file) generators
+  ul
+    li
+      a(href='gen/authors', title='"authors" Generator') authors
+      span AUTHORS file generator
+    li
+      a(href='gen/gitignore', title='"gitignore" Generator') gitignore
+      span .gitignore file generator
+    li
+      a(href='gen/readme', title='"readme" Generator') readme
+      span README.md file generator
+    li
+      a(href='gen/project', title='"project" Generator') project
+      span Project generator
+  h3 license generators
+  ul
+    li
+      a(href='gen/apache2-license', title='"apache2-license" Generator') apache2-license
+      span Apache License 2.0 generator
+    li
+      a(href='gen/artistic2-license', title='"artistic2-license" Generator') artistic2-license
+      span Artistic License 2.0 generator
+    li
+      a(href='gen/bsd2-license', title='"bsd2-license" Generator') bsd2-license
+      span BSD 2-clause "Simplified" License generator generator
+    li
+      a(href='gen/bsd3-license', title='"bsd3-license" Generator') bsd3-license
+      span BSD 3-clause "New" or "Revised" License generator
+    li
+      a(href='gen/cc0-license', title='"cc0-license" Generator') cc0-license
+      span Creative Commons Zero v1.0 Universal License generator
+    li
+      a(href='gen/eclipse-license', title='"eclipse-license" Generator') eclipse-license
+      span Eclipse License 1.0 generator
+    li
+      a(href='gen/gpl2-license', title='"gpl2-license" Generator') gpl2-license
+      span GNU General Public License v2.0 generator
+    li
+      a(href='gen/gpl3-license', title='"gpl3-license" Generator') gpl3-license
+      span GNU General Public License v3.0 generator
+    li
+      a(href='gen/gpl3-affero-license', title='"gpl3-affero-license" Generator') gpl3-affero-license
+      span GNU Affero General Public License v3.0
+    li
+      a(href='gen/isc-license', title='"isc-license" Generator') isc-license
+      span ISC License generator
+    li
+      a(href='gen/lgpl2-license', title='"lgpl2-license" Generator') lgpl2-license
+      span GNU Lesser General Public License v2.1 generator
+    li
+      a(href='gen/lgpl3-license', title='"lgpl3-license" Generator') lgpl3-license
+      span GNU Lesser General Public License v3.0 generator
+    li
+      a(href='gen/mit-license', title='"mit-license" Generator') mit-license
+      span MIT License generator
+    li
+      a(href='gen/mozilla2-license', title='"mozilla2-license" Generator') mozilla2-license
+      span Mozilla Public License 2.0 generator
+    li
+      a(href='gen/no-license', title='"no-license" Generator') no-license
+      span No License generator
+    li
+      a(href='gen/unlicense', title='"unlicense" Generator') unlicense-license
+      span UNLICENSE generator
+  h3 go generators
+  ul
+    li
+      a(href='gen/gorp', title='"gorp" Generator') gorp
+      span gorp.go generator
+  h3 javascript generators
+  ul
+    li
+      a(href='gen/backbone', title='"backbone" Generator') backbone
+      span backbone.js generator
+    li
+      a(href='gen/bower', title='"bower" Generator') bower
+      span bower.js generator
+  h3 node.js generators
+  ul
+    li
+      a(href='gen/express', title='"express" Generator') express
+      span express.js generator
+    li
+      a(href='gen/npm', title='"npm" Generator') npm
+  h3 php generators
+  ul
+    li
+      a(href='gen/laravel', title='"laravel" Generator') laravel
+      span laravel.php generator
+    li
+      a(href='gen/composer', title='"laravel" Generator') composer
+      span composer.json generator
+  h3 python generators
+  ul
+    li
+      a(href='gen/pip', title='"pip" Generator') pip
+      span pip requirements.txt generator
+  h3 ruby generators
+  ul
+    li
+      a(href='gen/datamapper', title='"datamapper" Generator') datamapper
+      span DataMapper generator

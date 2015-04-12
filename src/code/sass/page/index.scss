@@ -1,6 +1,16 @@
+body {
+  background-attachment: fixed;
+  background-image: url(/images/quartz.jpg);
+  background-position: center top;
+  background-repeat: no-repeat;
+  background-size: 100% auto;
+}
+
+header {
+  padding: 20px;
+}
+
 #index {
-  height: 680px;
-  padding-top: 400px;
   text-align: center;
   
   img.logo {
@@ -13,6 +23,7 @@
   }
   
   #features {
+    background-color: #FFF;
     margin: 0px;
     overflow: auto;
     padding: 0px;
@@ -39,7 +50,7 @@
     background: linear-gradient(to bottom,  rgba(0,0,0,0) 0%,rgba(0,0,0,1) 100%); /* W3C */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#000000',GradientType=0 ); /* IE6-9 */
     color: #FFF;
-    height: 120%;
+    height: 100vh;
     text-shadow: 1px 1px 1px #000;
     
     .desc {
@@ -53,6 +64,7 @@
       color: #FFFF00;
       font-family: main;
       font-size: 32px;
+      padding-top: 35%;
     }
     
     .tag {
@@ -63,7 +75,6 @@
   #lang-generators {
     background-color: #EEE;
     clear: both;
-    margin-top: 20px;
     text-align: center;
     
     h1 {

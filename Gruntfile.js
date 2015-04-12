@@ -2,15 +2,6 @@ module.exports = function(grunt) {
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
-    concat: {
-      options: {
-        separator: ''
-      },
-      dist: {
-        src: 'lib/css/**/*.css',
-        dest: 'lib/public/css/main.css'
-      }
-    },
     copy: {
       main: {
         files: [
@@ -21,6 +12,15 @@ module.exports = function(grunt) {
             dest: 'lib/views/',
             filter: 'isFile'
           }
+        ],
+        files: [
+          {
+            expand: true,
+            cwd: 'src/code/public/js/',
+            src: ['**'],
+            dest: 'lib/public/js/',
+            filter: 'isFile'
+          }
         ]
       }
     },
@@ -29,8 +29,8 @@ module.exports = function(grunt) {
         files: [{
           expand: true,
           cwd: 'src/code/sass',
-          src: ['*.scss'],
-          dest: 'lib/css',
+          src: ['**/*.scss'],
+          dest: 'lib/public/css',
           ext: '.css'
         }],
         options: {
@@ -40,16 +40,19 @@ module.exports = function(grunt) {
       }
     },
     watch: {
-      files: ['src/code/sass/**/*.scss', 'src/code/views/**/*.jade'],
-      tasks: ['sass', 'concat', 'copy']
+      files: [
+        'src/code/public/js/**/*.js',
+        'src/code/sass/**/*.scss',
+        'src/code/views/**/*.jade'
+      ],
+      tasks: ['sass', 'copy']
     }
   });
 
-  grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-sass');
   grunt.loadNpmTasks('grunt-contrib-watch');
 
-  grunt.registerTask('default', ['sass', 'concat', 'copy']);
+  grunt.registerTask('default', ['sass', 'copy']);
 
 };

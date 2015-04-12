@@ -1,0 +1,41 @@
+extends layout
+block content
+  ul(id='featured-tutorials')
+    li(class='project')
+      h2 Project Tutorial
+      img(height=200, src='images/project-tutorial.svg')
+      span Learn How to Use<br />Generators for Your Projects
+    li(class='generator')
+      h2 Generator Tutorial
+      img(height=200, src='images/generator-tutorial.svg')
+      span Learn How to Make<br />Your Own Generators
+  h2 Projects
+  ul
+    li
+      a(href='tutorials/search-generators') How to Search for Generators
+    li
+      a(href='tutorials/add-generators') How to Add Generators
+    li
+      a(href='tutorials/remove-generators') How to Remove Generators
+    li
+      a(href='tutorials/multiple-generators') How to Use Multiple Generators
+    li
+      a(href='tutorials/build-run') How to Build & Run Your Project
+    li
+      a(href='tutorials/clean') How to Clean Your Project
+  h2 Generators
+  ul
+    li
+      a(href='#') Hello World: Generator Edition
+    li
+      a(href='#') How to Add a File to Your Generator
+    li
+      a(href='#') How to Add a Spec to Your Generator
+    li
+      a(href='#') How to Pass Generators as a Dependency
+    li
+      a(href='#') How to Publish Generators
+  h2 Advanced
+  ul
+    li
+      a(href='#') How to Chain Generators Together
