@@ -14,18 +14,5 @@ html
     meta(name='viewport', content='initial-scale=1, maximum-scale=1, minimum-scale=1, minimal-ui, user-scalable=no, width=device-width')
     meta(charset='utf-8')
   body
-    header
-      div
-        a(href='/', title='Crystal Homepage')
-          img(height=40, src='images/crystal-logo-icon.svg')
-      nav
-        ul
-          li
-            a(href='generators', title='Crystal Generators') generators
-          li
-            a(href='documentation', title='Crystal Documentation') documentation
-          li
-            a(href='support', title='Crystal Support') support
-          li
-            a(class='login', href='login', title='Crystal Login') login
+    include ./header.jade
     block content
