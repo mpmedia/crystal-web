@@ -1,0 +1,36 @@
+#tutorials {
+  #featured-tutorials {
+    list-style-type: none;
+    margin: 0px 0px;
+    padding: 40px 0px;
+
+    li {
+      box-sizing: border-box;
+      float: left;
+      list-style-type: none;
+      margin: 0px;
+      padding: 10px;
+      text-align: center;
+      width: 50%;
+      
+      h2 {
+        color: #FFF;
+        font-size: 32px;
+      }
+      
+      span {
+        display: block;
+        font-size: 20px;
+        padding: 20px;
+      }
+    }
+    
+    li.project {
+      background-color: #66CCFF;
+    }
+    
+    li.generator {
+      background-color: #33CC66;
+    }
+  }
+}

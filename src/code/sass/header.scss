@@ -1,0 +1,66 @@
+header {
+  background-color: #000;
+  font-family: main;
+  overflow: auto;
+  padding: 10px;
+  position: fixed;
+  width: 100%;
+  
+  h1 {
+    float: left;
+    margin: 0px;
+    padding: 0px;
+    
+    a {
+      display: inline-block;
+      color: #FFF;
+      margin: 2px;
+      padding: 10px;
+      
+      &.login {
+        border: 2px #FFF solid;
+        border-radius: 25px;
+        margin: 0px;
+        
+        &:hover {
+          border: 2px #FFFF00 solid;
+        }
+      }
+    }
+  }
+  
+  nav {
+    float: right;
+    padding: 10px;
+    
+    ul {
+      list-style: none;
+      margin: 0px;
+      padding: 0px;
+      
+      li {
+        display: inline-block;
+        margin-left: 20px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 520px) {
+  header {
+    div {
+      display: none;
+    }
+    
+    nav {
+      float: none;
+      text-align: center;
+      
+      ul {
+        li {
+          margin: 0px 7px;
+        }
+      }
+    }
+  }
+}

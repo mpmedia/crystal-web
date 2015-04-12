@@ -1,0 +1,23 @@
+#generators {
+  li {
+    span {
+      color: #CCC;
+      margin-left: 5px;
+    }
+    
+    &:hover {
+      span {
+        color: #999;
+      }
+    }
+  }
+  
+  #results {
+    background-color: #CCC;
+    
+    a {
+      display: block;
+      padding: 5px;
+    }
+  }
+}

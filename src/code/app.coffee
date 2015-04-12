@@ -42,7 +42,7 @@ app.use '/user', (req, res, next) ->
   res.sendfile file, { root: __dirname + '/..' }
 app.use cookie()
 app.use body()
-app.use session({ secret: 'bigsecret' })
+app.use session({ secret: 'PhKbgxBJjBOlAylyzeaBilyXdV0GfoQi' })
 
 generators = []
 
