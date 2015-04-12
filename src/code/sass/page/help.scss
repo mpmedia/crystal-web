@@ -1,3 +1,55 @@
 section {
-  padding: 50px 20px 20px 20px;
+  padding: 80px 20px 20px 20px;
+  
+  ul {
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+    
+    li {
+      list-style: none;
+      margin: 0px;
+      padding: 0px;
+      
+      a {
+        border: none;
+        display: block;
+        float: left;
+        overflow: hidden;
+        padding: 20px 0px;
+        text-align: center;
+        width: 50%;
+        
+        &:hover {
+          border: none;
+        }
+        
+        img {
+          height: 200px;
+        }
+        
+        span {
+          display: block;
+          
+          &.desc {
+            padding-top: 10px;
+          }
+          
+          &.title {
+            color: #FFF;
+            font-size: 24px;
+            padding-bottom: 10px;
+          }
+        }
+      }
+      
+      a.project {
+        background-color: #33ccff;
+      }
+      
+      a.generator {
+        background-color: #33cc33;
+      }
+    }
+  }
 }

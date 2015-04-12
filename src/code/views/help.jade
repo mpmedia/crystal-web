@@ -1,12 +1,22 @@
 extends layout
 block content
-  section(class='page', id='help')
-    h1 crystal help
-    h2 email
-    p
-      a(href='mailto:chris@studiotate.com', title='Email') chris@studiotate.com
-    h2 report an issue
-    p
-      a(href='https://github.com/studiotate/crystal-js', target='_blank', title='Report an Issue') https://github.com/studiotate/crystal-js/issues
-    h2 irc chat
-    p #crystalcodegen
+  h2 Crystal Tutorials
+  ul
+    li
+      a(class='project', href='help/tutorial/project')
+        span.title Project Tutorial
+        img(src='images/project-tutorial.svg')
+        span.desc Learn How to Use<br />Generators for Your Projects
+    li
+      a(class='generator', href='help/tutorial/generator')
+        span.title Generator Tutorial
+        img(src='images/generator-tutorial.svg')
+        span.desc Learn How to Make<br />Your Own Generators
+  h2 Contact Support
+  p
+    a(href='mailto:chris@studiotate.com', title='Email') chris@studiotate.com
+  h2 Ask a Question
+  p
+    a(href='https://github.com/studiotate/crystal-js', target='_blank', title='Report an Issue') https://github.com/studiotate/crystal-js/issues
+  h2 irc chat
+  p #crystalcodegen
