@@ -16,6 +16,11 @@ a {
 }
 
 body {
+  background-attachment: fixed;
+  background-image: url(/images/quartz.jpg);
+  background-position: center top;
+  background-repeat: no-repeat;
+  background-size: 100% auto;
   color: #666;
   font-family: Verdana;
   font-size: 16px;
@@ -70,6 +75,8 @@ label {
 }
 
 section {
+  background-color: #FFF;
+  
   a {
     border-bottom: 1px #666 dotted;
     color: #000;

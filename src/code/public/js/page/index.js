@@ -54,7 +54,11 @@ $(window).load(function() {
   }, 100);
   
   $(window).scroll(function() {
-    $('#intro').css('opacity', 1 - ($(window).scrollTop() / ($(window).height() - $('header').outerHeight() - 150)));
+    var opacity = 1 - ($(window).scrollTop() / ($(window).height() - $('header').outerHeight() - 150));
+    if (opacity < 0) {
+      opacity = 0;
+    }
+    $('#intro').css('opacity', opacity);
   });
   
   setInterval(function() {

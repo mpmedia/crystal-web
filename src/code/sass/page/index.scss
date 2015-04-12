@@ -1,16 +1,9 @@
-body {
-  background-attachment: fixed;
-  background-image: url(/images/quartz.jpg);
-  background-position: center top;
-  background-repeat: no-repeat;
-  background-size: 100% auto;
-}
-
 header {
   padding: 20px;
 }
 
-#index {
+section {
+  background: none;
   text-align: center;
   
   img.logo {
