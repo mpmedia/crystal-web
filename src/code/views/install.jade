@@ -1,19 +1,10 @@
 extends layout
 
 block content
-  section(class='page', id='install')
-    h1 install crystal
-    h2 installation
-    p use npm to install crystal:
+  div
+    h1 Install Crystal
+    h2 Installation
+    p Use <a href="http://npmjs.com" target="_blank">npm</a> to install Crystal:
     code npm install crystal -g
-    h2 releases
-    h3 crystal quartz 0.2.1
-    p the first and latest release of crystal is quartz. the latest version of crystal quartz is 0.2.1.
-    p note: crystal is not yet intended for production use.
-    h2 prerequisites
-    p crystal is written in node.js so it needs the following:
-    ul
-      li
-        a(href='http://nodejs.org', target='_blank', title='Node.js') Node.js
-      li
-        a(href='http://npmjs.com', target='_blank', title='npm') npm
+    h2 Latest Release
+    h3 Crystal v0.2.3 (Quartz)
