@@ -11,6 +11,19 @@ module.exports = function(grunt) {
         dest: 'lib/public/css/main.css'
       }
     },
+    copy: {
+      main: {
+        files: [
+          {
+            expand: true,
+            cwd: 'src/code/views/',
+            src: ['**'],
+            dest: 'lib/views/',
+            filter: 'isFile'
+          }
+        ]
+      }
+    },
     sass: {
       dist: {
         files: [{
@@ -27,15 +40,16 @@ module.exports = function(grunt) {
       }
     },
     watch: {
-      files: ['src/code/sass/**/*.scss'],
-      tasks: ['sass', 'concat']
+      files: ['src/code/sass/**/*.scss', 'src/code/views/**/*.jade'],
+      tasks: ['sass', 'concat', 'copy']
     }
   });
 
   grunt.loadNpmTasks('grunt-contrib-concat');
+  grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-sass');
   grunt.loadNpmTasks('grunt-contrib-watch');
 
-  grunt.registerTask('default', ['sass', 'concat']);
+  grunt.registerTask('default', ['sass', 'concat', 'copy']);
 
 };
