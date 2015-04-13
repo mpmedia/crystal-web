@@ -3,5 +3,31 @@ header a.docs {
 }
 
 section {
+  overflow: auto;
   padding: 80px 20px 20px 20px;
+  
+  aside {
+    background-color: #EEE;
+    border-radius: 5px;
+    float: left;
+    padding: 10px;
+    
+    ul {
+      list-style: none;
+      margin: 0px;
+      padding: 0px;
+      
+      li {
+        list-style: none;
+        
+        li {
+          padding-left: 20px;
+        }
+      }
+    }
+  }
+  
+  section {
+    float: left;
+  }
 }

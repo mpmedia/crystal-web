@@ -1,3 +1,5 @@
+fs = require 'fs'
+
 module.exports = (app, title) ->
   app.use '/doc', (req, res, next) ->
     file = "lib/public/html/doc.html"

@@ -1,13 +1,29 @@
 extends layout
 
 block content
-  section(class='page', id='index')
-    div(id="intro")
-      div
-        p(class='title') crystal v0.2 (quartz)
-        p(class='desc') Open Source Code Generator for Every Language and platform
-        button(href='tutorials/project') Learn More
-    ul(id='features')
+  div(id="intro")
+    div
+      p(class='title') crystal v0.2 (quartz)
+      p(class='desc') Open Source Code Generator for Every Language and platform
+      button(href='tutorials/project') Learn More
+  div(class='banner') Make "Things" w/ High Level <a href="specs">Specifications</a> &amp; Low Level <a href="generators">Generators</a>
+  div(id='usage')
+    ul
+      li
+        h3 Design
+        img(src='images/spec.svg')
+        span Design Specifications to Spec Out Your Project
+      li
+        h3 Develop
+        img(src='images/gen.svg')
+        span Develop Generators to Generate Your Code
+      li
+        h3 Deploy
+        img(src='images/deploy.svg')
+        span Deploy Your Project<br />Over &amp; Over
+  div(id='features')
+    p(class='title') Get Started
+    ul
       li
         h2 install crystal
         code npm install -g crystal
@@ -22,72 +38,87 @@ block content
         h2 create generators
         code crystal publish
         p publish your own
-    div(id='lang-generators')
-      h1 generators by language
-      ul
-        li
-          h2 python
-          img(height=200, src='images/python.svg')
-          p
-            a(href='gen/django') django
-            | , 
-            a(href='gen/pip') pip
-            |  & 
-            a(href='gen/ponyorm') ponyorm
-        li
-          h2 mongo
-          img(height=200, src='images/mongo.svg')
-          p
-            a(href='gen/mongomapper') mongomapper
-            |  & 
-            a(href='gen/mongoose') mongoose
-        li
-          h2 php
-          img(height=200, src='images/php.svg')
-          p
-            a(href='gen/laravel') laravel
-            | , 
-            a(href='gen/propel') propel
-            |  & 
-            a(href='gen/composer') composer
-        li
-          h2 ruby
-          img(height=200, src='images/ruby.svg')
-          p
-            a(href='gen/rails') rails
-            | , 
-            a(href='gen/sinatra') sinatra
-            |  & 
-            a(href='gen/datamapper') datamapper
-        li
-          h2 java
-          img(height=200, src='images/java.svg')
-          p
-            a(href='gen/ormlite') ormlite
-            |  & 
-            a(href='gen/hibernateorm') hibernateorm
-        li
-          h2 redis
-          img(height=200, src='images/redis.svg')
-          p
-            a(href='gen/redis') redis
-            | , 
-            a(href='gen/sinatra') sinatra
-            |  & more
-        li
-          h2 go
-          img(height=200, src='images/go.svg')
-          p
-            a(href='gen/gorp') gorp
-            | , 
-            a(href='gen/gorm') gorm
-            |  & 
-            a(href='gen/beedb') beedb
-        li
-          h2 mysql
-          img(height=200, src='images/mysql.svg')
-          p
-            a(href='gen/mysql') mysql
-            | , 
-            a(href='gen/cakephp') cakephp
-            |  & more
+    aside
+      img(src='images/cmd.png')
+  div(class='banner') we are the <a href="#codegeneration">#codegeneration</a> generation
+  div(id='lang-generators')
+    h1 generators by language
+    ul
+      li
+        img(height=200, src='images/python.svg')
+        h2 Python
+        p
+          a(href='gen/django') django
+          | , 
+          a(href='gen/pip') pip
+          |  & 
+          a(href='gen/ponyorm') ponyorm
+      li
+        img(height=200, src='images/mongo.svg')
+        h2 Mongo
+        p
+          a(href='gen/mongomapper') mongomapper
+          |  & 
+          a(href='gen/mongoose') mongoose
+      li
+        img(height=200, src='images/php.svg')
+        h2 PHP
+        p
+          a(href='gen/laravel') laravel
+          | , 
+          a(href='gen/propel') propel
+          |  & 
+          a(href='gen/composer') composer
+      li
+        img(height=200, src='images/ruby.svg')
+        h2 Ruby
+        p
+          a(href='gen/rails') rails
+          | , 
+          a(href='gen/sinatra') sinatra
+          |  & 
+          a(href='gen/datamapper') datamapper
+      li
+        img(height=200, src='images/java.svg')
+        h2 Java
+        p
+          a(href='gen/ormlite') ormlite
+          |  & 
+          a(href='gen/hibernateorm') hibernateorm
+      li
+        img(height=200, src='images/redis.svg')
+        h2 redis
+        p
+          a(href='gen/redis') redis
+          | & 
+          a(href='gen/sinatra') sinatra
+      li
+        img(height=200, src='images/go.svg')
+        h2 Go
+        p
+          a(href='gen/gorp') gorp
+          | , 
+          a(href='gen/gorm') gorm
+          |  & 
+          a(href='gen/beedb') beedb
+      li
+        img(height=200, src='images/mysql.svg')
+        h2 MySQL
+        p
+          a(href='gen/mysql') mysql
+          | & 
+          a(href='gen/cakephp') cakephp
+  div(id='contribute')
+    h2 How to Contribute
+    ul
+      li
+        h3 Contribute Code
+        img(height=300, src='images/code.svg')
+        p Your code contributions have<br />a direct effect on Crystal
+        a Contribute Now
+      li
+        h3 Contribute Money
+        img(height=300, src='images/money.svg')
+        p Your monetary contributions<br />keep Crystal alive
+        a Contribute Now
+  div(class='banner') Thank You for Your Support

@@ -3,8 +3,8 @@
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 width="106px" height="106px" viewBox="-3 -3 106 106" enable-background="new -3 -3 106 106" xml:space="preserve">
-<circle fill="#FFFFFF" stroke="#FFFFFF" stroke-width="3" stroke-miterlimit="10" cx="50" cy="50" r="50"/>
-<path fill="#666666" d="M25,52.383c0,4.167,0.625,7.491,1.875,9.975c1.337,2.64,3.411,4.593,6.224,5.858
+<circle fill="#FFFF00" stroke="#FFFF00" stroke-width="3" stroke-miterlimit="10" cx="50" cy="50" r="50"/>
+<path fill="#333333" d="M25,52.383c0,4.167,0.625,7.491,1.875,9.975c1.337,2.64,3.411,4.593,6.224,5.858
 	c2.848,1.337,5.755,2.162,8.724,2.476c2.674,0.312,5.556,0.469,8.646,0.469c1.338,0,3.014-0.053,5.026-0.156
 	c1.685-0.104,3.478-0.335,5.378-0.689c1.9-0.355,3.537-0.82,4.909-1.395c1.562-0.659,3.003-1.549,4.321-2.669
 	c1.319-1.12,2.345-2.418,3.073-3.894C74.393,59.874,75,56.55,75,52.383c0-4.757-1.363-8.732-4.089-11.928

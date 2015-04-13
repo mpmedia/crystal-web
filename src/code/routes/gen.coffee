@@ -1,3 +1,5 @@
+fs = require 'fs'
+
 module.exports = (app, title) ->
   app.use '/gen', (req, res, next) ->
     generator = req.originalUrl.split('/')[2].split('.')[0]

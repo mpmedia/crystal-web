@@ -19,7 +19,7 @@ $(window).load(function() {
   setInterval(function() {
     var data, padding, type = $('header').data('type');
     
-    if ($(window).scrollTop() <= 0) {
+    if ($(window).scrollTop() <= $(window).height() - 100) {
       if (type == 'expand') {
         return;
       }
@@ -54,7 +54,7 @@ $(window).load(function() {
   }, 100);
   
   $(window).scroll(function() {
-    var opacity = 1 - ($(window).scrollTop() / ($(window).height() - $('header').outerHeight() - 150));
+    var opacity = 1 - ($(window).scrollTop() / ($(window).height() - $('header').outerHeight() - 250));
     if (opacity < 0) {
       opacity = 0;
     }
@@ -73,4 +73,6 @@ $(window).load(function() {
     }
     
   }, 2000);
+  
+  $(window).scroll();
 });

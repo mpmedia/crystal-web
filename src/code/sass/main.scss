@@ -22,7 +22,7 @@ body {
   background-repeat: no-repeat;
   background-size: 100% auto;
   color: #666;
-  font-family: Verdana;
+  font-family: 'Roboto Condensed', sans-serif;
   font-size: 16px;
   margin: 0;
 }
@@ -74,6 +74,10 @@ label {
   display: block;
 }
 
+pre {
+  margin-bottom: 20px;
+}
+
 section {
   background-color: #FFF;
   
@@ -93,37 +97,8 @@ section {
   color: #CC0000;
 }
 
-/*
-.page {
-  margin: 0px auto;
-  padding: 0px 20px 20px 20px;
-  
-  section article, section section {
-    max-width: 630px;
-  }
-  
-  aside {
-    background-color: #EEE;
-    float: right;
-    max-width: 350px;
-  }
-  
-  h1 {
-    border-bottom: 1px #CCC solid;
-    font-size: 32px;
-    font-weight: normal;
-    padding-bottom: 10px;
-  }
-  
-  h2 {
-    color: #FF0000;
-    font-size: 18px;
-    font-weight: normal;
-  }
-  
-  h3 {
-    color: #999;
-    font-size: 14px;
+@media screen and (max-width: 1000px) {
+  body {
+    background-size: 1000px auto;
   }
 }
-*/

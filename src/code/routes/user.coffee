@@ -1,3 +1,5 @@
+fs = require 'fs'
+
 module.exports = (app, title) ->
   app.use '/user', (req, res, next) ->
     user = req.originalUrl.split('/')[2].split('.')[0]

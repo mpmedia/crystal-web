@@ -1,7 +1,6 @@
 doctype html
 html
   head
-    base(href='/')
     title= title
     script(src='/scripts/prettify.js')
     script(src='/scripts/lang-yaml.js')
@@ -12,6 +11,7 @@ html
     script(src='/scripts/main.js')
     each script in scripts
       script(src=script)
+    link(rel='stylesheet', href='http://fonts.googleapis.com/css?family=Roboto+Condensed:400,700')
     link(rel='stylesheet', href='/styles/prettify.css')
     link(rel='stylesheet', href='/styles/main.css')
     link(rel='stylesheet', href='/styles/header.css')
