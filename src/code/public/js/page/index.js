@@ -74,5 +74,12 @@ $(window).load(function() {
     
   }, 2000);
   
+  $('.image').on('mouseenter', function() {
+    $(this).find('.screenshot').css('width', $(this).find('.icon').outerWidth()).fadeIn();
+  });
+  $('.image').on('mouseleave', function() {
+    $(this).find('.screenshot').fadeOut();
+  });
+  
   $(window).scroll();
 });
