@@ -87,7 +87,9 @@ section {
     text-decoration: none;
     
     &:hover {
-      border-bottom: 1px #000 solid;
+      background-color: #000;
+      border-bottom: none;
+      color: #FFFF00;
       text-decoration: none;
     }
   }
