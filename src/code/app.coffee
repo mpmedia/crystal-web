@@ -12,6 +12,9 @@ app = express()
 # set app title
 title = 'Crystal - Open Source Code Generator for Every Language and Platform'
 
+# disable etag
+app.disable 'etag'
+
 # setup jade
 app.set 'views', path.join(__dirname, 'views')
 app.set 'view engine', 'jade' 

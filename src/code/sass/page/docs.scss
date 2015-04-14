@@ -4,13 +4,20 @@ header a.docs {
 
 section {
   overflow: auto;
-  padding: 80px 20px 20px 20px;
   
   aside {
     background-color: #EEE;
     border-radius: 5px;
+    box-sizing: border-box;
     float: left;
-    padding: 10px;
+    padding: 20px;
+    width: 30%;
+    
+    @media screen and (max-width: 640px) {
+      float: none;
+      padding: 0px;
+      width: 100%;
+    }
     
     ul {
       list-style: none;
@@ -20,6 +27,18 @@ section {
       li {
         list-style: none;
         
+        a {
+          @media screen and (max-width: 640px) {
+            display: block;
+            padding: 20px;
+          }
+          
+          &.selected {
+            border: none;
+            font-weight: bold;
+          }
+        }
+        
         li {
           padding-left: 20px;
         }
@@ -28,6 +47,17 @@ section {
   }
   
   section {
+    box-sizing: border-box;
     float: left;
+    padding: 20px;
+    width: 70%;
+    
+    @media screen and (max-width: 640px) {
+      width: 100%;
+    }
+    
+    h1 {
+      font-size: 32px;
+    }
   }
 }
