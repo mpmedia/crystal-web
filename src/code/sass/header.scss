@@ -3,10 +3,15 @@ header {
   box-sizing: border-box;
   font-family: main;
   left: 0px;
+  overflow: auto;
   position: fixed;
   top: 0px;
   width: 100%;
   z-index: 1000;
+  
+  @media screen and (max-width: 640px) {
+    position: static;
+  }
   
   h1 {
     float: left;
@@ -16,7 +21,11 @@ header {
     a {
       display: inline-block;
       height: 40px;
-      padding: 10px;
+      padding: 14px 0px 0px 10px;
+      
+      @media screen and (max-width: 640px) {
+        padding: 10px;
+      }
     }
   }
   
@@ -63,13 +72,10 @@ header {
   }
 }
 
-@media screen and (max-width: 520px) {
+@media screen and (max-width: 640px) {
   header {
-    div {
-      display: none;
-    }
-    
     nav {
+      display: none;
       float: none;
       text-align: center;
       

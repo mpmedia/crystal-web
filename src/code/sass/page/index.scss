@@ -21,7 +21,7 @@ section {
     font-family: main;
     font-size: 28px;
     opacity: .8;
-    padding: 40px 0px;
+    padding: 40px 20px;
     text-transform: uppercase;
     
     &:hover {
@@ -69,6 +69,10 @@ section {
         margin: 0px;
         padding: 0px;
         width: 50%;
+        
+        @media screen and (max-width: 640px) {
+          width: 100%;
+        }
       }
     }
   }
@@ -84,6 +88,10 @@ section {
       border-radius: 5px;
       float: right;
       margin-right: 50px;
+      
+      @media screen and (max-width: 640px) {
+        display: none;
+      }
       
       .asciicast {
         margin: 0px !important;
@@ -122,6 +130,10 @@ section {
       padding: 0px;
       width: 40%;
       
+      @media screen and (max-width: 640px) {
+        width: 100%;
+      }
+      
       li {
         display: block;
         margin: 0px;
@@ -158,6 +170,10 @@ section {
         margin: 0px;
         padding: 0px;
         width: 33.3%;
+        
+        @media screen and (max-width: 640px) {
+          width: 100%;
+        }
         
         h3 {
           font-size: 48px;
@@ -243,6 +259,10 @@ section {
         margin: 0px;
         padding: 20px;
         width: 25%;
+        
+        @media screen and (max-width: 640px) {
+          width: 100%;
+        }
         
         &:hover {
           box-shadow: inset 0px 0px 100px #CCC;

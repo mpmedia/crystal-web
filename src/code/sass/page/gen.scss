@@ -5,6 +5,10 @@ section {
   aside {
     float: right;
     
+    @media screen and (max-width: 640px) {
+      float: none;
+    }
+    
     code {
       display: block;
       margin-bottom: 20px;
