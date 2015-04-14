@@ -73,15 +73,32 @@ header {
 }
 
 @media screen and (max-width: 640px) {
+  body {
+    background-position: center 30px;
+  }
+  
   header {
+    h1 {
+      float: none;
+      padding: 20px 0px 0px 0px;
+      text-align: center;
+      
+      a {
+        padding: 0px;
+      }
+    }
+    
     nav {
-      display: none;
       float: none;
       text-align: center;
       
       ul {
         li {
-          margin: 0px 7px;
+          margin: 0px;
+          
+          a {
+            padding: 0px 10px;
+          }
         }
       }
     }

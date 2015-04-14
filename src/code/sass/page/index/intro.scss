@@ -15,10 +15,15 @@
     position: fixed;
     width: 100%;
     
+    @media screen and (max-width: 640px) {
+      bottom: auto;
+      position: absolute;
+      top: 250px;
+    }
+    
     .desc {
       font-size: 18px;
       margin: 0px auto;
-      max-width: 90%;
       padding-bottom: 20px;
     }
     

@@ -17,6 +17,10 @@ $(window).load(function() {
   prettyPrint();
   
   setInterval(function() {
+    if ($(window).width() < 640) {
+      return;
+    }
+    
     var data, padding, type = $('header').data('type');
     
     if ($(window).scrollTop() <= $(window).height() - 130) {
@@ -54,6 +58,10 @@ $(window).load(function() {
   }, 100);
   
   $(window).scroll(function() {
+    if ($(window).width() < 640) {
+      return;
+    }
+    
     var opacity = 1 - ($(window).scrollTop() / ($(window).height() - $('header').outerHeight() - 250));
     if (opacity < 0) {
       opacity = 0;
