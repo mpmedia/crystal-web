@@ -1,22 +1,18 @@
 extends layout
 block content
-  section(class='page', id='gen')
-    aside
-      h2= 'install ' + name
-      code= 'crystal install ' + name
-      h2 latest release
-      p= 'version ' + version
-      p
-        | published by 
-        a(href='/user/' + user + '.html', title=user + "'s Profile")= user
-      p= versions + ' releases total'
-      h2 repository
+  aside
+    h2 Install
+    code= 'crystal install ' + name
+    h2 Latest Release
+    p= 'version ' + version
+    p
+      | published by 
+      a(href='/user/' + user, title=user + "'s Profile")= user
+    p= versions + ' releases total'
+    if repository_url
+      h2 Repository
       p
         a(href=repository_url, target='_blank', title='"' + repository_name + '" Repository')= repository_name
-      h2 keywords
-      p none.
-      h2 generators
-      p none.
-    article
-      h1= name
-      section!= description
+  article
+    h1= name
+    div!= description

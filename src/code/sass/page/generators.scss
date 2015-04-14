@@ -5,15 +5,19 @@ header a.generators {
 section {
   padding: 80px 20px 20px 20px;
   
-  li {
-    span {
-      color: #CCC;
-      margin-left: 5px;
-    }
+  ul {
+    padding-bottom: 20px;
     
-    &:hover {
+    li {
       span {
-        color: #999;
+        color: #CCC;
+        margin-left: 5px;
+      }
+      
+      &:hover {
+        span {
+          color: #999;
+        }
       }
     }
   }

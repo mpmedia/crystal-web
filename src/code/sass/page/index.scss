@@ -83,7 +83,16 @@ section {
       border: 3px #333 solid;
       border-radius: 5px;
       float: right;
-      margin-right: 100px;
+      margin-right: 50px;
+      
+      .asciicast {
+        margin: 0px !important;
+        
+        iframe {
+          height: 430px !important;
+          width: 560px !important;
+        }
+      }
     }
     
     code {
