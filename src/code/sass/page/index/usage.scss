@@ -1,0 +1,51 @@
+#usage {
+  background-color: #FFF;
+  overflow: auto;
+  padding: 40px;
+  
+  h2 {
+    font-size: 32px;
+  }
+  
+  ul {
+    display: block;
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+    text-align: center;
+    
+    li {
+      display: inline-block;
+      list-style: none;
+      margin: 0px;
+      padding: 0px;
+      width: 33.3%;
+      
+      @media screen and (max-width: 640px) {
+        width: 100%;
+      }
+      
+      h3 {
+        font-size: 48px;
+      }
+      
+      img {
+        width: 100%;
+      }
+      
+      span {
+        display: block;
+        font-size: 26px;
+        padding: 10px 20px 0px 20px;
+      }
+      
+      .image {
+        .screenshot {
+          display: none;
+          opacity: .8;
+          position: absolute;
+        }
+      }
+    }
+  }
+}

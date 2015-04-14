@@ -19,7 +19,7 @@ $(window).load(function() {
   setInterval(function() {
     var data, padding, type = $('header').data('type');
     
-    if ($(window).scrollTop() <= $(window).height() - 100) {
+    if ($(window).scrollTop() <= $(window).height() - 130) {
       if (type == 'expand') {
         return;
       }
@@ -59,6 +59,11 @@ $(window).load(function() {
       opacity = 0;
     }
     $('#intro').css('opacity', opacity);
+    if (opacity === 0) {
+      $('#intro div').hide();
+    } else {
+      $('#intro div').show();
+    }
   });
   
   setInterval(function() {

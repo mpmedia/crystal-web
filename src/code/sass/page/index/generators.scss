@@ -1,0 +1,62 @@
+#lang-generators {
+  background-color: #EEE;
+  clear: both;
+  text-align: center;
+  
+  h1 {
+    font-family: 'Courier New';
+    margin: 0px;
+    padding-top: 40px;
+  }
+  
+  ul
+  {
+    font-size: 14px;
+    margin: 0px auto;
+    overflow: auto;
+    padding: 20px;
+    list-style-type: none;
+    max-width: 960px;
+        
+    li {
+      border-radius: 20px;
+      box-sizing: border-box;
+      color: #FFF;
+      float: left;
+      margin: 0px;
+      padding: 20px;
+      width: 25%;
+      
+      @media screen and (max-width: 640px) {
+        width: 100%;
+      }
+      
+      &:hover {
+        box-shadow: inset 0px 0px 100px #CCC;
+        
+        h2, p {
+          display: block;
+          position: absolute;
+          text-align: center;
+          width: 200px;
+        }
+        
+        img {
+          opacity: .1;
+        }
+      }
+      
+      h2 {
+        display: none;
+        font-size: 24px;
+        margin-top: -120px;
+        text-shadow: 1px 1px 1px #000;
+      }
+      
+      p {
+        display: none;
+        margin-top: -90px;
+      }
+    }
+  }
+}

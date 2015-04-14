@@ -1,0 +1,36 @@
+#contribute {
+  background-color: #FFF;
+  padding-bottom: 80px;
+  overflow: auto;
+  
+  h2 {
+    font-size: 32px;
+    padding: 60px;
+  }
+  
+  h3 {
+    font-size: 24px;
+  }
+  
+  p {
+    padding-top: 20px;
+  }
+  
+  ul {
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+    
+    li {
+      float: left;
+      list-style: none;
+      margin: 0px;
+      padding: 0px;
+      width: 50%;
+      
+      @media screen and (max-width: 640px) {
+        width: 100%;
+      }
+    }
+  }
+}
