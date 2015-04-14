@@ -13,12 +13,6 @@ repository:
   url: https://github.com/studiotate/crystal-web.git
 
 generators:
-  bower:
-    path: .
-    spec:
-      dependencies:
-        bootstrap: "3.3.4"
-    version: latest
   gitignore:
     path: .
     spec:
@@ -54,9 +48,7 @@ generators:
 
 scripts:
   build:
-    - sudo npm install -g bower
     - sudo npm install
     - sudo npm update
-    - bower install
   run:
     - sudo coffee lib/app.coffee
