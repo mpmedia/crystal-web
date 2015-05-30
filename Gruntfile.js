@@ -2,28 +2,15 @@ module.exports = function(grunt) {
 
     grunt.initConfig({
         "pkg": "package.json",
-        "copy": {
-            "main": {
-                "files": [{
-                    "expand": true,
-                    "cwd": "src/code/public/js/",
-                    "src": [
-                        "**"
-                    ],
-                    "dest": "lib/public/js/",
-                    "filter": "isFile"
-                }]
-            }
-        },
         "sass": {
             "dist": {
                 "files": [{
                     "expand": true,
-                    "cwd": "src/code/sass",
+                    "cwd": "src/sass",
                     "src": [
                         "**/*.scss"
                     ],
-                    "dest": "lib/public/css",
+                    "dest": "src/public/css",
                     "ext": ".css"
                 }],
                 "options": {
@@ -34,9 +21,9 @@ module.exports = function(grunt) {
         },
         "watch": {
             "files": [
-                "src/code/public/js/**/*.js",
-                "src/code/sass/**/*.scss",
-                "src/code/views/**/*.jade"
+                "src/public/js/**/*.js",
+                "src/sass/**/*.scss",
+                "src/views/**/*.jade"
             ],
             "tasks": [
                 "sass",
@@ -45,10 +32,9 @@ module.exports = function(grunt) {
         }
     });
 
-    grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-sass');
     grunt.loadNpmTasks('grunt-contrib-watch');
 
-    grunt.registerTask('default', ['sass', 'copy']);
+    grunt.registerTask('default', ['sass']);
 
 };

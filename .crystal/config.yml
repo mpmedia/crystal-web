@@ -18,36 +18,43 @@ modules:
   sh.crystal.readme: v0.1.0
 imports:
   cs-to-js: sh.crystal.coffeescript.JavaScriptTransformer
-  express-gen: sh.crystal.express.AppGenerator
-  gitignore-gen: sh.crystal.gitignore.GitignoreGenerator
-  grunt-gen: sh.crystal.grunt.GruntfileGenerator
-  license-gen: sh.crystal.license.MITGenerator
-  npm-gen: sh.crystal.npm.ConfigGenerator
-  readme-gen: sh.crystal.readme.ReadmeGenerator
+  express-app: sh.crystal.express.AppGenerator
+  express-route: sh.crystal.express.RoutesGenerator
+  gitignore: sh.crystal.gitignore.GitignoreGenerator
+  grunt: sh.crystal.grunt.GruntfileGenerator
+  license: sh.crystal.license.MITGenerator
+  npm: sh.crystal.npm.ConfigGenerator
+  readme: sh.crystal.readme.ReadmeGenerator
 outputs:
-  - generator: express-gen
-    filename: app.js
-    path: lib
-    transformer: cs-to-js
+  - generator: express-app
+    #filename: app.js
+    path: src
+    #transformer: cs-to-js
     spec:
       body: true
       cookie: true
       port: 80
-      routes:
-        - uri: /
-          url: routes/index.coffee
-        - uri: /doc
-          src: routes/doc.coffee
-        - uri: /docs
-          src: routes/docs.coffee
-        - uri: /gen
-          src: routes/gen.coffee
-        - uri: /generators
-          src: routes/generators.coffee
-        - uri: /help
-          src: routes/help.coffee
-        - uri: /user
-          src: routes/user.coffee
+      routes: &express-routes
+        - name: home
+          title: Crystal
+          uri: /
+          view: home
+        - name: doc
+          title: Crystal Doc
+          uri: /doc
+          view: doc
+        - name: docs
+          title: Crystal Docs
+          uri: /docs
+          view: docs
+        - name: help
+          title: Crystal Help
+          uri: /help
+          view: help
+        - name: user
+          title: Crystal User
+          uri: /user
+          view: user
       session:
         secret: PhKbgxBJjBOlAylyzeaBilyXdV0GfoQi
       static:
@@ -59,64 +66,50 @@ outputs:
       view:
         engine: jade
       views: src/views
-  - generator: gitignore-gen
+  - generator: express-route
+    iterator: routes
+    path: src/routes
+    spec:
+      routes: *express-routes
+  - generator: gitignore
     spec:
       items:
         - .sass-cache/
-        - lib/
         - node_modules/
-  - generator: grunt-gen
+  - generator: grunt
     spec:
       loadNpmTasks:
-        - grunt-contrib-copy
         - grunt-contrib-sass
         - grunt-contrib-watch
       registerTask:
         default:
           - sass
-          - copy
       config:
         pkg: package.json
-        copy:
-          main:
-            files:
-              - expand: true
-                cwd: src/code/views/
-                src:
-                  - '**'
-                dest: lib/views/
-                filter: isFile
-            files:
-              - expand: true
-                cwd: src/code/public/js/
-                src:
-                  - '**'
-                dest: lib/public/js/
-                filter: isFile
         sass:
           dist:
             files:
               - expand: true
-                cwd: src/code/sass
+                cwd: src/sass
                 src:
                   - '**/*.scss'
-                dest: lib/public/css
+                dest: src/public/css
                 ext: .css
             options:
               sourcemap: none
               style: compressed
         watch:
           files:
-            - src/code/public/js/**/*.js
-            - src/code/sass/**/*.scss
-            - src/code/views/**/*.jade
+            - src/public/js/**/*.js
+            - src/sass/**/*.scss
+            - src/views/**/*.jade
           tasks:
             - sass
             - copy
-  - generator: license-gen
+  - generator: license
     spec:
       copyright: $copyright
-  - generator: npm-gen
+  - generator: npm
     spec:
       name: crystal-web
       version: $version
@@ -144,7 +137,7 @@ outputs:
       repository:
         type: git
         url: $repository
-  - generator: readme-gen
+  - generator: readme
     spec:
       name: $name
       version: $version
@@ -154,4 +147,4 @@ scripts:
     - sudo npm install
     - sudo npm update
   run:
-    - sudo coffee lib/app.coffee
+    - sudo coffee src/app.coffee
