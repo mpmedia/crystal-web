@@ -35,8 +35,17 @@ outputs:
       cookie: true
       port: 8080
       routes: &express-routes
-        - name: home
-          title: Crystal
+        - title: Crystal
+          name: home
+          scripts:
+            - scripts/page/home.js
+          styles:
+            - styles/page/home.css
+            - styles/page/home/contribute.css
+            - styles/page/home/features.css
+            - styles/page/home/generators.css
+            - styles/page/home/intro.css
+            - styles/page/home/usage.css
           uri: /
           view: home
         - name: doc
