@@ -1,4 +1,4 @@
-id: crystal.crystal-web
+id: crystal.web
 name: Crystal Website
 version: 0.1.0
 description: the official website for [Crystal](http://crystal.sh)
@@ -9,22 +9,22 @@ author:
   url: http://crystal.sh
 copyright: 2015 Crystal
 modules:
-  sh.crystal.coffeescript: v0.1.0
-  sh.crystal.express: v0.1.0
-  sh.crystal.gitignore: v0.1.0
-  sh.crystal.grunt: v0.1.0
-  sh.crystal.license: v0.1.0
-  sh.crystal.npm: v0.1.0
-  sh.crystal.readme: v0.1.0
+  official.coffeescript: v0.1.0
+  official.express: v0.1.0
+  official.gitignore: v0.1.0
+  official.grunt: v0.1.0
+  official.license: v0.1.0
+  official.npm: v0.1.0
+  official.readme: v0.1.0
 imports:
-  cs-to-js: sh.crystal.coffeescript.JavaScriptTransformer
-  express-app: sh.crystal.express.AppGenerator
-  express-route: sh.crystal.express.RoutesGenerator
-  gitignore: sh.crystal.gitignore.GitignoreGenerator
-  grunt: sh.crystal.grunt.GruntfileGenerator
-  license: sh.crystal.license.MITGenerator
-  npm: sh.crystal.npm.ConfigGenerator
-  readme: sh.crystal.readme.ReadmeGenerator
+  cs-to-js: official.coffeescript.JavaScriptTransformer
+  express-app: official.express.AppGenerator
+  express-route: official.express.RoutesGenerator
+  gitignore: official.gitignore.GitignoreGenerator
+  grunt: official.grunt.GruntfileGenerator
+  license: official.license.MITGenerator
+  npm: official.npm.ConfigGenerator
+  readme: official.readme.ReadmeGenerator
 outputs:
   - generator: express-app
     #filename: app.js
