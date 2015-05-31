@@ -36,4 +36,4 @@ require('./routes/user')(app, title)
 
 # serve app
 console.log 'Serving...'
-app.listen 80
+app.listen 8080

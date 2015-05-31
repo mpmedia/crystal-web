@@ -33,7 +33,7 @@ outputs:
     spec:
       body: true
       cookie: true
-      port: 80
+      port: 8080
       routes: &express-routes
         - name: home
           title: Crystal
@@ -76,6 +76,7 @@ outputs:
       items:
         - .sass-cache/
         - node_modules/
+        - npm-debug.log
   - generator: grunt
     spec:
       loadNpmTasks:
@@ -144,7 +145,6 @@ outputs:
       description: $description
 scripts:
   build:
-    - sudo npm install
     - sudo npm update
   run:
     - sudo coffee src/app.coffee
