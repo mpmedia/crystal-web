@@ -61,9 +61,13 @@ outputs:
           uri: /help
           view: help
         - name: hub
-          title: Crystal hub
+          title: Crystal Hub
           uri: /hub
           view: hub
+        #- name: login
+        #  title: Crystal Login
+        #  uri: /login
+        #  view: login
         - name: user
           title: Crystal User
           uri: /user
