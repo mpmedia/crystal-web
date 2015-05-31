@@ -32,6 +32,7 @@ require('./routes/home')(app, title)
 require('./routes/doc')(app, title)
 require('./routes/docs')(app, title)
 require('./routes/help')(app, title)
+require('./routes/hub')(app, title)
 require('./routes/user')(app, title)
 
 # serve app

@@ -151,4 +151,5 @@ scripts:
   build:
     - sudo npm update
   run:
+    - sudo grunt
     - sudo coffee src/app.coffee
