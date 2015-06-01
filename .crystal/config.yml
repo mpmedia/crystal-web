@@ -19,7 +19,7 @@ modules:
 imports:
   cs-to-js: official.coffeescript.JavaScriptTransformer
   express-app: official.express.AppGenerator
-  express-route: official.express.RoutesGenerator
+  express-route: official.express.RouteGenerator
   gitignore: official.gitignore.GitignoreGenerator
   grunt: official.grunt.GruntfileGenerator
   license: official.license.MITGenerator
