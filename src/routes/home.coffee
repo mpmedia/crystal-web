@@ -1,4 +1,4 @@
-module.exports = (app, title) ->
+route = (app, title) ->
   app.get '/', (req, res) ->
     res.render 'home', {
       scripts: [
@@ -14,3 +14,5 @@ module.exports = (app, title) ->
       ]
       title: 'Crystal'
     }
+    
+module.exports = route
