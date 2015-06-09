@@ -1,7 +1,25 @@
-route = (app, title) ->
-  app.get '/doc', (req, res) ->
+module.exports = (app) ->
+  # DELETE /doc/:id
+  app.delete '/doc/:id', (req, res) ->
     res.render 'doc', {
       title: 'Crystal Doc'
     }
     
-module.exports = route
+  # GET /doc/:id?
+  app.get '/doc/:id?', (req, res) ->
+    res.render 'doc', {
+      title: 'Crystal Doc'
+    }
+  
+  # PATCH /doc/:id
+  app.patch '/doc/:id', (req, res) ->
+    res.render 'doc', {
+      title: 'Crystal Doc'
+    }
+  
+  # POST /doc/:id
+  app.post '/doc', (req, res) ->
+    res.render 'doc', {
+      title: 'Crystal Doc'
+    }
+

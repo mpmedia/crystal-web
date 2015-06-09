@@ -10,6 +10,7 @@ author:
 copyright: 2015 Crystal
 modules:
   official.coffeescript: v0.1.0
+  official.dynamodb: v0.1.0
   official.express: v0.1.0
   official.gitignore: v0.1.0
   official.grunt: v0.1.0
@@ -18,6 +19,7 @@ modules:
   official.readme: v0.1.0
 imports:
   cs-to-js: official.coffeescript.JavaScriptTransformer
+  dynamodb: official.dynamodb.ModelGenerator
   express-app: official.express.AppGenerator
   express-route: official.express.RouteGenerator
   gitignore: official.gitignore.GitignoreGenerator
@@ -35,7 +37,9 @@ outputs:
       cookie: true
       port: 8080
       routes: &express-routes
-        - title: Crystal
+        # GET /
+        - method: GET
+          title: Crystal
           name: home
           scripts:
             - scripts/page/home.js
@@ -48,41 +52,61 @@ outputs:
             - styles/page/home/usage.css
           uri: /
           view: home
-        - name: doc
+          
+        # GET /doc
+        - method: GET
+          name: doc
           title: Crystal Doc
           uri: /doc
           view: doc
-        - name: docs
+          
+        # GET /docs
+        - method: GET
+          name: docs
           title: Crystal Docs
           uri: /docs
           view: docs
-        - name: help
+        
+        # GET /help
+        - method: GET
+          name: help
           title: Crystal Help
           uri: /help
           view: help
-        - name: hub
+        
+        # GET /hub
+        - method: GET
+          name: hub
           title: Crystal Hub
           uri: /hub
           view: hub
-        #- name: login
-        #  title: Crystal Login
-        #  uri: /login
-        #  view: login
-        - name: user
+        
+        # GET /login
+        - method: GET
+          name: login
+          title: Crystal Login
+          uri: /login
+          view: login
+        
+        # GET /user
+        - method: GET
+          name: user
           title: Crystal User
           uri: /user
           view: user
+          
       session:
         secret: PhKbgxBJjBOlAylyzeaBilyXdV0GfoQi
       static:
-        font: public/font
-        images: public/images
-        scripts: public/js
-        styles: public/css
+        /font: public/font
+        /images: public/images
+        /scripts: public/js
+        /styles: public/css
       title: Crystal - Open Source Code Generator for Every Language and Platform
       view:
         engine: jade
       views: src/views
+      
   - generator: express-route
     iterator: routes
     path: src/routes
