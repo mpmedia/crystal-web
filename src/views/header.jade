@@ -10,5 +10,10 @@ header
         a(class='docs', href='docs', title='Crystal Documentation') docs
       li
         a(class='help', href='help', title='Crystal Support, Tutorials & FAQs') help
-      //li
-      //  a(class='login', href='login', title='Crystal Login (or Sign Up)') login
+      if avatar
+        li
+          a(class='user', href='user', title='My Account')
+            img(src=avatar)
+      else
+        li
+          a(class='login', href='https://github.com/login/oauth/authorize?client_id=' + clientID + '&redirect_uri=' + redirectURI + '&scope=user,public_repo', title='Crystal Login (or Sign Up)') login

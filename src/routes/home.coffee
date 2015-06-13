@@ -1,7 +1,10 @@
 module.exports = (app) ->
   # GET /
   app.get '/', (req, res) ->
+    console.log process.env
     res.render 'home', {
+      clientID: process.env.GITHUB_CLIENT_ID
+      redirectURI: process.env.GITHUB_REDIRECT_URI
       scripts: [
         'scripts/page/home.js'
       ]

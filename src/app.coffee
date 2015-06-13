@@ -1,9 +1,12 @@
 # load modules
-body    = require 'body-parser'
-cookie  = require 'cookie-parser'
-express = require 'express'
-path    = require 'path'
-session = require 'express-session'
+body          = require 'body-parser'
+cookie        = require 'cookie-parser'
+express       = require 'express'
+path          = require 'path'
+session       = require 'express-session'
+redis         = require 'redis'
+sessionClient = redis.createClient()
+redisStore    = require('connect-redis') session
 
 # create app
 app = express()
@@ -26,7 +29,16 @@ app.use '/styles', express.static("#{__dirname}/public/css")
 # setup middleware
 app.use body()
 app.use cookie()
-app.use session({ secret: 'PhKbgxBJjBOlAylyzeaBilyXdV0GfoQi' })
+app.use session({
+  store: new redisStore {
+    client: sessionClient
+    host: 'redis.crystal.sh'
+    port: 6379
+    saveUninitialized: true
+    resave: false
+  }
+  secret: 'PhKbgxBJjBOlAylyzeaBilyXdV0GfoQi'
+})
 
 # load routes
 require('./routes/home')(app)
@@ -35,6 +47,8 @@ require('./routes/docs')(app)
 require('./routes/help')(app)
 require('./routes/hub')(app)
 require('./routes/login')(app)
+require('./routes/github')(app)
+require('./routes/logout')(app)
 require('./routes/user')(app)
 
 # serve app

@@ -21,7 +21,7 @@ header {
     a {
       display: inline-block;
       height: 40px;
-      padding: 14px 0px 0px 10px;
+      padding: 15px 0px 15px 10px;
       
       @media screen and (max-width: 640px) {
         padding: 10px;
@@ -31,7 +31,7 @@ header {
   
   nav {
     float: right;
-    padding: 10px;
+    padding: 0px;
     
     ul {
       list-style: none;
@@ -42,6 +42,7 @@ header {
         display: inline-block;
         list-style: none;
         margin-left: 10px;
+        vertical-align: middle;
         
         a {
           display: inline-block;
@@ -66,6 +67,26 @@ header {
               color: #000;
             }
           }
+          
+          &.user {
+            background-color: #333;
+            border: 2px #000 solid;
+            border-radius: 25px;
+            height: 50px;
+            overflow: hidden;
+            margin: 8px 10px 0px 0px;
+            padding: 0px;
+            width: 50px;
+            
+            &:hover {
+              border: 2px #666 solid;
+            }
+          }
+        }
+        
+        img {
+          height: 50px;
+          width: 50px;
         }
       }
     }

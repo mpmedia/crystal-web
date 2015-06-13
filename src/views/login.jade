@@ -3,8 +3,8 @@ block content
   section(class='page', id='login')
     h1 login
     p login to crystal
-    a(href='https://github.com/login/oauth/authorize?client_id=b15727baac5a27dcec10&redirect_uri=http://alpha.crystal.sh:8080&scope=user,public_repo') login with GitHub
-    form(action='#', onsubmit='return login()')
-      input(name='username', placeholder='username')
-      input(name='password', placeholder='password', type='password')
-      button(type='submit') login
+    a(href='https://github.com/login/oauth/authorize?client_id=' + clientID + '&redirect_uri=' + redirectURI + '&scope=user,public_repo') login with GitHub
+    //form(action='#', onsubmit='return login()')
+    //  input(name='username', placeholder='username')
+    //  input(name='password', placeholder='password', type='password')
+    //  button(type='submit') login

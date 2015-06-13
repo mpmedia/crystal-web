@@ -1,3 +1,14 @@
 extends layout
 block content
   h1= username
+  img(height=100, width=100, src=avatar)
+  if name
+    p= name
+  if company
+    p= company
+  if location
+    p= location
+  if blog
+    a(href=blog, target='_blank')= blog
+  p Logged in via github
+  a(href='/logout') Logout
