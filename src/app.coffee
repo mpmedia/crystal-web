@@ -47,7 +47,7 @@ require('./routes/docs')(app)
 require('./routes/help')(app)
 require('./routes/hub')(app)
 require('./routes/login')(app)
-require('./routes/github')(app)
+require('./routes/github2')(app)
 require('./routes/logout')(app)
 require('./routes/user')(app)
 

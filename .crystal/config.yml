@@ -102,6 +102,12 @@ outputs:
           title: Crystal Logout
           uri: /logout
         
+        # GET /module
+        - method: GET
+          name: module
+          title: Crystal Module
+          uri: /module/:name
+        
         # GET /user
         - method: GET
           name: user
@@ -178,6 +184,7 @@ outputs:
       private: true
       dependencies:
         aws-sdk: ~2.1.33
+        bluebird: ~2.9.27
         body-parser: ~1.12.2
         connect-redis: ~2.3.0
         cookie-parser: ~1.3.4
@@ -188,6 +195,7 @@ outputs:
         mkdirp: ~0.5.0
         node-sass: ~2.0.1
         node-sass-middleware: ~0.5.0
+        node-uuid: ~1.4.3
         query-string: ~2.3.0
         redis: ~0.12.1
         request: ~2.54.0

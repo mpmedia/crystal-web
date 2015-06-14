@@ -1,14 +1,35 @@
 extends layout
 block content
-  h1= username
-  img(height=100, width=100, src=avatar)
-  if name
-    p= name
+  h1= username + ' (' + name + ')'
   if company
-    p= company
+    p= 'Company: ' + company
   if location
-    p= location
-  if blog
-    a(href=blog, target='_blank')= blog
+    p= 'Location: ' + location
+  if url
+    p
+      span URL: 
+      a(href=url, target='_blank')= url
+  img(height=250, width=250, src=avatar)
+  h1 Collections
+  p
+    if collections
+      for collection in collections
+        div
+          a(href='collection/' + collection.id)
+    else
+      div No collections exist. <a href="collection/add">Add Collection</a>.
+  h1 Modules
+  p
+    if modules
+      for module in modules
+        div
+          a(href='module/' + module.id)
+    else
+      div No modules exist. <a href="module/add">Add Module</a>.
+  h1 Repositories
+  p
+    for repo in repos
+      div
+        a(href='repo/github/' + repo.full_name)= 'https://github.com/' + repo.full_name
   p Logged in via github
   a(href='/logout') Logout

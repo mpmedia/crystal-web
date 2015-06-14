@@ -1,8 +1,8 @@
 module.exports = (app) ->
   # GET /
   app.get '/', (req, res) ->
-    console.log process.env
     res.render 'home', {
+      avatar: if req.session.github then req.session.github.avatar_url else null
       clientID: process.env.GITHUB_CLIENT_ID
       redirectURI: process.env.GITHUB_REDIRECT_URI
       scripts: [
