@@ -21,6 +21,8 @@ module.exports = (app) ->
           S: uuid.v4()
         name:
           S: req.body.name
+        repository:
+          S: req.body.repository
         user:
           N: req.session.github.id.toString()
     }).then((data) ->

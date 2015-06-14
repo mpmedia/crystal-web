@@ -7,10 +7,6 @@
     {
       "AttributeName": "name",
       "AttributeType": "S"
-    },
-    {
-      "AttributeName": "user",
-      "AttributeType": "N"
     }
   ],
   "GlobalSecondaryIndexes": [
@@ -19,22 +15,6 @@
       "KeySchema": [
         {
           "AttributeName": "name",
-          "KeyType": "HASH"
-        }
-      ],
-      "Projection": {
-        "ProjectionType": "ALL"
-      },
-      "ProvisionedThroughput": {
-        "ReadCapacityUnits": 1,
-        "WriteCapacityUnits": 1
-      }
-    },
-    {
-      "IndexName": "UserIndex",
-      "KeySchema": [
-        {
-          "AttributeName": "user",
           "KeyType": "HASH"
         }
       ],
@@ -57,5 +37,5 @@
     "ReadCapacityUnits": 1,
     "WriteCapacityUnits": 1
   },
-  "TableName": "Module"
+  "TableName": "Provider"
 }

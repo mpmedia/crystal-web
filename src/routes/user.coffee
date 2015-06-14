@@ -13,14 +13,7 @@ bluebird.promisifyAll Object.getPrototypeOf(db)
 forms = require 'forms'
 fields = forms.fields
 validators = forms.validators
-
-add_collection_form = forms.create {
-  name: fields.string({ required: true })
-}
-
-add_module_form = forms.create {
-  name: fields.string({ required: true })
-}
+widgets = forms.widgets
 
 module.exports = (app) ->
   # GET /user
@@ -81,6 +74,41 @@ module.exports = (app) ->
       })
     
     ).then((modules) ->
+      return db.queryAsync({
+        TableName: 'Repository'
+        IndexName: 'UserIndex'
+        KeyConditions:
+          user:
+            AttributeValueList: [
+              {
+                N: user_id
+              }
+            ]
+            ComparisonOperator: 'EQ'
+      })
+      
+    ).then((repository_data) ->
+      repo_choices = []
+      repos = []
+      for repo in repository_data.Items
+        repo_choices[repo.id.S] = repo.url.S
+        repos.push {
+          url: repo.url.S
+        }
+      
+      add_collection_form = forms.create {
+        name: fields.string({ required: true })
+      }
+
+      add_module_form = forms.create {
+        name: fields.string({ required: true })
+        repository: fields.url({
+          choices: repo_choices
+          required: true
+          widget: widgets.select()
+        })
+      }
+      
       res.render 'user', {
         add_collection_form: add_collection_form.toHTML()
         add_module_form: add_module_form.toHTML()
@@ -88,7 +116,7 @@ module.exports = (app) ->
         company: user_company
         location: user_location
         name: user_name
-        repos: req.session.repos
+        repos: repos
         title: 'Crystal User'
         username: user_username
         url: user_url

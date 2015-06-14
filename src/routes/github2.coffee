@@ -79,7 +79,7 @@ module.exports = (app) ->
       # get user repos
       return request.getAsync {
         headers: headers
-        url: "https://api.github.com/user/repos?access_token=#{req.session.githubSession.access_token}"
+        url: "https://api.github.com/users/crystal/repos?access_token=#{req.session.githubSession.access_token}"
       }
     
     ).then((repos) ->
@@ -146,7 +146,34 @@ module.exports = (app) ->
             username:
               S: req.session.github.login
         })
+    
+    ).then((data) ->
+      repos = []
+      i = 0
+      for repo in req.session.repos
+        if i >= 25
+          continue
+          
+        repos.push {
+          PutRequest:
+            Item:
+              id:
+                S: uuid.v4()
+              github_id:
+                N: repo.id.toString()
+              url:
+                S: repo.html_url
+              user:
+                N: req.session.github.id.toString()
+        }
         
+        i++
+      
+      return db.batchWriteItemAsync({
+        RequestItems:
+          Repository: repos
+      })
+    
     ).then((data) ->
       # go back to homepage
       res.redirect '/'

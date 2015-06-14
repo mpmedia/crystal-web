@@ -1,16 +1,16 @@
 extends layout
 block content
-  h1 Search
+  h2 Search
   form(action='/search', method='get')
     input(name='keywords', placeholder='Search for collections, modules, users and more', value=keywords)
   if search
     if search.results.length
-      h2= search.results.length + ' results found.'
+      h3= search.results.length + ' results found.'
       for result in search.results
         div(class='result')
           div(class='type')= result.type
           div(class='name')
-            a(href='/module/' + result.name)= result.name
+            a(href='/registry/' + result.name)= result.name
           div!= 'by <a href="user/' + result.user + '">' + result.user + '</a>'
     else
       div No results found.

@@ -32,6 +32,6 @@ block content
   p
     for repo in repos
       div
-        a(href='repo/github/' + repo.full_name)= 'https://github.com/' + repo.full_name
+        a(href=repo.url)= repo.url
   p Logged in via github
   a(href='/logout') Logout

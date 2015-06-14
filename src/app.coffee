@@ -52,6 +52,7 @@ require('./routes/login')(app)
 require('./routes/modules')(app)
 require('./routes/github2')(app)
 require('./routes/logout')(app)
+require('./routes/registry')(app)
 require('./routes/search')(app)
 require('./routes/user')(app)
 app.use (req, res, next) ->
