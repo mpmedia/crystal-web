@@ -5,11 +5,31 @@
       "AttributeType": "S"
     },
     {
+      "AttributeName": "name",
+      "AttributeType": "S"
+    },
+    {
       "AttributeName": "user",
       "AttributeType": "N"
     }
   ],
   "GlobalSecondaryIndexes": [
+    {
+      "IndexName": "NameIndex",
+      "KeySchema": [
+        {
+          "AttributeName": "name",
+          "KeyType": "HASH"
+        }
+      ],
+      "Projection": {
+        "ProjectionType": "ALL"
+      },
+      "ProvisionedThroughput": {
+        "ReadCapacityUnits": 1,
+        "WriteCapacityUnits": 1
+      }
+    },
     {
       "IndexName": "UserIndex",
       "KeySchema": [

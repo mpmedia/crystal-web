@@ -42,14 +42,21 @@ app.use session({
 
 # load routes
 require('./routes/home')(app)
+require('./routes/collections')(app)
 require('./routes/doc')(app)
 require('./routes/docs')(app)
+require('./routes/download')(app)
 require('./routes/help')(app)
 require('./routes/hub')(app)
 require('./routes/login')(app)
+require('./routes/modules')(app)
 require('./routes/github2')(app)
 require('./routes/logout')(app)
+require('./routes/search')(app)
 require('./routes/user')(app)
+app.use (req, res, next) ->
+  res.status 404
+  res.render '404', { url: req.url }
 
 # serve app
 console.log 'Serving...'

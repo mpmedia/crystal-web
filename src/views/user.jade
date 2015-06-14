@@ -15,17 +15,19 @@ block content
     if collections
       for collection in collections
         div
-          a(href='collection/' + collection.id)
+          a(href='collections/' + collection.id)
     else
-      div No collections exist. <a href="collection/add">Add Collection</a>.
+      div No collections exist.
+      form(action='collections', method='post')!= add_collection_form
   h1 Modules
   p
     if modules
       for module in modules
         div
-          a(href='module/' + module.id)
+          a(href='modules/' + module.id)
     else
-      div No modules exist. <a href="module/add">Add Module</a>.
+      div No modules exist.
+      form(action='modules', method='post')!= add_module_form
   h1 Repositories
   p
     for repo in repos

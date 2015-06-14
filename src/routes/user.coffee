@@ -10,6 +10,18 @@ db = new aws.DynamoDB({
 # enable promises
 bluebird.promisifyAll Object.getPrototypeOf(db)
 
+forms = require 'forms'
+fields = forms.fields
+validators = forms.validators
+
+add_collection_form = forms.create {
+  name: fields.string({ required: true })
+}
+
+add_module_form = forms.create {
+  name: fields.string({ required: true })
+}
+
 module.exports = (app) ->
   # GET /user
   app.get '/user', (req, res) ->
@@ -70,6 +82,8 @@ module.exports = (app) ->
     
     ).then((modules) ->
       res.render 'user', {
+        add_collection_form: add_collection_form.toHTML()
+        add_module_form: add_module_form.toHTML()
         avatar: if req.session.github then req.session.github.avatar_url else null
         company: user_company
         location: user_location
