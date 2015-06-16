@@ -8,6 +8,9 @@ redis         = require 'redis'
 sessionClient = redis.createClient()
 redisStore    = require('connect-redis') session
 
+# get db
+db = require './db.coffee'
+
 # create app
 app = express()
 
@@ -41,20 +44,20 @@ app.use session({
 })
 
 # load routes
-require('./routes/home')(app)
-require('./routes/collections')(app)
-require('./routes/doc')(app)
-require('./routes/docs')(app)
-require('./routes/download')(app)
-require('./routes/help')(app)
-require('./routes/hub')(app)
-require('./routes/login')(app)
-require('./routes/modules')(app)
-require('./routes/github2')(app)
-require('./routes/logout')(app)
-require('./routes/registry')(app)
-require('./routes/search')(app)
-require('./routes/user')(app)
+require('./routes/home')(app, db)
+require('./routes/collections')(app, db)
+require('./routes/doc')(app, db)
+require('./routes/docs')(app, db)
+require('./routes/download')(app, db)
+require('./routes/help')(app, db)
+require('./routes/hub')(app, db)
+require('./routes/login')(app, db)
+require('./routes/modules')(app, db)
+require('./routes/github2')(app, db)
+require('./routes/logout')(app, db)
+require('./routes/registry')(app, db)
+require('./routes/search')(app, db)
+require('./routes/user')(app, db)
 app.use (req, res, next) ->
   res.status 404
   res.render '404', { url: req.url }

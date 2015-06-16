@@ -1,45 +1,24 @@
-aws      = require 'aws-sdk'
 bluebird = require 'bluebird'
 uuid     = require 'node-uuid'
 
-# scan modules table
-db = new aws.DynamoDB({
-  region: 'us-east-1'
-  endpoint: 'http://localhost:8000'
-})
-
-# enable promises
-bluebird.promisifyAll Object.getPrototypeOf(db)
-
-module.exports = (app) ->
-  # GET /collections
-  app.get '/collections', (req, res) ->
-    db.putItemAsync({
-      TableName: 'Collection'
-      Item:
-        id:
-          S: uuid.v4()
-        name:
-          S: req.params.name
-        user:
-          N: req.session.github.id.toString()
-    }).then((data) ->
-      console.log data
-      res.redirect '/user'
-    )
-    
+module.exports = (app, db) ->
   # POST /collections
   app.post '/collections', (req, res) ->
-    db.putItemAsync({
-      TableName: 'Collection'
-      Item:
-        id:
-          S: uuid.v4()
-        name:
-          S: req.body.name
-        user:
-          N: req.session.github.id.toString()
-    }).then((data) ->
+    db.models.Collection.findOne({
+      where:
+        name: req.body.name
+    })
+    .then((data) ->
+      if data
+        res.status(400).send('Duplicate')
+        return
+      
+      return db.models.Collection.create({
+        name: req.body.name
+        userId: req.session.userId
+      })
+    )
+    .then((data) ->
       console.log data
       res.redirect '/user'
     )

@@ -1,20 +1,12 @@
-aws      = require 'aws-sdk'
 bluebird = require 'bluebird'
 query    = require 'query-string'
 request  = require 'request'
 uuid     = require 'node-uuid'
 
-# scan modules table
-db = new aws.DynamoDB({
-  region: 'us-east-1'
-  endpoint: 'http://localhost:8000'
-})
-
 # enable promises
-bluebird.promisifyAll Object.getPrototypeOf(db)
 bluebird.promisifyAll request
 
-module.exports = (app) ->
+module.exports = (app, db) ->
   app.get '/login/github', (req, res) ->
     # validate github info
     if !process.env.GITHUB_CLIENT_ID or !process.env.GITHUB_CLIENT_SECRET or !process.env.GITHUB_REDIRECT_URI
@@ -92,90 +84,43 @@ module.exports = (app) ->
       req.session.repos = repos
       
       # get user by id
-      return db.queryAsync({
-        TableName: 'User'
-        KeyConditions:
-          id:
-            AttributeValueList: [
-              {
-                N: req.session.github.id.toString()
-              }
-            ]
-            ComparisonOperator: 'EQ'
+      return db.models.Account.findOne({
+        where:
+          identifier: req.session.github.id
       })
       
     ).then((data) ->
-      if data.Items.length
+      for email in req.session.emails
+        if email.primary
+          primary_email = email.email
+      
+      if !primary_email
+        throw new Error "No primary email set for GitHub user"
+      
+      if data
         # update user
-        return db.updateItemAsync({
-          TableName: 'User'
-          Key:
-            id:
-              N: req.session.github.id.toString()
-          UpdateExpression: 'SET #A = :avatar, #C = :company, #L = :location, #N = :name, #U = :username, #UR = :url'
-          ExpressionAttributeNames:
-            '#A': 'avatar'
-            '#C': 'company'
-            '#L': 'location'
-            '#N': 'name'
-            '#U': 'username'
-            '#UR': 'url'
-          ExpressionAttributeValues:
-            ':avatar':
-              S: req.session.github.avatar_url
-            ':company':
-              S: req.session.github.company
-            ':location':
-              S: req.session.github.location
-            ':name':
-              S: req.session.github.name
-            ':username':
-              S: req.session.github.login
-            ':url':
-              S: req.session.github.blog
-        })
-      else
-        # add user
-        return db.putItemAsync({
-          TableName: 'User'
-          Item:
-            avatar:
-              S: req.session.github.avatar_url
-            id:
-              N: req.session.github.id.toString()
-            username:
-              S: req.session.github.login
-        })
-    
-    ).then((data) ->
-      repos = []
-      i = 0
-      for repo in req.session.repos
-        if i >= 25
-          continue
-          
-        repos.push {
-          PutRequest:
-            Item:
-              id:
-                S: uuid.v4()
-              github_id:
-                N: repo.id.toString()
-              path:
-                S: repo.full_name
-              url:
-                S: repo.html_url
-              user:
-                N: req.session.github.id.toString()
+        return db.models.Account.update {
+          login: req.session.github.login
+        },{
+          where:
+            identifier: req.session.github.id
         }
-        
-        i++
-      
-      return db.batchWriteItemAsync({
-        RequestItems:
-          Repository: repos
-      })
-    
+      else
+        # update user
+        return db.models.User.create({
+          email: primary_email
+          username: req.session.github.login
+        }).then((data) ->
+          req.session.userId = data.dataValues.id
+          
+          return db.models.Account.create({
+            identifier: req.session.github.id
+            login: req.session.github.login
+            providerId: 1
+            userId: data.dataValues.id
+          })
+        )
+
     ).then((data) ->
       # go back to homepage
       res.redirect '/'

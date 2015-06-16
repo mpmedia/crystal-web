@@ -69,17 +69,16 @@ header {
           }
           
           &.user {
-            background-color: #333;
-            border: 2px #000 solid;
+            background-color: #FFF;
             border-radius: 25px;
             height: 50px;
             overflow: hidden;
-            margin: 8px 10px 0px 0px;
+            margin: 10px 10px 0px 0px;
             padding: 0px;
             width: 50px;
             
             &:hover {
-              border: 2px #666 solid;
+              box-shadow: 0px 0px 5px #FFFF00;
             }
           }
         }
