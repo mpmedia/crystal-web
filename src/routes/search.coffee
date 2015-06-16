@@ -11,7 +11,7 @@ db = new aws.DynamoDB({
 # enable promises
 bluebird.promisifyAll Object.getPrototypeOf(db)
 
-module.exports = (app) ->
+module.exports = (app, db) ->
   # GET /search
   app.get '/search', (req, res) ->
     if !req.query.keywords and !req.session.keywords
@@ -25,45 +25,34 @@ module.exports = (app) ->
       req.session.keywords = req.query.keywords
     
     results = []
-    db.scanAsync({
-      TableName: 'Module'
-      ExpressionAttributeNames:
-        '#N': 'name'
-      ExpressionAttributeValues:
-        ':keywords':
-          S: req.session.keywords
-      FilterExpression: 'contains (#N, :keywords)'
-      
-    }).then((data) ->
-      for item in data.Items
+    db.models.Module.findAll({
+      where:
+        name: req.session.keywords
+    }).then((modules) ->
+      for mod in modules
         results.push {
-          id: item.id.S
-          name: item.name.S
+          id: mod.dataValues.id
+          name: mod.dataValues.name
           type: 'Module'
-          user: item.user.N
+          user: mod.dataValues.userId
         }
         
-      return db.scanAsync {
-        TableName: 'Collection'
-        ExpressionAttributeNames:
-          '#N': 'name'
-        ExpressionAttributeValues:
-          ':keywords':
-            S: req.session.keywords
-        FilterExpression: 'contains (#N, :keywords)'
+      return db.models.Collection.findAll {
+        where:
+          name: req.session.keywords
       }
       
-    ).then((data) ->
-      for item in data.Items
+    ).then((collections) ->
+      for collection in collections
         results.push {
-          id: item.id.S
-          name: item.name.S
+          id: collection.dataValues.id
+          name: collection.dataValues.name
           type: 'Collection'
-          user: item.user.N
+          user: collection.dataValues.userId
         }
         
       res.render 'search', {
-        avatar: "http://www.gravatar.com/avatar/#{avatar_hash}"
+        avatar: req.session.avatar
         keywords: req.session.keywords
         search:
           results: results

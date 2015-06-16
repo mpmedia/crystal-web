@@ -1,20 +1,12 @@
-aws      = require 'aws-sdk'
 bluebird = require 'bluebird'
 marked   = require 'marked'
 request  = require 'request'
 yaml     = require 'js-yaml'
 
-# scan modules table
-db = new aws.DynamoDB({
-  region: 'us-east-1'
-  endpoint: 'http://localhost:8000'
-})
-
 # enable promises
-bluebird.promisifyAll Object.getPrototypeOf(db)
 bluebird.promisifyAll request
 
-module.exports = (app) ->
+module.exports = (app, db) ->
   # GET /registry
   app.get '/registry/:id', (req, res) ->
     dots = req.params.id.match(/\./g)
@@ -32,60 +24,37 @@ module.exports = (app) ->
     
     switch dots.length
       when 0
-        db.queryAsync({
-          TableName: 'Collection'
-          IndexName: 'NameIndex'
-          KeyConditions:
-            name:
-              AttributeValueList: [
-                {
-                  S: req.params.id
-                }
-              ]
-              ComparisonOperator: 'EQ'
+        db.models.Collection.findOne({
+          where:
+            name: req.params.id
         })
       when 1
-        db.queryAsync({
-          TableName: 'Module'
-          IndexName: 'NameIndex'
-          KeyConditions:
-            name:
-              AttributeValueList: [
-                {
-                  S: req.params.id
-                }
-              ]
-              ComparisonOperator: 'EQ'
-              
+        db.models.Module.findOne({
+          where:
+            name: req.params.id
         }).then((data) ->
           module = {
-            name: data.Items[0].name.S
-            repository: data.Items[0].repository.S
+            name: data.dataValues.name
+            repository: data.dataValues.repositoryId
           }
           
-          return db.queryAsync({
-            TableName: 'Repository'
-            KeyConditions:
-              id:
-                AttributeValueList: [
-                  {
-                    S: module.repository
-                  }
-                ]
-                ComparisonOperator: 'EQ'
+          return db.models.Repository.findOne({
+            where:
+              id: module.repository
           })
           
         ).then((data) ->
+          console.log data
           repository = {
-            id: data.Items[0].id.S
-            github_id: data.Items[0].github_id.N
-            path: data.Items[0].path.S
-            url: data.Items[0].url.S
+            id: data.dataValues.id
+            identifier: data.dataValues.identifier
+            path: data.dataValues.path
+            url: data.dataValues.url
           }
           
           return request.getAsync {
             headers: headers
-            url: "https://api.github.com/repositories/#{repository.github_id}/contents/.crystal/config.yml?access_token=#{req.session.githubSession.access_token}"
+            url: "https://api.github.com/repositories/#{repository.identifier}/contents/.crystal/config.yml"
           }
         
         ).then((config_data) ->
@@ -97,7 +66,7 @@ module.exports = (app) ->
           
           return request.getAsync {
             headers: headers
-            url: "https://api.github.com/repositories/#{repository.github_id}/readme?access_token=#{req.session.githubSession.access_token}"
+            url: "https://api.github.com/repositories/#{repository.identifier}/readme"
           }
         
         ).then((readme_data) ->
@@ -109,7 +78,7 @@ module.exports = (app) ->
           
           return request.getAsync {
             headers: headers
-            url: "https://api.github.com/repositories/36251080/contents/LICENSE?access_token=#{req.session.githubSession.access_token}"
+            url: "https://api.github.com/repositories/#{repository.identifier}/contents/LICENSE"
           }
         
         ).then((license_data) ->
@@ -120,7 +89,7 @@ module.exports = (app) ->
           license = new Buffer(license.content, 'base64').toString()
           
           res.render 'registry', {
-            avatar: if req.session.github then req.session.github.avatar_url else null
+            avatar: req.session.avatar
             config: config
             exports: yaml.safeLoad(config).exports
             license: license.replace /\n\n/g, '<br /><br />'
@@ -137,17 +106,9 @@ module.exports = (app) ->
           }
         )
       when 2
-        db.queryAsync({
-          TableName: 'Export'
-          IndexName: 'NameIndex'
-          KeyConditions:
-            name:
-              AttributeValueList: [
-                {
-                  S: req.params.id
-                }
-              ]
-              ComparisonOperator: 'EQ'
+        db.models.Export.findOne({
+          where:
+            name: req.params.id
         })
       else
         throw new Error 'Invalid ID'

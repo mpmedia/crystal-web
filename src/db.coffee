@@ -23,6 +23,8 @@ db.models.Module = db.connection.define 'module', {
 }
 
 db.models.Repository = db.connection.define 'repository', {
+  identifier: mysql.STRING
+  path: mysql.STRING
   url: mysql.STRING
 }
 
@@ -54,7 +56,9 @@ db.models.Account.belongsTo db.models.Provider
 db.models.Account.belongsTo db.models.User
 db.models.Collection.belongsTo db.models.User
 db.models.Module.belongsTo db.models.Collection
+db.models.Module.belongsTo db.models.Repository
 db.models.Module.belongsTo db.models.User
+db.models.Repository.belongsTo db.models.Provider
 db.models.Repository.belongsTo db.models.User
 
 db.reset = () ->
