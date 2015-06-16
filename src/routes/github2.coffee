@@ -109,6 +109,7 @@ module.exports = (app, db) ->
         # update user
         return db.models.User.create({
           email: primary_email
+          location: req.session.github.location
           username: req.session.github.login
         }).then((data) ->
           req.session.userId = data.dataValues.id

@@ -57,6 +57,7 @@ require('./routes/github2')(app, db)
 require('./routes/logout')(app, db)
 require('./routes/registry')(app, db)
 require('./routes/search')(app, db)
+require('./routes/signup')(app, db)
 require('./routes/user')(app, db)
 app.use (req, res, next) ->
   res.status 404

@@ -2,7 +2,7 @@ module.exports = (app) ->
   # GET /
   app.get '/', (req, res) ->
     res.render 'home', {
-      avatar: if req.session.github then req.session.github.avatar_url else null
+      avatar: req.session.avatar
       clientID: process.env.GITHUB_CLIENT_ID
       redirectURI: process.env.GITHUB_REDIRECT_URI
       scripts: [

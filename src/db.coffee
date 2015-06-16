@@ -1,4 +1,5 @@
 bluebird = require 'bluebird'
+bcrypt   = require 'bcrypt'
 mysql    = require 'sequelize'
 
 db = {
@@ -35,6 +36,18 @@ db.models.User = db.connection.define 'user', {
   lastName: mysql.STRING
   location: mysql.STRING
   username: mysql.STRING
+  password: mysql.STRING
+},{
+  instanceMethods:
+    setPassword: (password, done) ->
+      user = this
+      bcrypt.genSalt 10, (err, salt) ->
+        bcrypt.hash password, salt, (error, encrypted) ->
+          user.password = encrypted
+          user.save()
+    verifyPassword: (password, done) ->
+      bcrypt.compare password, this.password, (err, res) ->
+        done err, res
 }
 
 db.models.Account.belongsTo db.models.Provider
@@ -44,10 +57,16 @@ db.models.Module.belongsTo db.models.Collection
 db.models.Module.belongsTo db.models.User
 db.models.Repository.belongsTo db.models.User
 
-#db.connection.sync({ force: true })
-#  .then (data) ->
-#    db.models.Provider.create({
-#      name: 'GitHub'
-#    })
+db.reset = () ->
+  db.connection.sync({ force: true })
+    .then (data) ->
+      db.models.Provider.create({
+        name: 'GitHub'
+      })
+      db.models.Provider.create({
+        name: 'Bitbucket'
+      })
+
+#db.reset()
 
 module.exports = db

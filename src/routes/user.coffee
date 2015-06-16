@@ -1,4 +1,5 @@
 bluebird = require 'bluebird'
+crypto   = require 'crypto'
 
 forms = require 'forms'
 fields = forms.fields
@@ -8,14 +9,13 @@ widgets = forms.widgets
 module.exports = (app, db) ->
   # GET /user
   app.get '/user', (req, res) ->
-    console.log req.session.userId
-    
-    if !req.session.github
+    if !req.session.userId
       res.redirect '/'
     
     collections = []
     user_id = ""
     user_company = ""
+    user_email = ""
     user_location = ""
     user_name = ""
     user_url = ""
@@ -29,6 +29,7 @@ module.exports = (app, db) ->
       
       user_id = user.dataValues.id
       user_company = user.dataValues.company
+      user_email = user.dataValues.email
       user_location = user.dataValues.location
       user_name = user.dataValues.name
       user_url = user.dataValues.url
@@ -80,10 +81,15 @@ module.exports = (app, db) ->
         })
       }
       
+      avatar_hash = crypto
+        .createHash('md5')
+        .update(user_email)
+        .digest 'hex'
+      
       res.render 'user', {
         add_collection_form: add_collection_form.toHTML()
         add_module_form: add_module_form.toHTML()
-        avatar: if req.session.github then req.session.github.avatar_url else null
+        avatar: "http://www.gravatar.com/avatar/#{avatar_hash}"
         collections: collections
         company: user_company
         location: user_location
@@ -153,7 +159,6 @@ module.exports = (app, db) ->
       res.render 'user', {
         add_collection_form: add_collection_form.toHTML()
         add_module_form: add_module_form.toHTML()
-        avatar: if req.session.github then req.session.github.avatar_url else null
         company: user_company
         location: user_location
         name: user_name

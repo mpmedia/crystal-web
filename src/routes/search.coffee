@@ -63,7 +63,7 @@ module.exports = (app) ->
         }
         
       res.render 'search', {
-        avatar: if req.session.github then req.session.github.avatar_url else null
+        avatar: "http://www.gravatar.com/avatar/#{avatar_hash}"
         keywords: req.session.keywords
         search:
           results: results
