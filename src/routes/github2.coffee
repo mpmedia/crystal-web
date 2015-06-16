@@ -161,6 +161,8 @@ module.exports = (app) ->
                 S: uuid.v4()
               github_id:
                 N: repo.id.toString()
+              path:
+                S: repo.full_name
               url:
                 S: repo.html_url
               user:

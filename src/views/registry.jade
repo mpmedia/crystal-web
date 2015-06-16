@@ -3,13 +3,35 @@ block content
   h2
     span= name
     a(href='#') master
-  p
-    a(href=repository, target='_blank')= repository
-  h3 exports
-  if exports
-    each export_data, export_name in exports
-      div= export_name
-  else
-    p There are no exports.
-  p!= readme
-  pre= config
+  nav
+    ul
+      li
+        a(href='#readme') README
+      li
+        a(href='#exports') EXPORTS
+      li
+        a(href='#license') LICENSE
+      li
+        a(href='#authors') AUTHORS
+      li
+        a(href='#config') CONFIG
+  aside
+    h3 Repository
+    p
+      a(href=repository.url, target='_blank')
+        img(class='icon', src='images/repo-github.svg')
+        span= repository.path
+    h3 Exports
+    if exports
+      each export_data, export_name in exports
+        div= export_name
+    else
+      p There are no exports.
+  article(id='readme')
+    p!= readme
+  article(id='config')
+    pre= config
+  article(id='license')
+    p!= license
+  article(id='authors')
+    p= authors

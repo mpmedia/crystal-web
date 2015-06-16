@@ -25,8 +25,9 @@ module.exports = (app) ->
     }
     
     config = ''
+    license = ''
     module = {}
-    readme = {}
+    readme = ''
     repository = {}
     
     switch dots.length
@@ -78,6 +79,7 @@ module.exports = (app) ->
           repository = {
             id: data.Items[0].id.S
             github_id: data.Items[0].github_id.N
+            path: data.Items[0].path.S
             url: data.Items[0].url.S
           }
           
@@ -98,20 +100,36 @@ module.exports = (app) ->
             url: "https://api.github.com/repositories/#{repository.github_id}/readme?access_token=#{req.session.githubSession.access_token}"
           }
         
-        ).then((readme) ->
+        ).then((readme_data) ->
           # validate readme response
-          readme = JSON.parse readme[0].body
+          readme = JSON.parse readme_data[0].body
           if readme.error
             throw new Error "Failed to get readme"
           readme = new Buffer(readme.content, 'base64').toString()
+          
+          return request.getAsync {
+            headers: headers
+            url: "https://api.github.com/repositories/36251080/contents/LICENSE?access_token=#{req.session.githubSession.access_token}"
+          }
+        
+        ).then((license_data) ->
+          # validate license response
+          license = JSON.parse license_data[0].body
+          if license.error
+            throw new Error "Failed to get license"
+          license = new Buffer(license.content, 'base64').toString()
           
           res.render 'registry', {
             avatar: if req.session.github then req.session.github.avatar_url else null
             config: config
             exports: yaml.safeLoad(config).exports
+            license: license.replace /\n\n/g, '<br /><br />'
             name: module.name
             readme: marked(readme)
-            repository: repository.url
+            repository: repository
+            scripts: [
+              'scripts/page/registry.js'
+            ]
             styles: [
               'styles/page/registry.css'
             ]
