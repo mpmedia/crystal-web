@@ -38,9 +38,11 @@ button {
   border-radius: 25px;
   color: #FFFF00;
   cursor: pointer;
+  font-family: 'Roboto Condensed', sans-serif;
   font-size: 16px;
   padding: 10px;
   text-align: center;
+  text-transform: uppercase;
   width: 150px;
 }
 
@@ -114,7 +116,7 @@ section {
 }
 
 #overlay {
-  background-color: #FFFF00;
+  background-color: #000;
   left: 0px;
   opacity: .5;
   position: fixed;
@@ -125,7 +127,29 @@ section {
 #popup {
   background-color: #FFF;
   box-shadow: 0px 0px 50px #000;
-  padding: 20px;
+  padding: 40px;
   position: fixed;
+  width: 300px;
   z-index: 2000;
+  
+  input {
+    border: 1px #CCC solid;
+    box-sizing: border-box;
+    padding: 5px;
+    width: 100%;
+  }
+  
+  input[type="submit"] {
+    background-color: #FFFF00;
+    border: none;
+    color: #000;
+    font-size: 18px;
+    margin-top: 10px;
+    padding: 10px;
+    text-transform: uppercase;
+    
+    &:hover {
+      background-color: #FFFF99;
+    }
+  }
 }

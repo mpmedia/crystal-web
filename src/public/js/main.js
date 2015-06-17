@@ -7,7 +7,39 @@ $(window).load(function() {
     
     var popup = $('<div id="popup" />')
     popup.append('<h1>Please Login</h1>');
-    popup.append('<form action="/signup" method="post"><div><label>Username</label><input name="username" type="text" /></div><label>Email</label><input name="email" type="text" /></div><div><label>Password</label><input name="password" type="password" /></div><input type="submit" value="Create" /></form>');
+    /*
+    popup.append(''
+      + '<form action="/login" method="post">'
+        + '<div>'
+          + '<label>Username</label>'
+          + '<input name="username" type="text" />'
+        + '</div>'
+        + '<div>'
+          + '<label>Password</label>'
+          + '<input name="password" type="password" />'
+        + '</div>'
+        + '<input type="submit" value="Login" />'
+      + '</form>'
+    );
+    popup.append('<hr />');
+    */
+    popup.append(''
+      + '<form action="/signup" method="post">'
+        + '<div>'
+          + '<label>Username</label>'
+          + '<input name="username" type="text" />'
+        + '</div>'
+        + '<div>'
+          + '<label>Email</label>'
+          + '<input name="email" type="text" />'
+        + '</div>'
+        + '<div>'
+          + '<label>Password</label>'
+          + '<input name="password" type="password" />'
+        + '</div>'
+        + '<input type="submit" value="Signup" />'
+      + '</form>'
+    );
     $('body').append(popup);
     
     $(window).resize();

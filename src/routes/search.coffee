@@ -16,7 +16,7 @@ module.exports = (app, db) ->
   app.get '/search', (req, res) ->
     if !req.query.keywords and !req.session.keywords
       res.render 'search', {
-        avatar: if req.session.github then req.session.github.avatar_url else null
+        avatar: req.session.avatar
         title: 'Search Crystal'
       }
       return

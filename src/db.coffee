@@ -39,17 +39,16 @@ db.models.User = db.connection.define 'user', {
   location: mysql.STRING
   username: mysql.STRING
   password: mysql.STRING
+  verification: mysql.STRING
+  verifiedAt: mysql.DATE
 },{
   instanceMethods:
-    setPassword: (password, done) ->
-      user = this
-      bcrypt.genSalt 10, (err, salt) ->
-        bcrypt.hash password, salt, (error, encrypted) ->
-          user.password = encrypted
-          user.save()
-    verifyPassword: (password, done) ->
-      bcrypt.compare password, this.password, (err, res) ->
-        done err, res
+    setPassword: (password) ->
+      salt = bcrypt.genSaltSync 10
+      this.password = bcrypt.hashSync password, salt
+      this.save()
+    verifyPassword: (password) ->
+      bcrypt.compareSync password, this.password
 }
 
 db.models.Account.belongsTo db.models.Provider

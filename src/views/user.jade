@@ -1,6 +1,9 @@
 extends layout
 block content
-  h1= username + ' (' + name + ')'
+  h2
+    span= username
+    if name
+      span= ' (' + name + ')'
   if company
     p= 'Company: ' + company
   if location
@@ -9,8 +12,7 @@ block content
     p
       span URL: 
       a(href=url, target='_blank')= url
-  img(height=250, width=250, src=avatar)
-  h1 Collections
+  h3 Collections
   p
     if collections
       for collection in collections
@@ -19,7 +21,7 @@ block content
     else
       div No collections exist.
     form(action='collections', method='post')!= add_collection_form
-  h1 Modules
+  h3 Modules
   p
     if modules
       for module in modules
@@ -28,7 +30,7 @@ block content
     else
       div No modules exist.
     form(action='modules', method='post')!= add_module_form
-  h1 Repositories
+  h3 Repositories
   p
     for repo in repos
       div
