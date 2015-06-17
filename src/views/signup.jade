@@ -1,9 +1,9 @@
 extends layout
 block content
   section(class='page', id='signup')
-    h1 signup
-    form(action='#', onsubmit='return signup()')
-      p signup to publish your generators
+    h2 Sign Up
+    form(action='signup', method='post', onsubmit='return signup()')
+      p Crystal is free and awesome. Sign up to join the Crystal community and publish your collections, modules and exports.
       p(class='error')
       p
         label(for='email') Email
@@ -17,6 +17,6 @@ block content
       p
         button(type='submit') Sign Up
     div(id='success')
-      h2 success!
+      h3 success!
       p thanks for signing up. you can now publish your generators to the crystal registry using your new login:
       code crystal publish

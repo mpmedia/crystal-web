@@ -7,6 +7,15 @@ aws.config.accessKeyId = process.env.AWS_SES_USER
 aws.config.secretAccessKey = process.env.AWS_SES_PASS
 
 module.exports = (app, db) ->
+  # GET /signup
+  app.get '/signup', (req, res) ->
+    res.render 'signup', {
+      styles: [
+        'styles/page/signup.css'
+      ]
+      title: 'Crystal Sign Up'
+    }
+    
   # POST /signup
   app.post '/signup', (req, res) ->
     verification = uuid.v4()

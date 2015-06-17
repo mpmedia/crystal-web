@@ -26,8 +26,7 @@ module.exports = (app, db) ->
     
     results = []
     db.models.Module.findAll({
-      where:
-        name: req.session.keywords
+      where: ['name like ?', "%#{req.session.keywords}%"]
     }).then((modules) ->
       for mod in modules
         results.push {
@@ -38,8 +37,10 @@ module.exports = (app, db) ->
         }
         
       return db.models.Collection.findAll {
-        where:
-          name: req.session.keywords
+        include:
+          model: db.models.User
+          attributes: ['username']
+        where: ['name like ?', "%#{req.session.keywords}%"]
       }
       
     ).then((collections) ->
@@ -48,7 +49,7 @@ module.exports = (app, db) ->
           id: collection.dataValues.id
           name: collection.dataValues.name
           type: 'Collection'
-          user: collection.dataValues.userId
+          user: collection.dataValues.user.username
         }
         
       res.render 'search', {

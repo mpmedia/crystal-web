@@ -3,8 +3,13 @@ extends layout
 block content
   div(id="intro")
     div
-      p(class='title') Open Source Code Generator<br />for Every Language and Framework
-      button(href='signup', onclick='window.location = "/signup"') Sign Up
+      if avatar
+        p(class='title') Crystal v0.6.0 now available
+        p(class='desc') Create custom Templates, Schemas, Engines + more.
+        button(href='signup', onclick='window.location = "/signup"') Download
+      else
+        p(class='title') Open Source Code Generator<br />for Every Language and Framework
+        button(class='signup', href='signup') Sign Up
   div(class='banner') Make "Things" w/ High Level <a href="docs#specs">Specs</a> &amp; Low Level <a href="generators">Gens</a>
   div(id='usage')
     ul

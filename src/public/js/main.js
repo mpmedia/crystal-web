@@ -3,11 +3,13 @@ var api = 'https://api.crystal.sh/';
 $(window).load(function() {
   $('.login').click(function() {
     var overlay = $('<div id="overlay" />');
+    overlay.click(function() {
+      $('#overlay, #popup').remove();
+    });
     $('body').append(overlay);
     
     var popup = $('<div id="popup" />')
     popup.append('<h1>Please Login</h1>');
-    /*
     popup.append(''
       + '<form action="/login" method="post">'
         + '<div>'
@@ -21,8 +23,24 @@ $(window).load(function() {
         + '<input type="submit" value="Login" />'
       + '</form>'
     );
-    popup.append('<hr />');
-    */
+    $('body').append(popup);
+    
+    $(window).resize();
+    
+    $('#popup input').first().focus();
+    
+    return false;
+  });
+  
+  $('.signup').click(function() {
+    var overlay = $('<div id="overlay" />');
+    overlay.click(function() {
+      $('#overlay, #popup').remove();
+    });
+    $('body').append(overlay);
+    
+    var popup = $('<div id="popup" />')
+    popup.append('<h1>Sign Up</h1>');
     popup.append(''
       + '<form action="/signup" method="post">'
         + '<div>'
@@ -43,6 +61,8 @@ $(window).load(function() {
     $('body').append(popup);
     
     $(window).resize();
+    
+    $('#popup input').first().focus();
     
     return false;
   });

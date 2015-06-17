@@ -4,6 +4,9 @@ module.exports = (app, db) ->
   # GET /login
   app.get '/login', (req, res) ->
     res.render 'login', {
+      styles: [
+        'styles/page/login.css'
+      ]
       title: 'Crystal Login'
     }
 
@@ -15,12 +18,15 @@ module.exports = (app, db) ->
         username: req.body.username
     })
     .then((user_data) ->
+      if !user_data
+        throw new Error 'Unknown user. Did you mean to <a href="signup">Sign Up?</a>'
+        
       user = user_data
       return user.verifyPassword req.body.password, user
     )
     .then((validPassword) ->
       if validPassword != true
-        return res.status(400).send 'Invalid password'
+        throw new Error "Invalid username/password."
       
       avatar_hash = crypto.createHash('md5').update(user.dataValues.email).digest 'hex'
       req.session.avatar = "http://www.gravatar.com/avatar/#{avatar_hash}"
@@ -29,5 +35,12 @@ module.exports = (app, db) ->
       res.redirect '/'
     )
     .catch((e) ->
-      console.log e
+      res.render 'login', {
+        error: e
+        styles: [
+          'styles/page/login.css'
+        ]
+        username: req.body.username
+        title: 'Crystal Login'
+      }
     )
