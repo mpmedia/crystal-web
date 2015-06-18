@@ -1,5 +1,54 @@
 var api = 'https://api.crystal.sh/';
 
+$(document).keydown(function(e) {
+  if ($(e.target)[0].tagName == 'INPUT') {
+    return;
+  }
+  
+  switch (e.keyCode) {
+    case 27: {
+      $('#content, header').animate({
+        width: $(window).width()
+      });
+      $('#sidebar').animate({
+        right: -300
+      },{
+        complete: function() {
+          $(this).removeClass('open');
+        }
+      });
+      break;
+    }
+    case 85: {
+      if ($('#sidebar').hasClass('open')) {
+        $('#content, header').animate({
+          width: $(window).width()
+        });
+        $('#sidebar').animate({
+          right: -300
+        },{
+          complete: function() {
+            $(this).removeClass('open');
+          }
+        });
+      } else {
+        $('#sidebar').addClass('open');
+        $('#content, header').animate({
+          width: $(window).width() - 300
+        });
+        $('#sidebar').animate({
+          right: 0
+        },{
+          complete: function() {
+            $(this).find('input').first().focus();
+          }
+        });
+      }
+      break;
+    }
+  }
+});
+
 $(window).load(function() {
   $('.close').click(function() {
     $('#content, header').animate({
