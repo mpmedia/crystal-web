@@ -1,39 +1,41 @@
 extends layout
 block content
-  h2
-    span= username
-    if name
-      span= ' (' + name + ')'
-  if company
-    p= 'Company: ' + company
-  if location
-    p= 'Location: ' + location
-  if url
+  aside
+    img(src=avatar + '?s=200')
+    h2
+      span= username
+      if name
+        span= ' (' + name + ')'
+    if company
+      p= 'Company: ' + company
+    if location
+      p= 'Location: ' + location
+    if url
+      p
+        span URL: 
+        a(href=url, target='_blank')= url
+  article
+    h3 Collections
     p
-      span URL: 
-      a(href=url, target='_blank')= url
-  h3 Collections
-  p
-    if collections
-      for collection in collections
+      if collections
+        for collection in collections
+          div
+            a(href='collections/' + collection.id)= collection.name
+      else
+        div No collections exist.
+      form(action='collections', method='post')!= add_collection_form
+    h3 Modules
+    p
+      if modules
+        for module in modules
+          div
+            a(href='modules/' + module.id)
+      else
+        div No modules exist.
+      form(action='modules', method='post')!= add_module_form
+    h3 Repositories
+    p
+      for repo in repos
         div
-          a(href='collections/' + collection.id)= collection.name
-    else
-      div No collections exist.
-    form(action='collections', method='post')!= add_collection_form
-  h3 Modules
-  p
-    if modules
-      for module in modules
-        div
-          a(href='modules/' + module.id)
-    else
-      div No modules exist.
-    form(action='modules', method='post')!= add_module_form
-  h3 Repositories
-  p
-    for repo in repos
-      div
-        a(href=repo.url)= repo.url
-  p Logged in via github
-  a(class='button', href='/logout') Logout
+          a(href=repo.url)= repo.url
+    a(class='button', href='/logout') Logout

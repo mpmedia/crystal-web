@@ -8,6 +8,99 @@
 
 header {
   background-color: #000;
+  height: 70px;
+  position: fixed;
+  width: 100%;
+  z-index: 100;
+  
+  img {
+    height: 50px;
+  }
+  
+  nav {
+    float: right;
+    font-size: 18px;
+    margin-top: 10px;
+    text-transform: uppercase;
+    
+    a {
+      color: #FFF;
+      display: inline-block;
+      padding: 15px 15px 14px 15px;
+      
+      &:hover {
+        color: #FFFF00;
+      }
+    }
+    
+    @media screen and (max-width: 640px) {
+      display: none;
+    }
+  }
+  
+  .logo {
+    left: 10px;
+    position: absolute;
+    top: 10px;
+    
+    @media screen and (max-width: 640px) {
+      left: 50%;
+      margin-left: -89px;
+    }
+  }
+  
+  .login {
+    border: 2px #FFF solid;
+    border-radius: 50px;
+    color: #FFF;
+    float: right;
+    font-size: 18px;
+    margin-right: 10px;
+    margin-top: 10px;
+    padding: 13px 15px 12px 15px;
+    text-align: center;
+    text-transform: uppercase;
+    width: 80px;
+    
+    &:hover {
+      background-color: #FFFF00;
+      border-color: #FFFF00;
+      color: #000;
+    }
+  }
+  
+  .menu {
+    display: none;
+    
+    @media screen and (max-width: 640px) {
+      display: block;
+      left: 10px;
+      position: asbolute;
+      top: 10px;
+    }
+  }
+  
+  .user {
+    border-radius: 50px;
+    float: right;
+    height: 50px;
+    margin-right: 10px;
+    margin-top: 10px;
+    overflow: hidden;
+    width: 50px;
+    
+    @media screen and (max-width: 640px) {
+      right: 10px;
+      position: asbolute;
+      top: 10px;
+    }
+  }
+}
+
+
+/*
+header {
+  background-color: #000;
   font-size: 18px;
   height: 70px;
   left: 0px;
@@ -17,10 +110,6 @@ header {
   width: 100%;
   
   nav {
-    position: absolute;
-    right: 110px;
-    top: 15px;
-    
     &.avatar {
       right: 70px;
     }
@@ -56,7 +145,6 @@ header {
     color: #FFF;
     right: 10px;
     padding: 10px 10px 9px 10px;
-    position: absolute;
     text-align: center;
     top: 13px;
     width: 70px;
@@ -70,9 +158,6 @@ header {
   
   .menu {
     display: none;
-    left: 10px;
-    position: absolute;
-    top: 10px;
   }
   
   .user {
@@ -82,9 +167,6 @@ header {
     border-radius: 50px;
     height: 50px;
     overflow: hidden;
-    position: fixed;
-    right: 9px;
-    top: 9px;
     width: 50px;
     
     &:hover {
@@ -119,3 +201,4 @@ header {
     }
   }
 }
+*/

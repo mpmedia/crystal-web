@@ -1,0 +1,57 @@
+#sidebar {
+  background-color: #333;
+  color: #999;
+  box-sizing: border-box;
+  display: none;
+  padding: 20px;
+  position: fixed;
+  right: -300px;
+  top: 0px;
+  width: 300px;
+  
+  &.open {
+    display: block;
+  }
+  
+  button, .button {
+    display: block;
+    font-size: 24px;
+    width: 100%;
+  }
+  
+  .close {
+    color: #FFF;
+    padding: 10px;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    
+    &:hover {
+      color: #FFFF00;
+    }
+  }
+  
+  .profile {
+    font-size: 14px;
+    padding: 10px;
+    
+    a {
+      border-top: 1px #666 solid;
+      color: #FFF;
+      display: block;
+      font-size: 24px;
+      padding: 20px;
+      text-align: center;
+      
+      &:first-of-type {
+        border: none;
+      }
+    }
+  }
+  
+  .title {
+    font-size: 32px;
+    padding-bottom: 10px;
+    text-align: center;
+  }
+}

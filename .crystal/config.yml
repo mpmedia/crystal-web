@@ -67,13 +67,6 @@ outputs:
           uri: /docs
           view: docs
         
-        # GET /help
-        - method: GET
-          name: help
-          title: Crystal Help
-          uri: /help
-          view: help
-        
         # GET /hub
         - method: GET
           name: hub
@@ -107,6 +100,13 @@ outputs:
           name: module
           title: Crystal Module
           uri: /module/:name
+        
+        # GET /support
+        - method: GET
+          name: support
+          title: Crystal Support
+          uri: /support
+          view: support
         
         # GET /user
         - method: GET

@@ -7,8 +7,35 @@
 }
 
 #menu {
+  background-color: #000;
   display: none;
   left: 0px;
+  opacity: .75;
   position: fixed;
   top: 0px;
+  z-index: 3000;
+  
+  div {
+    background-color: #111;
+    border-radius: 50px;
+    overflow: hidden;
+    position: fixed;
+    width: 90%;
+    
+    a {
+      box-sizing: border-box;
+      color: #FFF;
+      display: block;
+      font-size: 48px;
+      margin: 0px auto;
+      padding: 20px;
+      text-align: center;
+      text-transform: uppercase;
+      
+      &:hover {
+        background-color: #FFFF00;
+        color: #000;
+      }
+    }
+  }
 }

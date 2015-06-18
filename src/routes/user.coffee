@@ -89,12 +89,15 @@ module.exports = (app, db) ->
       res.render 'user', {
         add_collection_form: add_collection_form.toHTML()
         add_module_form: add_module_form.toHTML()
-        avatar: "http://www.gravatar.com/avatar/#{avatar_hash}"
+        avatar: req.session.avatar
         collections: collections
         company: user_company
         location: user_location
         name: user_name
         repos: repos
+        styles: [
+          'styles/page/user.css'
+        ]
         title: 'Crystal User'
         username: user_username
         url: user_url

@@ -32,7 +32,8 @@ module.exports = (app, db) ->
       req.session.avatar = "http://www.gravatar.com/avatar/#{avatar_hash}"
       req.session.userId = user.dataValues.id
       
-      res.redirect '/'
+      url = req.header('Referer') or '/'
+      res.redirect url
     )
     .catch((e) ->
       res.render 'login', {

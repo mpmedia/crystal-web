@@ -8,6 +8,58 @@ bluebird.promisifyAll request
 
 module.exports = (app, db) ->
   # GET /registry
+  app.get '/registry', (req, res) ->
+    if !req.query.keywords and !req.session.keywords
+      res.render 'search', {
+        avatar: req.session.avatar
+        title: 'Search Crystal'
+      }
+      return
+    
+    if req.query.keywords
+      req.session.keywords = req.query.keywords
+    
+    results = []
+    db.models.Module.findAll({
+      where: ['name like ?', "%#{req.session.keywords}%"]
+    }).then((modules) ->
+      for mod in modules
+        results.push {
+          id: mod.dataValues.id
+          name: mod.dataValues.name
+          type: 'Module'
+          user: mod.dataValues.userId
+        }
+        
+      return db.models.Collection.findAll {
+        include:
+          model: db.models.User
+          attributes: ['username']
+        where: ['name like ?', "%#{req.session.keywords}%"]
+      }
+      
+    ).then((collections) ->
+      for collection in collections
+        results.push {
+          id: collection.dataValues.id
+          name: collection.dataValues.name
+          type: 'Collection'
+          user: collection.dataValues.user.username
+        }
+        
+      res.render 'search', {
+        avatar: req.session.avatar
+        keywords: req.session.keywords
+        search:
+          results: results
+        styles: [
+          'styles/page/search.css'
+        ]
+        title: 'Search Crystal'
+      }
+    )
+    
+  # GET /registry/:id
   app.get '/registry/:id', (req, res) ->
     dots = req.params.id.match(/\./g)
     

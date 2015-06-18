@@ -2,4 +2,6 @@ module.exports = (app) ->
   # GET /logout
   app.get '/logout', (req, res) ->
     req.session.destroy()
-    res.redirect '/'
+    
+    url = req.header('Referer') or '/'
+    res.redirect url

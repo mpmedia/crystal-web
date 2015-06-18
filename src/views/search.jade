@@ -2,7 +2,7 @@ extends layout
 block content
   h2 Crystal Registry
   h3 Find Collections, Modules, Users and more
-  form(action='/search', method='get')
+  form(action='/registry', method='get')
     input(name='keywords', placeholder='Example: express, wordpress.zerif-lite, authors.core', value=keywords)
   if search
     if search.results.length
