@@ -65,7 +65,12 @@ require('./routes/terms')(app, db)
 require('./routes/user')(app, db)
 app.use (req, res, next) ->
   res.status 404
-  res.render '404', { url: req.url }
+  res.render '404', {
+    styles: [
+      'styles/page/404.css'
+    ]
+    url: req.url
+  }
 
 # serve app
 console.log 'Serving...'

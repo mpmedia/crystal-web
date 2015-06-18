@@ -99,6 +99,7 @@ module.exports = (app, db) ->
           'styles/page/user.css'
         ]
         title: 'Crystal User'
+        unverified: true
         username: user_username
         url: user_url
       }

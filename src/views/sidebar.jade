@@ -1,12 +1,14 @@
 div(id='sidebar')
   a(class='close', href='#') X
   if avatar
+    if unverified
+      a(class='error', href='user/verify') Your email has not been verified.
     div(class='title') ctate
     img(src=avatar + '?s=260')
     div(class='profile')
       a(href='favorites') My Favorites
       a(href='user/edit') Edit Profile
-      a(href='user/view') View Profile
+      a(href='user') View Profile
     a(class='button', href='logout') Logout
   else
     div(class='title') Login
