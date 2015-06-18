@@ -1,19 +1,14 @@
 header
-  h1
-    a(href='/', title='Crystal Homepage')
-      img(height=40, src='images/crystal-logo-icon.svg')
-  nav
-    ul
-      li
-        a(class='download', href='download', title='Download Crystal') download
-      li
-        a(class='search', href='search', title='Crystal Registry') registry
-      li
-        a(class='help', href='help', title='Crystal Support, Tutorials & FAQs') help
-      if avatar
-        li
-          a(class='user', href='user', title='My Account')
-            img(src=avatar)
-      else
-        li
-          a(class='login', href='login', title='Crystal Login (or Sign Up)') login
+  a(class='logo', href='/', title='Crystal Homepage')
+    img(src='images/crystal-logo-icon.svg')
+  a(class='menu', href='menu', 'Menu')
+    img(src='images/menu.svg')
+  nav(class=avatar?'avatar':'')
+    a(class='download', href='download', title='Download Crystal') Download
+    a(class='search', href='search', title='Crystal Registry') Registry
+    a(class='support', href='support', title='Crystal Support') Support
+  if avatar
+    a(class='user', href='user', title='My Account')
+      img(src=avatar)
+  else
+    a(class='login', href='login', title='Crystal Login (or Sign Up)') Login

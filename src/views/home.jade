@@ -10,37 +10,20 @@ block content
       else
         p(class='title') Open Source Code Generator<br />for Every Language and Framework
         button(class='signup', href='signup') Sign Up
-  div(class='banner') Make "Things" w/ High Level <a href="docs#specs">Specs</a> &amp; Low Level <a href="generators">Gens</a>
-  div(id='usage')
-    ul
-      li
-        h3 Design
-        div(class='image')
-          div(class='screenshot')
-            img(src='images/design-spec.svg')
-          img(class='icon', src='images/spec.svg')
-        span Design Specifications to Spec Out Your Project
-      li
-        h3 Develop
-        div(class='image')
-          div(class='screenshot')
-            img(src='images/develop-gen.svg')
-          img(class='icon', src='images/gen.svg')
-        span Develop Generators to Generate Code for Your Specs
-      li
-        h3 Deploy
-        div(class='image')
-          div(class='screenshot')
-            img(src='images/deploy-code.svg')
-          img(class='icon', src='images/deploy.svg')
-        span Deploy Code from Your Specs and Gens Over &amp; Over
+  div(class='banner') Get Started
+  //div(id='try')
+    //h2 Select different inputs to see their outputs
+    //textarea
+    //textarea
   div(id='features')
-    p(class='title') Get Started
     ul
       li
         h2 Install Crystal
+        div NPM:
         code npm install -g crystal
-        p get up and running
+        div Homebrew: (Mac Only)
+        code brew install crystal
+        p Install Crystal via <a href="http://npmjs.com" target="_blank">npm</a> or <a href="http://brew.sh" target="_blank">Homebrew</a>.
       li
         h2 Find Generators
         code

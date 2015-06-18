@@ -32,7 +32,7 @@ body {
   }
 }
 
-button {
+button, .button {
   background: none;
   border: 2px #FFFF00 solid;
   border-radius: 25px;
@@ -44,9 +44,15 @@ button {
   text-align: center;
   text-transform: uppercase;
   width: 150px;
+  
+  @media screen and (max-width: 640px) {
+    box-sizing: border-box;
+    display: block;
+    width: 100%;
+  }
 }
 
-button:hover {
+button:hover, .button:hover {
   background-color: #FFFF00;
   color: #000;
 }
@@ -131,6 +137,12 @@ section {
       color: #FFFF00;
       text-decoration: none;
     }
+  }
+  
+  button, .button {
+    background-color: #FFFF00;
+    color: #000;
+    font-size: 24px;
   }
 }
 

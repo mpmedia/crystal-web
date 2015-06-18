@@ -4,8 +4,11 @@ $(window).load(function() {
   $('.login').click(function() {
     var overlay = $('<div id="overlay" />');
     overlay.click(function() {
-      $('#overlay, #popup').remove();
+      $('#overlay, #popup').fadeOut(function() {
+        $(this).remove();
+      });
     });
+    overlay.hide();
     $('body').append(overlay);
     
     var popup = $('<div id="popup" />')
@@ -23,20 +26,31 @@ $(window).load(function() {
         + '<input type="submit" value="Login" />'
       + '</form>'
     );
+    popup.hide();
     $('body').append(popup);
     
     $(window).resize();
+    
+    $('#overlay, #popup').fadeIn();
     
     $('#popup input').first().focus();
     
     return false;
   });
   
+  $('.menu').click(function() {
+    $('#menu').fadeIn();
+    return;
+  });
+  
   $('.signup').click(function() {
     var overlay = $('<div id="overlay" />');
     overlay.click(function() {
-      $('#overlay, #popup').remove();
+      $('#overlay, #popup').fadeOut(function() {
+        $(this).remove();
+      });
     });
+    overlay.hide();
     $('body').append(overlay);
     
     var popup = $('<div id="popup" />')
@@ -58,9 +72,12 @@ $(window).load(function() {
         + '<input type="submit" value="Signup" />'
       + '</form>'
     );
+    popup.hide();
     $('body').append(popup);
     
     $(window).resize();
+    
+    $('#overlay, #popup').fadeIn();
     
     $('#popup input').first().focus();
     
@@ -69,6 +86,11 @@ $(window).load(function() {
 });
 
 $(window).resize(function() {
+  $('#menu').css({
+    height: $(window).height(),
+    width: $(window).width()
+  });
+  
   $('#overlay').css({
     height: $(window).height(),
     width: $(window).width()
