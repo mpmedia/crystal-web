@@ -1,0 +1,27 @@
+{
+  "action": "/collections/edit",
+  "method": "post",
+  "fields": {
+    "id": {
+      "label": "ID",
+      "required": true,
+      "type": "hidden"
+    },
+    "name": {
+      "label": "Name",
+      "type": "text"
+    },
+    "color": {
+      "label": "Color",
+      "maxLength": 6,
+      "regex": "[0-9a-fA-F]+",
+      "type": "text"
+    }
+  },
+  "buttons": {
+    "submit": {
+      "label": "Edit Collection",
+      "type": "submit"
+    }
+  }
+}

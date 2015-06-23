@@ -1,8 +1,8 @@
 bluebird   = require 'bluebird'
 formulator = require '/Users/ctate/.crystal/dev/formulator'
 
-AddCollection = require '../forms/AddCollection'
-EditCollection = require '../forms/EditCollection'
+AddCollection = require '../formulas/forms/AddCollection'
+EditCollection = require '../formulas/forms/EditCollection'
 
 module.exports = (app, db) ->
   # POST /collections

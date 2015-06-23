@@ -2,7 +2,7 @@ bluebird   = require 'bluebird'
 crypto     = require 'crypto'
 formulator = require '/Users/ctate/.crystal/dev/formulator'
 
-EditUser = require '../forms/EditUser'
+EditUser = require '../formulas/forms/EditUser'
 
 module.exports = (app, db) ->
   # GET /user
@@ -79,10 +79,6 @@ module.exports = (app, db) ->
         name: user_name
         repos: repos
         scripts: [
-          'scripts/field/Color.js'
-          'scripts/form/AddCollection.js'
-          'scripts/form/EditCollection.js'
-          'scripts/form/DeleteCollection.js'
           'scripts/page/user.js'
         ]
         styles: [
@@ -126,9 +122,7 @@ module.exports = (app, db) ->
       res.status(400).send('Validation failed')
       return
     
-    db.models.User.update({
-      location: req.body.location
-    },{
+    db.models.User.update(form.data, {
       where:
         id: req.session.userId
     })

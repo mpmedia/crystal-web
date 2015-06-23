@@ -28,6 +28,7 @@ app.set 'view engine', 'jade'
 
 # setup static dirs
 app.use '/font', express.static("#{__dirname}/public/font")
+app.use '/formulas', express.static("#{__dirname}/public/formulas")
 app.use '/images', express.static("#{__dirname}/public/images")
 app.use '/scripts', express.static("#{__dirname}/public/js")
 app.use '/styles', express.static("#{__dirname}/public/css")

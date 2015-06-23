@@ -1,0 +1,17 @@
+{
+  "action": "/collections/delete",
+  "method": "post",
+  "fields": {
+    "id": {
+      "label": "ID",
+      "required": true,
+      "type": "hidden"
+    }
+  },
+  "buttons": {
+    "submit": {
+      "label": "Delete Collection",
+      "type": "submit"
+    }
+  }
+}

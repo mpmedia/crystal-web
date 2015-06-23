@@ -1,0 +1,6 @@
+{
+  "label": "Username",
+  "maxLength": 16,
+  "regex": "/^[a-z0-9_]*$/i",
+  "type": "text"
+}

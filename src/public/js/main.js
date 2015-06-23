@@ -1,6 +1,16 @@
 var api = 'https://api.crystal.sh/';
 
 var Crystal = {
+  Loader: {
+    hide: function() {
+      Crystal.Popup.hide();
+    },
+    show: function() {
+      Crystal.Popup.show({
+        content: 'Loading...'
+      });
+    }
+  },
   Popup: {
     hide: function() {
       $('#overlay, #popup').fadeOut(function() {
@@ -8,15 +18,23 @@ var Crystal = {
       });
     },
     show: function(opts) {
-      var overlay = $('<div id="overlay" />');
-      overlay.click(Crystal.Popup.hide);
-      overlay.hide();
-      $('body').append(overlay);
+      var overlay = $('#overlay'),
+        popup = $('#popup');
+        
+      if (!overlay.length) {
+        overlay = $('<div id="overlay" />');
+        overlay.click(Crystal.Popup.hide);
+        overlay.hide();
+        $('body').append(overlay);
+      }
       
-      var popup = $('<div id="popup" />')
-      popup.append(opts.content);
-      popup.hide();
-      $('body').append(popup);
+      if (!popup.length) {
+        popup = $('<div id="popup" />')
+        popup.hide();
+        $('body').append(popup);
+      }
+      
+      popup.html(opts.content);
       
       $(window).resize();
       

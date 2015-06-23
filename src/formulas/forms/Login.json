@@ -1,0 +1,19 @@
+{
+  "method": "post",
+  "fields": {
+    "username": {
+      "label": "Username",
+      "type": "text"
+    },
+    "password": {
+      "label": "Password",
+      "type": "password"
+    }
+  },
+  "buttons": {
+    "submit": {
+      "label": "Login",
+      "type": "submit"
+    }
+  }
+}

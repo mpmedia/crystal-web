@@ -1,22 +1,31 @@
 var addCollection = function() {
-  var form = new formulator(Crystal.Form.AddCollection);
+  Crystal.Loader.show();
   
-  Crystal.Popup.show({
-    title: 'Add Collection',
-    content: form.toString()
+  new formulator({
+    formula: '/formulas/forms/AddCollection.json',
+    ready: function(form) {
+      Crystal.Popup.show({
+        title: 'Add Collection',
+        content: form.toString()
+      });
+    }
   });
-  
+    
   return false;
 };
 
 var editCollection = function(o) {
-  var form = new formulator(Crystal.Form.EditCollection, $(o).data());
+  Crystal.Loader.show();
   
-  var deleteForm = new formulator(Crystal.Form.DeleteCollection, $(o).data());
-  
-  Crystal.Popup.show({
-    title: 'Edit Collection',
-    content: form.toString() + deleteForm.toString()
+  new formulator({
+    data: $(o).data(),
+    formula: '/formulas/forms/EditCollection.json',
+    ready: function(form) {
+      Crystal.Popup.show({
+        title: 'Edit Collection',
+        content: form.toString()
+      });
+    }
   });
   
   return false;

@@ -1,0 +1,6 @@
+{
+  "label": "Color",
+  "maxLength": 6,
+  "regex": "/[0-9a-f]+/i",
+  "type": "text"
+}
