@@ -10,4 +10,27 @@ section {
     float: left;
     width: 250px;
   }
+  
+  #collections {
+    a {
+      background-color: #EEE;
+      border: none;
+      display: inline-block;
+      height: 200px;
+      line-height: 200px;
+      margin-right: 5px;
+      text-align: center;
+      vertical-align: middle;
+      width: 200px;
+      
+      &.add {
+        font-size: 100px;
+      }
+      
+      &:hover {
+        background-color: #CCC;
+        color: #000;
+      }
+    }
+  }
 }

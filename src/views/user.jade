@@ -16,14 +16,15 @@ block content
         a(href=url, target='_blank')= url
   article
     h3 Collections
-    p
+    div(id='collections')
       if collections
         for collection in collections
-          div
-            a(href='collections/' + collection.id)= collection.name
+          a(href='collections/' + collection.id)
+            span= collection.name
       else
         div No collections exist.
-      form(action='collections', method='post')!= add_collection_form
+      a(class='add', href='collections/add')
+        span +
     h3 Modules
     p
       if modules

@@ -15,6 +15,7 @@ db.models.Account = db.connection.define 'account', {
 }
 
 db.models.Collection = db.connection.define 'collection', {
+  color: mysql.STRING 6
   name: mysql.STRING
 }
 

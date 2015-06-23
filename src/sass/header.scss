@@ -67,6 +67,14 @@ header {
       border-color: #FFFF00;
       color: #000;
     }
+    
+    @media screen and (max-width: 640px) {
+      display: block;
+      margin: 0px;
+      position: absolute;
+      right: 10px;
+      top: 10px;
+    }
   }
   
   .menu {
@@ -75,7 +83,7 @@ header {
     @media screen and (max-width: 640px) {
       display: block;
       left: 10px;
-      position: asbolute;
+      position: absolute;
       top: 10px;
     }
   }
@@ -90,8 +98,9 @@ header {
     width: 50px;
     
     @media screen and (max-width: 640px) {
+      margin: 0px;
+      position: absolute;
       right: 10px;
-      position: asbolute;
       top: 10px;
     }
   }

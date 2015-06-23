@@ -1,5 +1,7 @@
 #sidebar {
   background-color: #333;
+  background-image: url(/images/sidebar-bg.jpg);
+  background-size: 1000px auto;
   color: #999;
   box-sizing: border-box;
   display: none;
@@ -56,10 +58,15 @@
       &:first-of-type {
         border: none;
       }
+      
+      &:hover {
+        color: #FFFF00;
+      }
     }
   }
   
   .title {
+    color: #FFF;
     font-size: 32px;
     padding-bottom: 10px;
     text-align: center;

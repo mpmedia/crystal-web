@@ -105,6 +105,48 @@ module.exports = (app, db) ->
       }
     )
   
+  # GET /user/edit
+  app.get '/user/edit', (req, res) ->
+    db.models.User.findOne({
+      where:
+        id: req.session.userId
+    })
+    .then((user) ->
+      if !user
+        res.status(400).send('Verification failed')
+        return
+      
+      res.render 'edit', {
+        company: user.dataValues.company
+        location: user.dataValues.location
+        name: user.dataValues.name
+        styles: [
+          'styles/page/user.css'
+        ]
+        title: 'Crystal User'
+        username: user.dataValues.username
+        url: user.dataValues.url
+      }
+    )
+  
+  # POST /user/edit
+  app.post '/user/edit', (req, res) ->
+    db.models.User.update({
+      #company: req.body.company
+      location: req.body.location
+      #name: req.body.name
+    },{
+      where:
+        id: req.session.userId
+    })
+    .then((user) ->
+      if !user
+        res.status(400).send('Verification failed')
+        return
+      
+      res.redirect '/user/edit'
+    )
+  
   # GET /user/verify
   app.get '/user/verify/:verification', (req, res) ->
     db.models.User.findOne({

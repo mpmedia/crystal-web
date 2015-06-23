@@ -20,14 +20,9 @@ module.exports = function(grunt) {
             }
         },
         "watch": {
-            "files": [
-                "src/public/js/**/*.js",
-                "src/sass/**/*.scss",
-                "src/views/**/*.jade"
-            ],
+            "files": "src/sass/**/*.scss",
             "tasks": [
-                "sass",
-                "copy"
+                "sass"
             ]
         }
     });

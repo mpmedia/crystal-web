@@ -66,6 +66,7 @@ require('./routes/user')(app, db)
 app.use (req, res, next) ->
   res.status 404
   res.render '404', {
+    avatar: req.session.avatar
     styles: [
       'styles/page/404.css'
     ]

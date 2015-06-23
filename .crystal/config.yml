@@ -165,13 +165,8 @@ outputs:
               sourcemap: none
               style: compressed
         watch:
-          files:
-            - src/public/js/**/*.js
-            - src/sass/**/*.scss
-            - src/views/**/*.jade
-          tasks:
-            - sass
-            - copy
+          files: src/sass/**/*.scss
+          tasks: sass
   - generator: license
     spec:
       copyright: $copyright
