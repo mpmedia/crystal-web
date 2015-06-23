@@ -18,12 +18,12 @@ block content
     h3 Collections
     div(id='collections')
       if collections
-        for collection in collections
-          a(href='collections/' + collection.id)
-            span= collection.name
+        for c in collections
+          a(data-id=c.id, data-color=c.color, data-name=c.name, href='collections/' + c.id, onclick='return editCollection(this)', style='background-color: #' + c.color)
+            span= c.name
       else
         div No collections exist.
-      a(class='add', href='collections/add')
+      a(class='add', onclick='return addCollection()', href='collections/add')
         span +
     h3 Modules
     p

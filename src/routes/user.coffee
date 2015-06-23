@@ -1,10 +1,8 @@
-bluebird = require 'bluebird'
-crypto   = require 'crypto'
+bluebird   = require 'bluebird'
+crypto     = require 'crypto'
+formulator = require '/Users/ctate/.crystal/dev/formulator'
 
-forms = require 'forms'
-fields = forms.fields
-validators = forms.validators
-widgets = forms.widgets
+EditUser = require '../forms/EditUser'
 
 module.exports = (app, db) ->
   # GET /user
@@ -67,34 +65,26 @@ module.exports = (app, db) ->
           repos.push {
             url: repo.url.S
           }
-      
-      add_collection_form = forms.create {
-        name: fields.string({ required: true })
-      }
-
-      add_module_form = forms.create {
-        name: fields.string({ required: true })
-        repository: fields.url({
-          choices: repo_choices
-          required: true
-          widget: widgets.select()
-        })
-      }
-      
+            
       avatar_hash = crypto
         .createHash('md5')
         .update(user_email)
         .digest 'hex'
       
       res.render 'user', {
-        add_collection_form: add_collection_form.toHTML()
-        add_module_form: add_module_form.toHTML()
         avatar: req.session.avatar
         collections: collections
         company: user_company
         location: user_location
         name: user_name
         repos: repos
+        scripts: [
+          'scripts/field/Color.js'
+          'scripts/form/AddCollection.js'
+          'scripts/form/EditCollection.js'
+          'scripts/form/DeleteCollection.js'
+          'scripts/page/user.js'
+        ]
         styles: [
           'styles/page/user.css'
         ]
@@ -116,32 +106,35 @@ module.exports = (app, db) ->
         res.status(400).send('Verification failed')
         return
       
+      form = new formulator EditUser, user.dataValues
+      
       res.render 'edit', {
-        company: user.dataValues.company
-        location: user.dataValues.location
-        name: user.dataValues.name
+        form: form.toString()
         styles: [
           'styles/page/user.css'
         ]
         title: 'Crystal User'
-        username: user.dataValues.username
         url: user.dataValues.url
       }
     )
   
   # POST /user/edit
   app.post '/user/edit', (req, res) ->
+    form = new formulator EditUser, req.body
+    
+    if !form.isValid()
+      res.status(400).send('Validation failed')
+      return
+    
     db.models.User.update({
-      #company: req.body.company
       location: req.body.location
-      #name: req.body.name
     },{
       where:
         id: req.session.userId
     })
     .then((user) ->
       if !user
-        res.status(400).send('Verification failed')
+        res.status(400).send('Update failed')
         return
       
       res.redirect '/user/edit'

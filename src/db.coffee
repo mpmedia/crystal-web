@@ -16,7 +16,9 @@ db.models.Account = db.connection.define 'account', {
 
 db.models.Collection = db.connection.define 'collection', {
   color: mysql.STRING 6
-  name: mysql.STRING
+  name:
+    unique: true
+    type: mysql.STRING
 }
 
 db.models.Module = db.connection.define 'module', {

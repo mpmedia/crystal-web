@@ -1,5 +1,33 @@
 var api = 'https://api.crystal.sh/';
 
+var Crystal = {
+  Popup: {
+    hide: function() {
+      $('#overlay, #popup').fadeOut(function() {
+        $(this).remove();
+      });
+    },
+    show: function(opts) {
+      var overlay = $('<div id="overlay" />');
+      overlay.click(Crystal.Popup.hide);
+      overlay.hide();
+      $('body').append(overlay);
+      
+      var popup = $('<div id="popup" />')
+      popup.append(opts.content);
+      popup.hide();
+      $('body').append(popup);
+      
+      $(window).resize();
+      
+      overlay.fadeIn();
+      popup.fadeIn(function() {
+        $('#popup input').first().focus();
+      });
+    }
+  }
+};
+
 $(document).keydown(function(e) {
   if ($(e.target)[0].tagName == 'INPUT') {
     return;

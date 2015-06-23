@@ -1,20 +1,3 @@
 extends layout
 block content
-  form(action='user/edit', method='post', onsubmit='return login()')
-    p
-      label(for='username') Username
-      div!= username + ' <a href="user/password">Change</a>'
-    p
-      label(for='password') Password
-      div <a href="user/password">Change Password</a>
-    p
-      label(for='name') Name
-      input(name='name', value=name)
-    p
-      label(for='company') Company
-      input(name='company', value=company)
-    p
-      label(for='location') Location
-      input(name='location', value=location)
-    p
-      button(type='submit') Edit Profile
+  div!= form
