@@ -3,9 +3,7 @@
   "method": "post",
   "fields": {
     "id": {
-      "label": "ID",
-      "required": true,
-      "type": "hidden"
+      "formula": "/formulas/fields/id.json"
     }
   },
   "buttons": {

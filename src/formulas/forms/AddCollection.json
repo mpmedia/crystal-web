@@ -7,10 +7,7 @@
       "type": "text"
     },
     "color": {
-      "label": "Color",
-      "maxLength": 6,
-      "regex": "/[0-9a-f]+/i",
-      "type": "text"
+      "formula": "/formulas/fields/color.json"
     }
   },
   "buttons": {

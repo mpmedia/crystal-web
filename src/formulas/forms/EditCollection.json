@@ -3,19 +3,14 @@
   "method": "post",
   "fields": {
     "id": {
-      "label": "ID",
-      "required": true,
-      "type": "hidden"
+      "formula": "/formulas/fields/id.json"
     },
     "name": {
       "label": "Name",
       "type": "text"
     },
     "color": {
-      "label": "Color",
-      "maxLength": 6,
-      "regex": "[0-9a-fA-F]+",
-      "type": "text"
+      "formula": "/formulas/fields/color.json"
     }
   },
   "buttons": {
