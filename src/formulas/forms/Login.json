@@ -3,8 +3,7 @@
   "method": "post",
   "fields": {
     "username": {
-      "label": "Username",
-      "type": "text"
+      "formula": "/formulas/fields/username.json"
     },
     "password": {
       "label": "Password",

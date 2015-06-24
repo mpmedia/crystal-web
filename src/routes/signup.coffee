@@ -1,7 +1,10 @@
-aws      = require 'aws-sdk'
-bluebird = require 'bluebird'
-crypto   = require 'crypto'
-uuid     = require 'node-uuid'
+aws        = require 'aws-sdk'
+bluebird   = require 'bluebird'
+crypto     = require 'crypto'
+formulator = require 'formulator'
+uuid       = require 'node-uuid'
+
+Signup = require '../formulas/forms/Signup'
 
 aws.config.accessKeyId = process.env.AWS_SES_USER
 aws.config.secretAccessKey = process.env.AWS_SES_PASS
@@ -9,7 +12,14 @@ aws.config.secretAccessKey = process.env.AWS_SES_PASS
 module.exports = (app, db) ->
   # GET /signup
   app.get '/signup', (req, res) ->
+    # user already signed in
+    if req.session.userId
+      res.redirect '/user'
+      
+    form = new formulator Signup
+      
     res.render 'signup', {
+      form: form
       styles: [
         'styles/page/signup.css'
       ]
@@ -18,28 +28,52 @@ module.exports = (app, db) ->
     
   # POST /signup
   app.post '/signup', (req, res) ->
+    # load signup form
+    form = new formulator Signup, req.body
+    
+    # generate verification
     verification = uuid.v4()
     
-    db.models.User.create({
-      email: req.body.email
-      username: req.body.username
-      verification: verification
-    })      
+    bluebird.try () ->
+      if !form.isValid()
+        throw new Error 'Validation failed.'
+    .then () ->
+      db.models.User.findOne {
+        where:
+          email: form.data.email
+      }
+    .then (user) ->
+      if user
+        throw new Error 'Email address in use. Please use another.'
+      
+      db.models.User.findOne {
+        where:
+          username: form.data.username
+      }
+    .then (user) ->
+      if user
+        throw new Error 'Username is taken. Please try another.'
+        
+      db.models.User.create {
+        email: form.data.email
+        username: form.data.username
+        verification: verification
+      }
     .then (user) ->
       avatar_hash = crypto.createHash('md5').update(req.body.email).digest 'hex'
       req.session.avatar = "http://www.gravatar.com/avatar/#{avatar_hash}"
       req.session.userId = user.dataValues.id
       return user.setPassword req.body.password
     .then (data) ->
-      ses = new aws.SES({
+      ses = new aws.SES {
         apiVersion: '2012-10-17'
         region: 'us-east-1'
-      })
+      }
       bluebird.promisifyAll ses
       to = ["#{req.body.username} <#{req.body.email}>"]
       from = 'Crystal <noreply@crystal.sh>'
       
-      ses.sendEmailAsync({
+      ses.sendEmailAsync {
         Source: from
         Destination:
           ToAddresses: to
@@ -51,12 +85,15 @@ module.exports = (app, db) ->
               Data: "Thank you for signing up! Please verify your account: http://crystal.sh/user/verify/#{verification}"
             Html:
               Data: "Thank you for signing up! Please verify your account: http://crystal.sh/user/verify/#{verification}"
-      })
-      .then((data) ->
-        console.log data
-      )
-      .catch((e) ->
-        console.log e
-      )
-      
+      }
+    .then (data) ->
       res.redirect '/'
+    .catch (e) ->
+      res.render 'signup', {
+        error: e.message
+        form: form
+        styles: [
+          'styles/page/signup.css'
+        ]
+        title: 'Crystal Sign Up'
+      }

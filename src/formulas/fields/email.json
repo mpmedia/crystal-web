@@ -1,0 +1,6 @@
+{
+  "label": "Email",
+  "maxLength": 150,
+  "required": true,
+  "type": "text"
+}

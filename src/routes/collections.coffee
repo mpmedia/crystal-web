@@ -1,5 +1,5 @@
 bluebird   = require 'bluebird'
-formulator = require '/Users/ctate/.crystal/dev/formulator'
+formulator = require 'formulator'
 
 AddCollection = require '../formulas/forms/AddCollection'
 EditCollection = require '../formulas/forms/EditCollection'

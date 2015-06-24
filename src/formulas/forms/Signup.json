@@ -2,12 +2,10 @@
   "method": "post",
   "fields": {
     "email": {
-      "label": "Email",
-      "type": "text"
+      "formula": "/formulas/fields/email.json"
     },
     "username": {
-      "label": "Username",
-      "type": "text"
+      "formula": "/formulas/fields/username.json"
     },
     "password": {
       "label": "Password",

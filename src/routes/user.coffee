@@ -1,6 +1,6 @@
 bluebird   = require 'bluebird'
 crypto     = require 'crypto'
-formulator = require '/Users/ctate/.crystal/dev/formulator'
+formulator = require 'formulator'
 
 EditUser = require '../formulas/forms/EditUser'
 

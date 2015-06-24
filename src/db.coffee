@@ -36,11 +36,16 @@ db.models.Provider = db.connection.define 'provider', {
 }
 
 db.models.User = db.connection.define 'user', {
-  email: mysql.STRING
+  company: mysql.STRING
+  email:
+    type: mysql.STRING
+    unique: true
   firstName: mysql.STRING
   lastName: mysql.STRING
   location: mysql.STRING
-  username: mysql.STRING
+  username:
+    type: mysql.STRING
+    unique: true
   password: mysql.STRING
   verification: mysql.STRING
   verifiedAt: mysql.DATE

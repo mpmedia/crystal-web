@@ -1,11 +1,12 @@
 crypto = require 'crypto'
-formulator = require '/Users/ctate/.crystal/dev/formulator'
+formulator = require 'formulator'
 
 Login = require '../formulas/forms/Login'
 
 module.exports = (app, db) ->
   # GET /login
   app.get '/login', (req, res) ->
+    # user already signed in
     if req.session.userId
       res.redirect '/user'
     
