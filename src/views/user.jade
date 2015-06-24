@@ -15,6 +15,16 @@ block content
         span URL: 
         a(href=url, target='_blank')= url
   article
+    h3 Accounts
+    div(id='accounts')
+      if accounts
+        for a in accounts
+          a(href='https://github.com/'+a.login, target='_blank')
+            span= a.provider.name + ' / ' + a.login
+      else
+        div No accounts exist.
+      a(class='add', onclick='return addAccount()', href='accounts/add')
+        span +
     h3 Collections
     div(id='collections')
       if collections

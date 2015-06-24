@@ -10,6 +10,7 @@ module.exports = (app, db) ->
     if !req.session.userId
       res.redirect '/'
     
+    accounts = []
     collections = []
     user_id = ""
     user_company = ""
@@ -18,10 +19,12 @@ module.exports = (app, db) ->
     user_name = ""
     user_url = ""
     user_username = ""
-    db.models.User.findOne({
+    
+    db.models.User.findOne {
       where:
         id: req.session.userId
-    }).then((user) ->
+    }
+    .then (user) ->
       if !user
         throw new Error "Please login"
       
@@ -33,28 +36,42 @@ module.exports = (app, db) ->
       user_url = user.dataValues.url
       user_username = user.dataValues.username
       
-      return db.models.Collection.findAll({
+      db.models.Account.findAll {
+        attributes: ['login']
+        include:
+          model: db.models.Provider
+          attributes: ['name']
         where:
           userId: req.session.userId
-      })
+      }
     
-    ).then((collections_data) ->
+    .then (accounts_data) ->
+      accounts = []
+      for account in accounts_data
+        accounts.push account.dataValues
+      
+      db.models.Collection.findAll {
+        where:
+          userId: req.session.userId
+      }
+    
+    .then (collections_data) ->
       collections = []
       for collection in collections_data
         collections.push collection.dataValues
       
-      return db.models.Module.findAll({
+      db.models.Module.findAll({
         where:
           userId: req.session.userId
       })
     
-    ).then((modules) ->
-      return db.models.Repository.findAll({
+    .then (modules) ->
+      db.models.Repository.findAll({
         where:
           userId: req.session.userId
       })
       
-    ).then((repository_data) ->
+    .then (repository_data) ->
       repo_choices = []
       repos = []
       if repository_data.length
@@ -70,6 +87,7 @@ module.exports = (app, db) ->
         .digest 'hex'
       
       res.render 'user', {
+        accounts: accounts
         avatar: req.session.avatar
         collections: collections
         company: user_company
@@ -87,12 +105,11 @@ module.exports = (app, db) ->
         username: user_username
         url: user_url
       }
-    )
   
   # GET /user/edit
   app.get '/user/edit', (req, res) ->
     db.models.User.findById(req.session.userId)
-    .then((user) ->
+    .then (user) ->
       if !user
         res.status(400).send('Verification failed')
         return
@@ -107,7 +124,6 @@ module.exports = (app, db) ->
         ]
         title: 'Crystal User'
       }
-    )
   
   # POST /user/edit
   app.post '/user/edit', (req, res) ->
@@ -117,19 +133,19 @@ module.exports = (app, db) ->
       if !form.isValid()
         throw new Error 'Validation failed.'
     )
-    .then(() ->
+    .then () ->
       db.models.User.update(form.data, {
         where:
           id: req.session.userId
       })
-    )
-    .then((user) ->
+      
+    .then (user) ->
       if !user
         throw new Error 'Update failed.'
       
       res.redirect '/user/edit'
-    )
-    .catch((e) ->
+      
+    .catch (e) ->
       res.render 'edit', {
         avatar: req.session.avatar
         error: e
@@ -139,15 +155,14 @@ module.exports = (app, db) ->
         ]
         title: 'Crystal User'
       }
-    )
   
   # GET /user/verify
   app.get '/user/verify/:verification', (req, res) ->
-    db.models.User.findOne({
+    db.models.User.findOne {
       where:
         verification: req.params.verification
-    })
-    .then((user) ->
+    }
+    .then (user) ->
       if !user
         res.status(400).send('Verification failed')
         return
@@ -157,4 +172,3 @@ module.exports = (app, db) ->
       user.save()
       
       res.redirect '/'
-    )

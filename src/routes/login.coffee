@@ -1,4 +1,4 @@
-crypto = require 'crypto'
+crypto     = require 'crypto'
 formulator = require 'formulator'
 
 Login = require '../formulas/forms/Login'

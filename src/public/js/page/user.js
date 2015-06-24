@@ -1,3 +1,11 @@
+var addAccount = function() {
+  Crystal.Popup.show({
+    content: '<div align="center"><a href="https://github.com/login/oauth/authorize?client_id=1a72d9c6a9602772d577&redirect_uri=http://alpha.crystal.sh:8080/accounts/connect/github&scope=user,public_repo">Connect GitHub Account</a></div><div align="center"><a href="https://bitbucket.org/login/oauth/authorize?client_id=1a72d9c6a9602772d577&redirect_uri=http://alpha.crystal.sh:8080/login/github&scope=user,public_repo">Connect Bitbucket Account</a></div>'
+  });
+  
+  return false;
+};
+
 var addCollection = function() {
   Crystal.Loader.show();
   

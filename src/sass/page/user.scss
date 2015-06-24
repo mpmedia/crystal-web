@@ -1,5 +1,6 @@
 section {
   min-height: 500px;
+  overflow: auto;
   padding: 80px 20px 20px 20px;
   
   article {
@@ -11,7 +12,7 @@ section {
     width: 250px;
   }
   
-  #collections {
+  #accounts, #collections {
     a {
       background-color: #EEE;
       border: none;

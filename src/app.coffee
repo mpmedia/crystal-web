@@ -49,6 +49,7 @@ app.use session({
 
 # load routes
 require('./routes/home')(app, db)
+require('./routes/accounts')(app, db)
 require('./routes/collections')(app, db)
 require('./routes/doc')(app, db)
 require('./routes/docs')(app, db)
