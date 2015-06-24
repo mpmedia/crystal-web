@@ -1,7 +1,10 @@
-bluebird = require 'bluebird'
-marked   = require 'marked'
-request  = require 'request'
-yaml     = require 'js-yaml'
+bluebird   = require 'bluebird'
+formulator = require 'formulator'
+marked     = require 'marked'
+request    = require 'request'
+yaml       = require 'js-yaml'
+
+SearchRegistry = require '../formulas/forms/SearchRegistry'
 
 # enable promises
 bluebird.promisifyAll request
@@ -9,9 +12,12 @@ bluebird.promisifyAll request
 module.exports = (app, db) ->
   # GET /registry
   app.get '/registry', (req, res) ->
+    form = new formulator SearchRegistry
+    
     if !req.query.keywords and !req.session.keywords
       res.render 'search', {
         avatar: req.session.avatar
+        form: form
         title: 'Search Crystal'
       }
       return
@@ -49,6 +55,7 @@ module.exports = (app, db) ->
         
       res.render 'search', {
         avatar: req.session.avatar
+        form: form
         keywords: req.session.keywords
         search:
           results: results
