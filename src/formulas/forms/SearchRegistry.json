@@ -1,0 +1,18 @@
+{
+  "action": "/registry",
+  "method": "get",
+  "fields": {
+    "keywords": {
+      "hideLabel": true,
+      "label": "Keywords",
+      "placeholder": "Example: express, wordpress.zerif-lite, authors.core",
+      "type": "text"
+    }
+  },
+  "buttons": {
+    "submit": {
+      "label": "Search",
+      "type": "submit"
+    }
+  }
+}

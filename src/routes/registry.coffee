@@ -12,7 +12,7 @@ bluebird.promisifyAll request
 module.exports = (app, db) ->
   # GET /registry
   app.get '/registry', (req, res) ->
-    form = new formulator SearchRegistry
+    form = new formulator SearchRegistry, { keywords: req.session.keywords }
     
     if !req.query.keywords and !req.session.keywords
       res.render 'search', {
