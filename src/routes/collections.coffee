@@ -5,6 +5,30 @@ AddCollection = require '../formulas/forms/AddCollection'
 EditCollection = require '../formulas/forms/EditCollection'
 
 module.exports = (app, db) ->
+  # delete collection
+  deleteCollection = (req, res) ->
+    db.models.Collection.findOne({
+      where:
+        id: req.body.id
+    })
+    .then((collection) ->
+      if !collection
+        res.status(400).send('Unknown')
+        return
+      else if collection.dataValues.userId != req.session.userId
+        res.status(400).send('Not yours to delete')
+        return
+        
+      return db.models.Collection.destroy({
+        where:
+          id: req.body.id
+          userId: req.session.userId
+      })
+    )
+    .then((data) ->
+      res.status(200).send { id: req.body.id }
+    )
+  
   # POST /collections
   app.post '/collections', (req, res) ->
     form = new formulator AddCollection, req.body
@@ -27,35 +51,14 @@ module.exports = (app, db) ->
         userId: req.session.userId
       })
     )
-    .then((data) ->
-      console.log data
-      res.redirect '/user'
+    .then((collection) ->
+      res.status(200).send collection.dataValues
     )
   
+  # DELETE /collections
+  app.delete '/collections', deleteCollection
   # POST /collections/delete
-  app.post '/collections/delete', (req, res) ->
-    db.models.Collection.findOne({
-      where:
-        id: req.body.id
-    })
-    .then((collection) ->
-      if !collection
-        res.status(400).send('Unknown')
-        return
-      else if collection.dataValues.userId != req.session.userId
-        res.status(400).send('Not yours to delete')
-        return
-        
-      return db.models.Collection.destroy({
-        where:
-          id: req.body.id
-          userId: req.session.userId
-      })
-    )
-    .then((data) ->
-      console.log data
-      res.redirect '/user'
-    )
+  app.post '/collections/delete', deleteCollection
   
   # POST /collections/edit
   app.post '/collections/edit', (req, res) ->
@@ -86,6 +89,30 @@ module.exports = (app, db) ->
       })
     )
     .then((data) ->
-      console.log data
       res.redirect '/user'
+    )
+  
+  # PATCH /collections
+  app.patch '/collections', (req, res) ->
+    form = new formulator EditCollection, req.body
+    if !form.isValid()
+      res.status(400).send(form.errors)
+      return
+      
+    db.models.Collection.findById(req.body.id)
+    .then((collection) ->
+      if !collection
+        res.status(400).send { error: 'Unknown collection' }
+        return
+      else if collection.dataValues.userId != req.session.userId
+        res.status(400).send { error: 'Not yours to edit' }
+        return
+      
+      collection.color = form.data.color
+      collection.name = form.data.name
+      
+      return collection.save()
+    )
+    .then((collection) ->
+      res.status(200).send collection.dataValues
     )
