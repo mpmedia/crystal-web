@@ -19,7 +19,7 @@ block content
     div(id='collections')
       if collections
         for c in collections
-          a(data-id=c.id, data-color=c.color, data-name=c.name, href='collections/' + c.id, onclick='return editCollection(this)', style='background-color: #' + c.color)
+          a(data-id=c.id, data-color=c.color, data-name=c.name, href='collections/'+c.name, onclick='return editCollection(this)', style='background-color: #' + c.color)
             span= c.name
       else
         div No collections exist.

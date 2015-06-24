@@ -29,6 +29,32 @@ module.exports = (app, db) ->
       res.status(200).send { id: req.body.id }
     )
   
+  # GET /collections
+  app.get '/collections/:name', (req, res) ->
+    bluebird.try () ->
+      collection = db.models.Collection.findOne({
+        where:
+          name: req.params.name
+      })
+    .then (collection) ->
+      res.render 'collection', {
+        avatar: req.session.avatar
+        collection: collection.dataValues
+        styles: [
+          'styles/page/collection.css'
+        ]
+        title: "#{collection.dataValues.name} Collection | Crystal"
+      }
+    .catch (e) ->
+      res.status 404
+      res.render '404', {
+        avatar: req.session.avatar
+        styles: [
+          'styles/page/404.css'
+        ]
+        url: req.url
+      }
+  
   # POST /collections
   app.post '/collections', (req, res) ->
     form = new formulator AddCollection, req.body

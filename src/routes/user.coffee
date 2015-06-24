@@ -43,8 +43,6 @@ module.exports = (app, db) ->
       for collection in collections_data
         collections.push collection.dataValues
       
-      console.log collections
-      
       return db.models.Module.findAll({
         where:
           userId: req.session.userId
