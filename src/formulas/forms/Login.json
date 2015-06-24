@@ -1,4 +1,5 @@
 {
+  "action": "/login",
   "method": "post",
   "fields": {
     "username": {

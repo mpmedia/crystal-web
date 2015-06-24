@@ -1,9 +1,18 @@
 crypto = require 'crypto'
+formulator = require '/Users/ctate/.crystal/dev/formulator'
+
+Login = require '../formulas/forms/Login'
 
 module.exports = (app, db) ->
   # GET /login
   app.get '/login', (req, res) ->
+    if req.session.userId
+      res.redirect '/user'
+    
+    form = new formulator Login
+    
     res.render 'login', {
+      form: form
       styles: [
         'styles/page/login.css'
       ]
@@ -13,6 +22,8 @@ module.exports = (app, db) ->
   # POST /login
   user = {}
   app.post '/login', (req, res) ->
+    form = new formulator Login, req.body
+    
     db.models.User.findOne({
       where:
         username: req.body.username
@@ -32,11 +43,16 @@ module.exports = (app, db) ->
       req.session.avatar = "http://www.gravatar.com/avatar/#{avatar_hash}"
       req.session.userId = user.dataValues.id
       
-      url = req.header('Referer') or '/'
+      if req.header('Referer') && !req.header('Referer').match('/login')
+        url = req.header('Referer')
+      else
+        url = '/'
+        
       res.redirect url
     )
     .catch((e) ->
       res.render 'login', {
+        form: form
         error: e
         styles: [
           'styles/page/login.css'
