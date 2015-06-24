@@ -93,10 +93,7 @@ module.exports = (app, db) ->
   
   # GET /user/edit
   app.get '/user/edit', (req, res) ->
-    db.models.User.findOne({
-      where:
-        id: req.session.userId
-    })
+    db.models.User.findById(req.session.userId)
     .then((user) ->
       if !user
         res.status(400).send('Verification failed')
@@ -105,12 +102,12 @@ module.exports = (app, db) ->
       form = new formulator EditUser, user.dataValues
       
       res.render 'edit', {
+        avatar: req.session.avatar
         form: form.toString()
         styles: [
           'styles/page/user.css'
         ]
         title: 'Crystal User'
-        url: user.dataValues.url
       }
     )
   
@@ -118,20 +115,32 @@ module.exports = (app, db) ->
   app.post '/user/edit', (req, res) ->
     form = new formulator EditUser, req.body
     
-    if !form.isValid()
-      res.status(400).send('Validation failed')
-      return
-    
-    db.models.User.update(form.data, {
-      where:
-        id: req.session.userId
-    })
+    bluebird.try(() ->
+      if !form.isValid()
+        throw new Error 'Validation failed.'
+    )
+    .then(() ->
+      db.models.User.update(form.data, {
+        where:
+          id: req.session.userId
+      })
+    )
     .then((user) ->
       if !user
-        res.status(400).send('Update failed')
-        return
+        throw new Error 'Update failed.'
       
       res.redirect '/user/edit'
+    )
+    .catch((e) ->
+      res.render 'edit', {
+        avatar: req.session.avatar
+        error: e
+        form: form.toString()
+        styles: [
+          'styles/page/user.css'
+        ]
+        title: 'Crystal User'
+      }
     )
   
   # GET /user/verify

@@ -2,23 +2,26 @@
   "method": "post",
   "fields": {
     "username": {
-      "label": "Username",
-      "type": "text"
+      "formula": "/formulas/fields/username.json"
     },
     "company": {
       "label": "Company",
+      "maxLength": 32,
       "type": "text"
     },
     "location": {
       "label": "Location",
+      "maxLength": 32,
       "type": "text"
     },
     "firstName": {
       "label": "First Name",
+      "maxLength": 16,
       "type": "text"
     },
     "lastName": {
       "label": "Last Name",
+      "maxLength": 16,
       "type": "text"
     }
   },
