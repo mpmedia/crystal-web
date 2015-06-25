@@ -27,17 +27,27 @@ module.exports = (app, db) ->
     
     results = []
     db.models.Module.findAll({
-      where: ['name like ?', "%#{req.session.keywords}%"]
+      include: [
+        {
+          model: db.models.Collection
+          attributes: ['name']
+        }
+        {
+          model: db.models.User
+          attributes: ['username']
+        }
+      ]
+      where: ['module.name like ?', "%#{req.session.keywords}%"]
     }).then((modules) ->
       for mod in modules
         results.push {
           id: mod.dataValues.id
-          name: mod.dataValues.name
+          name: "#{mod.dataValues.collection.name}.#{mod.dataValues.name}"
           type: 'Module'
-          user: mod.dataValues.userId
+          user: mod.dataValues.user.username
         }
         
-      return db.models.Collection.findAll {
+      db.models.Collection.findAll {
         include:
           model: db.models.User
           attributes: ['username']
@@ -97,7 +107,7 @@ module.exports = (app, db) ->
             repository: data.dataValues.repositoryId
           }
           
-          return db.models.Repository.findOne({
+          db.models.Repository.findOne({
             where:
               id: module.repository
           })
@@ -111,7 +121,7 @@ module.exports = (app, db) ->
             url: data.dataValues.url
           }
           
-          return request.getAsync {
+          request.getAsync {
             headers: headers
             url: "https://api.github.com/repositories/#{repository.identifier}/contents/.crystal/config.yml"
           }
@@ -123,7 +133,7 @@ module.exports = (app, db) ->
             throw new Error "Failed to get config"
           config = new Buffer(config.content, 'base64').toString()
           
-          return request.getAsync {
+          request.getAsync {
             headers: headers
             url: "https://api.github.com/repositories/#{repository.identifier}/readme"
           }
@@ -135,7 +145,7 @@ module.exports = (app, db) ->
             throw new Error "Failed to get readme"
           readme = new Buffer(readme.content, 'base64').toString()
           
-          return request.getAsync {
+          request.getAsync {
             headers: headers
             url: "https://api.github.com/repositories/#{repository.identifier}/contents/LICENSE"
           }
