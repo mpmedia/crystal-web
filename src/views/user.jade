@@ -36,17 +36,13 @@ block content
       a(class='add', onclick='return addCollection()', href='collections/add')
         span +
     h3 Modules
-    p
+    div(id='modules')
       if modules
-        for module in modules
-          div
-            a(href='modules/' + module.id)
+        for m in modules
+          a(href='modules/'+m.name, onclick='return editModule(this)', style='background-color: #' + m.color)
+            span= m.name
       else
         div No modules exist.
-      form(action='modules', method='post')!= add_module_form
-    h3 Repositories
-    p
-      for repo in repos
-        div
-          a(href=repo.url)= repo.url
+      a(class='add', onclick='return addModule()', href='modules/add')
+        span +
     a(class='button', href='/logout') Logout

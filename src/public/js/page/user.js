@@ -34,6 +34,68 @@ var addCollection = function() {
   return false;
 };
 
+var addModule = function() {
+  Crystal.Loader.show();
+  
+  new formulator({
+    formula: '/formulas/forms/AddModule.json',
+    xhr: true,
+    ready: function(form) {
+      $.when(
+        $.ajax({
+          url: '/accounts',
+          dataType: 'json'
+        }),
+        $.ajax({
+          url: '/collections',
+          dataType: 'json'
+        }),
+        $.ajax({
+          url: '/repositories',
+          dataType: 'json'
+        })
+      ).done(function(accounts, collections, repositories) {
+        accounts = accounts[0];
+        collections = collections[0];
+        repositories = repositories[0];
+        
+        form.fields.account.options = {}
+        for (var i in accounts) {
+          form.fields.account.options[accounts[i].id] = accounts[i].login;
+        }
+        
+        form.fields.collection.options = {}
+        for (var i in collections) {
+          form.fields.collection.options[collections[i].id] = collections[i].name;
+        }
+        
+        form.fields.repository.options = {}
+        for (var i in repositories) {
+          form.fields.repository.options[repositories[i].uuid] = repositories[i].url;
+        }
+        
+        Crystal.Popup.show({
+          title: 'Add Module',
+          content: form.toString()
+        });
+      });
+    },
+    submit: function() {
+      console.log('Loading...');
+    },
+    error: function(data) {
+      $('#popup .error').text('Unable to update module');
+      $(window).resize();
+    },
+    success: function(data) {
+      $('#modules a').last().before('<a href="#" style="background-color: #' + data.color + '">' + data.name + '</a>');
+      Crystal.Popup.hide();
+    }
+  });
+    
+  return false;
+};
+
 var editCollection = function(o) {
   Crystal.Loader.show();
   

@@ -6,6 +6,20 @@ request  = require 'request'
 bluebird.promisifyAll request
 
 module.exports = (app, db) ->
+  # GET /accounts
+  app.get '/accounts', (req, res) ->
+    accounts = db.models.Account.findAll {
+      attributes: ['id','login']
+      where:
+        userId: req.session.userId
+    }
+    .then (accounts_data) ->
+      accounts = []
+      for account in accounts_data
+        accounts.push account.dataValues
+      
+      res.status(200).send accounts
+      
   # GET /accounts/connect/:provider
   app.get '/accounts/connect/:provider', (req, res) ->
     # require code from provider
@@ -68,19 +82,20 @@ module.exports = (app, db) ->
       if access_token.error
         throw new Error "Invalid access token"
       
-      # collect token
-      data.token = access_token.access_token
+      # collect tokens
+      data.access_token = access_token.access_token
+      data.refresh_token = access_token.refresh_token
       
       # get user info
       if data.provider == 1
         request.getAsync {
           headers: headers
-          url: "https://api.github.com/user?access_token=#{data.token}"
+          url: "https://api.github.com/user?access_token=#{data.access_token}"
         }
       else if data.provider == 2
         request.getAsync {
           headers: headers
-          url: "https://api.bitbucket.org/2.0/user?access_token=#{data.token}"
+          url: "https://api.bitbucket.org/2.0/user?access_token=#{data.access_token}"
         }
     
     .then (user) ->
@@ -91,9 +106,10 @@ module.exports = (app, db) ->
       
       # create account
       account = db.models.Account.create {
+        access_token: data.access_token
         login: user.login || user.username
         providerId: data.provider
-        token: data.token
+        refresh_token: data.refresh_token
         userId: req.session.userId
         uuid: user.id || user.uuid
       }

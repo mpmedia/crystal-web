@@ -1,0 +1,28 @@
+{
+  "action": "/modules",
+  "method": "post",
+  "fields": {
+    "name": {
+      "label": "Name",
+      "type": "text"
+    },
+    "collection": {
+      "label": "Collection",
+      "type": "select"
+    },
+    "account": {
+      "label": "Account",
+      "type": "select"
+    },
+    "repository": {
+      "label": "Repository",
+      "type": "select"
+    }
+  },
+  "buttons": {
+    "submit": {
+      "label": "Add Module",
+      "type": "submit"
+    }
+  }
+}

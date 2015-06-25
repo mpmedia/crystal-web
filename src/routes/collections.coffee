@@ -19,7 +19,7 @@ module.exports = (app, db) ->
         res.status(400).send('Not yours to delete')
         return
         
-      return db.models.Collection.destroy({
+      db.models.Collection.destroy({
         where:
           id: req.body.id
           userId: req.session.userId
@@ -30,6 +30,20 @@ module.exports = (app, db) ->
     )
   
   # GET /collections
+  app.get '/collections', (req, res) ->
+    collections = db.models.Collection.findAll {
+      attributes: ['id','name']
+      where:
+        userId: req.session.userId
+    }
+    .then (collections_data) ->
+      collections = []
+      for collection in collections_data
+        collections.push collection.dataValues
+      
+      res.status(200).send collections
+  
+  # GET /collections/:name
   app.get '/collections/:name', (req, res) ->
     bluebird.try () ->
       collection = db.models.Collection.findOne({
