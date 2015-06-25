@@ -64,6 +64,7 @@ db.models.User = db.connection.define 'user', {
 db.models.Account.belongsTo db.models.Provider
 db.models.Account.belongsTo db.models.User
 db.models.Collection.belongsTo db.models.User
+db.models.Module.belongsTo db.models.Account
 db.models.Module.belongsTo db.models.Collection
 db.models.Module.belongsTo db.models.Repository
 db.models.Module.belongsTo db.models.User

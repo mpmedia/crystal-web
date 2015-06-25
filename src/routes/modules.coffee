@@ -1,31 +1,38 @@
-aws      = require 'aws-sdk'
-bluebird = require 'bluebird'
-uuid     = require 'node-uuid'
+bluebird   = require 'bluebird'
+formulator = require 'formulator'
 
-# scan modules table
-db = new aws.DynamoDB({
-  region: 'us-east-1'
-  endpoint: 'http://localhost:8000'
-})
+AddModule = require '../formulas/forms/AddModule'
 
-# enable promises
-bluebird.promisifyAll Object.getPrototypeOf(db)
-
-module.exports = (app) ->
+module.exports = (app, db) ->
   # POST /modules
   app.post '/modules', (req, res) ->
-    db.putItemAsync({
-      TableName: 'Module'
-      Item:
-        id:
-          S: uuid.v4()
-        name:
-          S: req.body.name
-        repository:
-          S: req.body.repository
-        user:
-          N: req.session.github.id.toString()
-    }).then((data) ->
-      console.log data
-      res.redirect '/user'
-    )
+    form = new formulator AddModule, req.body
+      
+    bluebird.try () ->
+      if !form.isValid()
+        throw new Error 'Validation failed'
+        
+    .then () ->
+      db.models.Module.findOne {
+        where:
+          name: req.body.name
+      }
+      
+    .then (data) ->
+      if data
+        throw new Error 'Duplicate name'
+      
+      db.models.Module.create {
+        accountId: form.data.account
+        collectionId: form.data.collection
+        color: form.data.color
+        name: form.data.name
+        userId: req.session.userId
+      }
+      
+    .then (module) ->
+      res.status(200).send module.dataValues
+    
+    .catch (e) ->
+      console.log e
+      res.status(400).send { error: e }
