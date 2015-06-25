@@ -10,9 +10,9 @@ db.connection = new mysql process.env.CRYSTAL_DB, process.env.CRYSTAL_USER, proc
 bluebird.promisifyAll db.connection
 
 db.models.Account = db.connection.define 'account', {
-  identifier: mysql.INTEGER
   login: mysql.STRING
   token: mysql.STRING
+  uuid: mysql.STRING
 }
 
 db.models.Collection = db.connection.define 'collection', {
