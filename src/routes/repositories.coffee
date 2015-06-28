@@ -20,16 +20,18 @@ module.exports = (app, db) ->
     .then (accounts_data) ->
       requests = []
       for account in accounts_data
-        if account.dataValues.providerId == 1
-          requests.push request.getAsync({
-            headers: headers
-            url: "https://api.github.com/user/repos?access_token=#{account.dataValues.access_token}&per_page=100"
-          })
-        else if account.dataValues.providerId == 2
-          requests.push request.getAsync({
-            headers: headers
-            url: "https://api.bitbucket.org/2.0/repositories/#{account.dataValues.uuid}?access_token=#{account.dataValues.access_token}"
-          })
+        # get url for request
+        url = switch account.dataValues.providerId
+          when 1
+            "https://api.github.com/user/repos?access_token=#{account.dataValues.access_token}&per_page=100"
+          when 2
+            "https://api.bitbucket.org/2.0/repositories/#{account.dataValues.uuid}?access_token=#{account.dataValues.access_token}"      
+        
+        # get account repos
+        requests.push request.getAsync {
+          headers: headers
+          url: url
+        }
       
       bluebird.all requests
       .then (results) ->

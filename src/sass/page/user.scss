@@ -15,7 +15,7 @@ section {
   #accounts, #collections, #modules {
     a {
       background-color: #EEE;
-      border: none;
+      border: 1px #EEE solid;
       display: inline-block;
       height: 200px;
       line-height: 200px;
@@ -29,7 +29,7 @@ section {
       }
       
       &:hover {
-        background-color: #CCC;
+        border: 1px #999 solid;
         color: #000;
       }
     }
