@@ -53,16 +53,20 @@ $(document).keydown(function(e) {
   
   switch (e.keyCode) {
     case 27: {
-      $('#content, header').animate({
-        width: $(window).width()
-      });
-      $('#sidebar').animate({
-        right: -300
-      },{
-        complete: function() {
-          $(this).removeClass('open');
-        }
-      });
+      if ($('#popup').length) {
+        Crystal.Popup.hide();
+      } else {
+        $('#content, header').animate({
+          width: $(window).width()
+        });
+        $('#sidebar').animate({
+          right: -300
+        },{
+          complete: function() {
+            $(this).removeClass('open');
+          }
+        });
+      }
       break;
     }
     case 85: {
