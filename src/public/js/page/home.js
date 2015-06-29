@@ -26,7 +26,7 @@ $(window).load(function() {
       }
       color = '';
       data = 'expand'
-      padding = 20;
+      padding = 40;
       
     } else {
       if (type == 'collapse') {
@@ -34,7 +34,7 @@ $(window).load(function() {
       }
       color = '#000';
       data = 'collapse'
-      padding = 0;
+      padding = 10;
     }
     
     if (type == 'collapse') {

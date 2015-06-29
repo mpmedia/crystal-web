@@ -8,7 +8,8 @@
 
 header {
   background-color: #000;
-  height: 70px;
+  box-sizing: border-box;
+  padding: 10px;
   position: fixed;
   width: 100%;
   z-index: 100;
@@ -20,7 +21,6 @@ header {
   nav {
     float: right;
     font-size: 18px;
-    margin-top: 10px;
     text-transform: uppercase;
     
     a {
@@ -39,9 +39,8 @@ header {
   }
   
   .logo {
-    left: 10px;
-    position: absolute;
-    top: 10px;
+    float: left;
+    height: 50px;
     
     @media screen and (max-width: 640px) {
       left: 50%;
@@ -92,8 +91,6 @@ header {
     border-radius: 50px;
     float: right;
     height: 50px;
-    margin-right: 10px;
-    margin-top: 10px;
     overflow: hidden;
     width: 50px;
     
@@ -105,109 +102,3 @@ header {
     }
   }
 }
-
-
-/*
-header {
-  background-color: #000;
-  font-size: 18px;
-  height: 70px;
-  left: 0px;
-  position: fixed;
-  text-transform: uppercase;
-  top: 0px;
-  width: 100%;
-  
-  nav {
-    &.avatar {
-      right: 70px;
-    }
-    
-    a {
-      @include transition(color, .2s, linear);
-      
-      color: #FFF;
-      display: inline-block;
-      padding: 10px 10px 9px 10px;
-      
-      &:hover {
-        color: #FFFF00;
-      }
-    }
-  }
-  
-  .logo {
-    left: 10px;
-    position: absolute;
-    top: 10px;
-    
-    img {
-      height: 50px;
-    }
-  }
-  
-  .login {
-    @include transition(all, .2s, linear);
-    
-    border: 2px #FFF solid;
-    border-radius: 50px;
-    color: #FFF;
-    right: 10px;
-    padding: 10px 10px 9px 10px;
-    text-align: center;
-    top: 13px;
-    width: 70px;
-    
-    &:hover {
-      background-color: #FFFF00;
-      border-color: #FFFF00;
-      color: #000;
-    }
-  }
-  
-  .menu {
-    display: none;
-  }
-  
-  .user {
-    @include transition(box-shadow, .2s, linear);
-    
-    border: 1px #000 solid;
-    border-radius: 50px;
-    height: 50px;
-    overflow: hidden;
-    width: 50px;
-    
-    &:hover {
-      border: 1px #333 solid;
-      box-shadow: 0px 0px 50px #CCC;
-    }
-    
-    img {
-      height: 50px;
-      width: 50px;
-    }
-  }
-}
-
-@media screen and (max-width: 640px) {
-  body {
-    background-position: center 30px;
-  }
-  
-  header {
-    nav {
-      display: none;
-    }
-    
-    .logo {
-      left: 50%;
-      margin-left: -89px;
-    }
-    
-    .menu {
-      display: block;
-    }
-  }
-}
-*/
