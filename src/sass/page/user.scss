@@ -15,12 +15,17 @@ section {
   
   #accounts, #collections, #modules {
     a {
-      background-color: #EEE;
+      background-color: #FFF;
+      background-position: 20px 20px;
+      border-radius: 5px;
+      background-repeat: no-repeat;
+      background-size: 200px 200px;
       border: 1px #EEE solid;
       display: inline-block;
       height: 200px;
       line-height: 200px;
       margin: 5px;
+      padding: 20px;
       text-align: center;
       vertical-align: middle;
       width: 200px;

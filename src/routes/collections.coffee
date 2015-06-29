@@ -1,5 +1,7 @@
+aws        = require 'aws-sdk'
 bluebird   = require 'bluebird'
 formulator = require 'formulator'
+fs         = require 'fs'
 
 AddCollection = require '../formulas/forms/AddCollection'
 EditCollection = require '../formulas/forms/EditCollection'
@@ -73,27 +75,51 @@ module.exports = (app, db) ->
   app.post '/collections', (req, res) ->
     form = new formulator AddCollection, req.body
     if !form.isValid()
-      res.status(400).send('Validation failed')
-      return
+      throw new Error 'Validation failed'
     
-    db.models.Collection.findOne({
+    data = {}
+    
+    db.models.Collection.findOne {
       where:
         name: req.body.name
-    })
-    .then((data) ->
+    }
+    
+    .then (data) ->
       if data
-        res.status(400).send('Duplicate')
+        throw new Error 'Duplicate collection'
         return
       
-      return db.models.Collection.create({
+      db.models.Collection.create {
         color: form.data.color
         name: form.data.name
         userId: req.session.userId
-      })
-    )
-    .then((collection) ->
-      res.status(200).send collection.dataValues
-    )
+      }
+    
+    .then (collection) ->
+      data.collection = collection.dataValues
+    
+      aws.config.accessKeyId = process.env.AWS_S3_USER
+      aws.config.secretAccessKey = process.env.AWS_S3_PASS
+      
+      s3 = new aws.S3 {
+        params:
+          Bucket: 'crystal-alpha'
+          Key: 'collections/' + data.collection.id + '.svg'
+      }
+      
+      bluebird.promisifyAll s3
+      s3.uploadAsync {
+        ACL: 'public-read'
+        Body: fs.readFileSync "#{req.files.image.path}", 'utf8'
+        ContentType: 'image/svg+xml'
+      }
+      
+    .then (image) ->
+      res.status(200).send data.collection
+    
+    .catch (e) ->
+      console.log e
+      res.status(400).send(e)
   
   # DELETE /collections
   app.delete '/collections', deleteCollection

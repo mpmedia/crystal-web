@@ -30,8 +30,7 @@ block content
     div(id='collections')
       if collections
         for c in collections
-          a(data-id=c.id, data-color=c.color, data-name=c.name, href='collections/'+c.name, onclick='return editCollection(this)', style='background-color: #' + c.color)
-            span= c.name
+          a(data-id=c.id, data-color=c.color, data-name=c.name, href='collections/'+c.name, onclick='return editCollection(this)', style='border: 2px #' + c.color + ' solid; background-image: url(https://crystal-alpha.s3.amazonaws.com/collections/' + c.id + '.svg)')
       else
         div No collections exist.
       a(class='add', onclick='return addCollection()', href='collections/add')

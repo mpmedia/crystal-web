@@ -2,9 +2,17 @@
   "action": "/collections",
   "method": "post",
   "fields": {
+    "image": {
+      "label": "Collection",
+      "type": "image"
+    },
     "name": {
       "label": "Name",
       "type": "text"
+    },
+    "description": {
+      "label": "Description",
+      "type": "textarea"
     },
     "color": {
       "formula": "/formulas/fields/color.json"

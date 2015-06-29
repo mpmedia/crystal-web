@@ -2,6 +2,7 @@
 body          = require 'body-parser'
 cookie        = require 'cookie-parser'
 express       = require 'express'
+multer        = require 'multer'
 path          = require 'path'
 session       = require 'express-session'
 redis         = require 'redis'
@@ -34,8 +35,11 @@ app.use '/scripts', express.static("#{__dirname}/public/js")
 app.use '/styles', express.static("#{__dirname}/public/css")
 
 # setup middleware
+app.use body.urlencoded { extended: true }
+app.use body.json()
 app.use body()
 app.use cookie()
+app.use multer { dest: './uploads/'}
 app.use session({
   store: new redisStore {
     client: sessionClient
