@@ -30,7 +30,7 @@ var addCollection = function() {
       $(window).resize();
     },
     success: function(data) {
-      $('#collections a').last().before('<a href="#" style="background-color: #' + data.color + '">' + data.name + '</a>');
+      $('#collections a').last().before('<a href="#" style="background-image: url(https://s3.amazonaws.com/crystal-alpha/collections/' + data.id + '.svg); border: 2px #' + data.color + ' solid"></a>');
       Crystal.Popup.hide();
     }
   });

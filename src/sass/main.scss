@@ -173,6 +173,17 @@ section {
   padding: 5px;
 }
 
+.icon {
+  height: 24px;
+  vertical-align: middle;
+  width: 24px;
+}
+
+.label {
+  display: inline-block;
+  margin-left: 5px;
+}
+
 #app {
   width: 200%;
 }

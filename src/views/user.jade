@@ -1,19 +1,28 @@
 extends layout
 block content
   aside
-    img(src=avatar + '?s=200')
     h2
       span= username
       if name
         span= ' (' + name + ')'
-    if company
-      p= 'Company: ' + company
-    if location
-      p= 'Location: ' + location
-    if url
-      p
-        span URL: 
-        a(href=url, target='_blank')= url
+    img(class='image', src=avatar + '?s=500')
+    ul
+      if company
+        li
+          img(class='icon', src='/images/company.svg')
+          span(class='label')= company
+      if location
+        li
+          img(class='icon', src='/images/location.svg')
+          span(class='label')= location
+      if email
+        li
+          img(class='icon', src='/images/email.svg')
+          a(class='label', href='mailto:'+email)= email
+      if website
+        li
+          img(class='icon', src='/images/website.svg')
+          a(class='label', href=url, target='_blank')= website
   article
     h3 Accounts
     div(id='accounts')
@@ -30,7 +39,7 @@ block content
     div(id='collections')
       if collections
         for c in collections
-          a(data-id=c.id, data-color=c.color, data-name=c.name, href='collections/'+c.name, onclick='return editCollection(this)', style='border: 2px #' + c.color + ' solid; background-image: url(https://crystal-alpha.s3.amazonaws.com/collections/' + c.id + '.svg)')
+          a(data-id=c.id, data-color=c.color, data-name=c.name, href='collections/'+c.name, style='border: 2px #' + c.color + ' solid; background-image: url(https://crystal-alpha.s3.amazonaws.com/collections/' + c.id + '.svg)')
       else
         div No collections exist.
       a(class='add', onclick='return addCollection()', href='collections/add')

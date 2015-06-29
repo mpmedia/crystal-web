@@ -19,6 +19,7 @@ module.exports = (app, db) ->
     user_name = ""
     user_url = ""
     user_username = ""
+    user_website = ""
     
     db.models.User.findOne {
       where:
@@ -35,6 +36,7 @@ module.exports = (app, db) ->
       user_name = user.dataValues.name
       user_url = user.dataValues.url
       user_username = user.dataValues.username
+      user_website = user.dataValues.website
       
       db.models.Account.findAll {
         attributes: ['login']
@@ -91,6 +93,7 @@ module.exports = (app, db) ->
         avatar: req.session.avatar
         collections: collections
         company: user_company
+        email: user_email
         location: user_location
         name: user_name
         repos: repos
@@ -104,6 +107,7 @@ module.exports = (app, db) ->
         unverified: true
         username: user_username
         url: user_url
+        website: user_website
       }
   
   # GET /user/edit

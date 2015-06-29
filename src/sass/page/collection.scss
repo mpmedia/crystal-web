@@ -2,15 +2,16 @@ section {
   padding: 70px 0px 0px 0px;
   
   h2 {
+    background-color: #EEE;
     font-size: 100px;
     padding-top: 20px;
     text-align: center
   }
   
   .image {
-    background-position: center 25%;
+    background-position: center center;
     background-repeat: no-repeat;
-    background-size: 700px 700px;
+    background-size: 250px 250px;
     height: 300px;
   }
 }

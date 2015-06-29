@@ -6,9 +6,9 @@ var Crystal = {
        return ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
     },
     random: function() {
-      var r = Crystal.Number.random(1, 120);
-      var g = Crystal.Number.random(1, 120);
-      var b = Crystal.Number.random(1, 120);
+      var r = Crystal.Number.random(120, 255);
+      var g = Crystal.Number.random(120, 255);
+      var b = Crystal.Number.random(120, 255);
       
       return Crystal.Color.rgbToHex(r, g, b);
     }

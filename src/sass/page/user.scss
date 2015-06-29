@@ -1,16 +1,37 @@
 section {
   min-height: 500px;
   overflow: auto;
-  padding: 80px 20px 20px 20px;
+  padding: 70px 0px 20px 0px;
   
   article {
+    box-sizing: border-box;
     float: left;
+    padding: 20px;
     width: 70%;
   }
   
   aside {
+    background-color: #EEE;
+    border-bottom-right-radius: 20px;
+    box-sizing: border-box;
     float: left;
+    padding: 20px 60px 40px 60px;
     width: 30%;
+    
+    ul {
+      list-style-type: none;
+      margin: 0px;
+      padding: 20px 0px 0px 0px;
+      
+      li {
+        padding-bottom: 5px;
+      }
+    }
+    
+    .image {
+      border: 1px #CCC solid;
+      width: 100%;
+    }
   }
   
   #accounts, #collections, #modules {

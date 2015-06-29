@@ -51,6 +51,7 @@ db.models.User = db.connection.define 'user', {
   password: mysql.STRING
   verification: mysql.STRING
   verifiedAt: mysql.DATE
+  website: mysql.STRING
 },{
   instanceMethods:
     setPassword: (password) ->
