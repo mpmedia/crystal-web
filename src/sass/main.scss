@@ -99,8 +99,24 @@ pre {
 }
 
 form {
+  button, .button {
+    border: 2px #000 solid;
+    color: #000;
+    width: 100%;
+    
+    &:hover {
+      background-color: #000;
+      color: #FFF;
+    }
+  }
+  
   div {
     padding-bottom: 5px;
+  }
+  
+  select {
+    font-size: 18px;
+    width: 100%;
   }
 }
 

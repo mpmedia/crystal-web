@@ -1,6 +1,18 @@
 var api = 'https://api.crystal.sh/';
 
 var Crystal = {
+  Color: {
+    rgbToHex: function(r, g, b) {
+       return ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
+    },
+    random: function() {
+      var r = Crystal.Number.random(1, 120);
+      var g = Crystal.Number.random(1, 120);
+      var b = Crystal.Number.random(1, 120);
+      
+      return Crystal.Color.rgbToHex(r, g, b);
+    }
+  },
   Loader: {
     hide: function() {
       Crystal.Popup.hide();
@@ -9,6 +21,11 @@ var Crystal = {
       Crystal.Popup.show({
         content: 'Loading...'
       });
+    }
+  },
+  Number: {
+    random: function(min, max) {
+      return Math.floor(Math.random()*(max-min+1)+min);
     }
   },
   Popup: {

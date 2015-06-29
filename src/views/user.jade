@@ -20,7 +20,8 @@ block content
       if accounts
         for a in accounts
           a(href='https://github.com/'+a.login, target='_blank')
-            span= a.provider.name + ' / ' + a.login
+            img(height=16, src='/images/github-account.svg')
+            span= a.login
       else
         div No accounts exist.
       a(class='add', onclick='return addAccount()', href='accounts/add')

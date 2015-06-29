@@ -14,6 +14,9 @@ var addCollection = function() {
     formula: '/formulas/forms/AddCollection.json',
     xhr: true,
     ready: function(form) {
+      form.data.color = Crystal.Color.random();
+      form.fields.color.type = 'hidden';
+      
       Crystal.Popup.show({
         title: 'Add Collection',
         content: form.toString()
