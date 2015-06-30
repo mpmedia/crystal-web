@@ -17,14 +17,26 @@ db.models.Account = db.connection.define 'account', {
 }
 
 db.models.Collection = db.connection.define 'collection', {
+  description: mysql.STRING
   color: mysql.STRING 6
+  favorites: mysql.INTEGER
+  rating: mysql.DECIMAL 10, 2
   name:
     unique: true
     type: mysql.STRING
+  website: mysql.STRING
+}
+
+db.models.FavoriteCollection = db.connection.define 'favorite_collection', {
 }
 
 db.models.Module = db.connection.define 'module', {
   name: mysql.STRING
+  rating: mysql.DECIMAL 10, 2
+}
+
+db.models.ModuleRating = db.connection.define 'module_rating', {
+  rating: mysql.INTEGER 1
 }
 
 db.models.Repository = db.connection.define 'repository', {
@@ -65,10 +77,14 @@ db.models.User = db.connection.define 'user', {
 db.models.Account.belongsTo db.models.Provider
 db.models.Account.belongsTo db.models.User
 db.models.Collection.belongsTo db.models.User
+db.models.FavoriteCollection.belongsTo db.models.Collection
+db.models.FavoriteCollection.belongsTo db.models.User
 db.models.Module.belongsTo db.models.Account
 db.models.Module.belongsTo db.models.Collection
 db.models.Module.belongsTo db.models.Repository
 db.models.Module.belongsTo db.models.User
+db.models.ModuleRating.belongsTo db.models.Module
+db.models.ModuleRating.belongsTo db.models.User
 db.models.Repository.belongsTo db.models.Provider
 db.models.Repository.belongsTo db.models.User
 

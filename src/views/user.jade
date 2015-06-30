@@ -22,7 +22,7 @@ block content
       if website
         li
           img(class='icon', src='/images/website.svg')
-          a(class='label', href=url, target='_blank')= website
+          a(class='label', href=website, target='_blank')= website
   article
     h3 Accounts
     div(id='accounts')
@@ -36,14 +36,17 @@ block content
       a(class='add', onclick='return addAccount()', href='accounts/add')
         span +
     h3 Collections
-    div(id='collections')
+    ul(id='collections')
       if collections
         for c in collections
-          a(data-id=c.id, data-color=c.color, data-name=c.name, href='collections/'+c.name, style='border: 2px #' + c.color + ' solid; background-image: url(https://crystal-alpha.s3.amazonaws.com/collections/' + c.id + '.svg)')
+          li(data-id=c.id, data-color=c.color, data-description=c.description, data-name=c.name, style='border: 2px #' + c.color + ' solid; background-image: url(https://crystal-alpha.s3.amazonaws.com/collections/' + c.id + '.svg)')
+            a(class='view', href='collections/'+c.name)
+            a(class='edit', href='#', onclick='return editCollection($(this).parent()[0])')
+            a(class='delete', href='#', onclick='return deleteCollection($(this).parent().data("id"))')
       else
         div No collections exist.
-      a(class='add', onclick='return addCollection()', href='collections/add')
-        span +
+      li
+        a(class='add', onclick='return addCollection()', href='collections/add')
     h3 Modules
     div(id='modules')
       if modules
@@ -52,6 +55,6 @@ block content
             span= m.name
       else
         div No modules exist.
-      a(class='add', onclick='return addModule()', href='modules/add')
-        span +
+      li
+        a(class='add', onclick='return addModule()', href='modules/add')
     a(class='button', href='/logout') Logout

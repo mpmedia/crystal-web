@@ -9,6 +9,10 @@
       "label": "Name",
       "type": "text"
     },
+    "description": {
+      "label": "Description",
+      "type": "textarea"
+    },
     "color": {
       "formula": "/formulas/fields/color.json"
     }

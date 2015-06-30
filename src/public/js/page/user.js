@@ -19,18 +19,18 @@ var addCollection = function() {
       
       Crystal.Popup.show({
         title: 'Add Collection',
-        content: form.toString()
+        content: '<div class="error"></div>' + form.toString()
       });
     },
     submit: function() {
       console.log('Loading...');
     },
     error: function(data) {
-      $('#popup .error').text('Unable to update collection');
+      $('#popup .error').text(data.error);
       $(window).resize();
     },
     success: function(data) {
-      $('#collections a').last().before('<a href="#" style="background-image: url(https://s3.amazonaws.com/crystal-alpha/collections/' + data.id + '.svg); border: 2px #' + data.color + ' solid"></a>');
+      $('#collections a').last().before('<li style="background-image: url(https://s3.amazonaws.com/crystal-alpha/collections/' + data.id + '.svg); border: 2px #' + data.color + ' solid"><a href="collections/' + data.id + '"></a></li>');
       Crystal.Popup.hide();
     }
   });
@@ -112,7 +112,7 @@ var editCollection = function(o) {
     ready: function(form) {
       Crystal.Popup.show({
         title: 'Edit Collection',
-        content: '<div class="error"></div>' + form.toString() + '<button onclick="return deleteCollection(' + $(o).data('id') + ')">Delete Collection</button>'
+        content: '<div class="error"></div>' + form.toString()
       });
     },
     submit: function() {
@@ -139,6 +139,8 @@ var deleteCollection = function(id) {
     method: 'delete',
     xhr: true,
     ready: function(form) {
+      form.fields.name.match = 'coffeescript';
+      
       Crystal.Popup.show({
         title: 'Delete Collection',
         content: '<div class="error"></div>' + form.toString()
@@ -148,11 +150,11 @@ var deleteCollection = function(id) {
       console.log('Loading...');
     },
     error: function(data) {
-      $('#popup .error').text('Unable to delete collection');
+      $('#popup .error').text(data.error);
       $(window).resize();
     },
     success: function(data) {
-      $('#collections a[data-id=' + data.id + ']').remove();
+      $('#collections li[data-id=' + data.id + ']').remove();
       Crystal.Popup.hide();
     }
   }, { id: id });

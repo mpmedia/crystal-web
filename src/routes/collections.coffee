@@ -9,27 +9,29 @@ EditCollection = require '../formulas/forms/EditCollection'
 module.exports = (app, db) ->
   # delete collection
   deleteCollection = (req, res) ->
-    db.models.Collection.findOne({
+    db.models.Collection.findOne {
       where:
         id: req.body.id
-    })
-    .then((collection) ->
+    }
+    .then (collection) ->
       if !collection
-        res.status(400).send('Unknown')
-        return
+        throw new Error 'Unknown Collection'
       else if collection.dataValues.userId != req.session.userId
-        res.status(400).send('Not yours to delete')
-        return
+        throw new Error 'Not yours to delete'
+      else if collection.dataValues.name != req.body.name
+        throw new Error "Collection name does not match: #{collection.dataValues.name}"
         
-      db.models.Collection.destroy({
+      db.models.Collection.destroy {
         where:
           id: req.body.id
           userId: req.session.userId
-      })
-    )
-    .then((data) ->
+      }
+    
+    .then (data) ->
       res.status(200).send { id: req.body.id }
-    )
+    
+    .catch (e) ->
+      res.status(400).send { error: e.toString() }
   
   # GET /collections
   app.get '/collections', (req, res) ->
@@ -47,21 +49,55 @@ module.exports = (app, db) ->
   
   # GET /collections/:name
   app.get '/collections/:name', (req, res) ->
+    data = {}
+    
     bluebird.try () ->
-      collection = db.models.Collection.findOne({
+      db.models.Collection.findOne {
         where:
           name: req.params.name
-      })
-    .then (collection) ->
+      }
+      
+    .then (collection_data) ->
+      data.collection = collection_data.dataValues
+      
+      db.models.Module.findAll {
+        where:
+          collectionId: data.collection.id
+      }
+    
+    .then (modules_data) ->
+      data.collection.modules = []
+      for module in modules_data
+        data.collection.modules.push {
+          id: module.dataValues.id
+          name: module.dataValues.name
+        }
+      
+      db.models.FavoriteCollection.findOne {
+        where:
+          collectionId: data.collection.id
+          userId: req.session.userId
+      }
+      
+    .then (favorite_data) ->
+      if favorite_data
+        data.collection.favorite = true
+      
       res.render 'collection', {
         avatar: req.session.avatar
-        collection: collection.dataValues
+        collection: data.collection
+        scripts: [
+          'scripts/page/collections.js'
+        ]
         styles: [
           'styles/page/collection.css'
         ]
-        title: "#{collection.dataValues.name} Collection | Crystal"
+        title: "#{data.collection.name} Collection | Crystal"
       }
+      
     .catch (e) ->
+      console.log e
+      
       res.status 404
       res.render '404', {
         avatar: req.session.avatar
@@ -89,11 +125,15 @@ module.exports = (app, db) ->
         throw new Error 'Duplicate collection'
         return
       
-      db.models.Collection.create {
+      collection = {
         color: form.data.color
         name: form.data.name
         userId: req.session.userId
       }
+      if form.data.description and form.data.description.length
+        collection.description = form.data.description
+      
+      db.models.Collection.create collection
     
     .then (collection) ->
       data.collection = collection.dataValues
@@ -118,8 +158,7 @@ module.exports = (app, db) ->
       res.status(200).send data.collection
     
     .catch (e) ->
-      console.log e
-      res.status(400).send(e)
+      res.status(400).send { error: e.toString() }
   
   # DELETE /collections
   app.delete '/collections', deleteCollection
@@ -158,6 +197,71 @@ module.exports = (app, db) ->
       res.redirect '/user'
     )
   
+  # POST /collections/:name/favorite
+  app.post '/collections/:name/favorite', (req, res) ->
+    # collect data
+    data = {}
+    
+    bluebird.try () ->
+      # check if collection exists
+      db.models.Collection.findOne {
+        attributes: ['id']
+        where:
+          name: req.params.name
+      }
+      
+    .then (collection) ->
+      if !collection
+        throw new Error 'Collection does not exist'
+      
+      data.collectionId = collection.dataValues.id
+      
+      # check if collection is favorite
+      db.models.FavoriteCollection.findOne {
+        where:
+          collectionId: data.collectionId
+          userId: req.session.userId
+      }
+      
+    .then (favorite_collection) ->
+      if !favorite_collection
+        db.models.FavoriteCollection.create {
+          collectionId: data.collectionId
+          userId: req.session.userId
+        }
+      else if favorite_collection and req.body.favorite == 'false'
+        db.models.FavoriteCollection.destroy {
+          where:
+            collectionId: data.collectionId
+            userId: req.session.userId
+        }
+    
+    .then () ->
+      db.models.FavoriteCollection.findAll {
+        attributes: ['id']
+        where:
+          collectionId: data.collectionId
+      }
+      
+    .then (favorites_data) ->
+      if !favorites_data
+        data.favorites = 0
+      else
+        data.favorites = favorites_data.length
+      
+      db.models.Collection.update {
+        favorites: data.favorites
+      },{
+        where:
+          id: data.collectionId
+      }
+    
+    .then () ->
+      res.status(200).send { favorites: data.favorites }
+      
+    .catch (e) ->
+      res.status(400).send { error: e.toString() }
+  
   # PATCH /collections
   app.patch '/collections', (req, res) ->
     form = new formulator EditCollection, req.body
@@ -175,6 +279,8 @@ module.exports = (app, db) ->
         return
       
       collection.color = form.data.color
+      if form.data.description and form.data.description.length
+        collection.description = form.data.description
       collection.name = form.data.name
       
       return collection.save()

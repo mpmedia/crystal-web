@@ -4,6 +4,11 @@
   "fields": {
     "id": {
       "formula": "/formulas/fields/id.json"
+    },
+    "name": {
+      "label": "Warning: This operation can NOT be undone. If you wish to proceed, please type the name of the collection below:",
+      "required": true,
+      "type": "text"
     }
   },
   "buttons": {

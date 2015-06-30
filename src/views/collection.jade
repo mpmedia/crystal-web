@@ -1,5 +1,11 @@
 extends layout
 block content
-  h2= collection.name
-  div(class='image', style='background-image: url(https://s3.amazonaws.com/crystal-alpha/collections/' + collection.id + '.svg)')
-  h3 Modules
+  article(style='background-color: #'+collection.color)
+    img(src='https://s3.amazonaws.com/crystal-alpha/collections/'+collection.id+'.svg')
+    h2= collection.name
+    h3= collection.description
+    a(href=collection.website, target='_blank')= collection.website
+    div!= 'by <a href="users/crystal">crystal</a>'
+    a(class='heart' + (collection.favorite ? ' selected' : ''), href='collections/'+collection.name+'/favorite', onclick='return addFavorite(this)', style='color: #' + collection.color)= collection.favorites
+    a(class='next', href='collections/'+collection.name+'/modules', style='color: #' + collection.color)= collection.modules.length
+    a(class='rating', href='collections/'+collection.name+'/rating', style='color: #' + collection.color)= collection.rating ? collection.rating : '-'

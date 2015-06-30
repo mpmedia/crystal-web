@@ -5,11 +5,7 @@ formulator = require 'formulator'
 EditUser = require '../formulas/forms/EditUser'
 
 module.exports = (app, db) ->
-  # GET /user
-  app.get '/user', (req, res) ->
-    if !req.session.userId
-      res.redirect '/'
-    
+  getUser = (req, res, userId) ->
     accounts = []
     collections = []
     user_id = ""
@@ -23,7 +19,7 @@ module.exports = (app, db) ->
     
     db.models.User.findOne {
       where:
-        id: req.session.userId
+        id: userId
     }
     .then (user) ->
       if !user
@@ -44,7 +40,7 @@ module.exports = (app, db) ->
           model: db.models.Provider
           attributes: ['name']
         where:
-          userId: req.session.userId
+          userId: userId
       }
     
     .then (accounts_data) ->
@@ -54,7 +50,7 @@ module.exports = (app, db) ->
       
       db.models.Collection.findAll {
         where:
-          userId: req.session.userId
+          userId: userId
       }
     
     .then (collections_data) ->
@@ -62,16 +58,16 @@ module.exports = (app, db) ->
       for collection in collections_data
         collections.push collection.dataValues
       
-      db.models.Module.findAll({
+      db.models.Module.findAll {
         where:
-          userId: req.session.userId
-      })
+          userId: userId
+      }
     
     .then (modules) ->
-      db.models.Repository.findAll({
+      db.models.Repository.findAll {
         where:
-          userId: req.session.userId
-      })
+          userId: userId
+      }
       
     .then (repository_data) ->
       repo_choices = []
@@ -109,6 +105,16 @@ module.exports = (app, db) ->
         url: user_url
         website: user_website
       }
+    
+    .catch (e) ->
+      res.status(400).send { error: e.toString() }
+      
+  # GET /user
+  app.get '/user', (req, res) ->
+    if !req.session.userId
+      res.redirect '/'
+    
+    getUser req, res, req.session.userId
   
   # GET /user/edit
   app.get '/user/edit', (req, res) ->
@@ -128,6 +134,25 @@ module.exports = (app, db) ->
         ]
         title: 'Crystal User'
       }
+  
+  # GET /users
+  app.get '/users/:username', (req, res) ->
+    if !req.session.userId
+      res.redirect '/'
+    
+    db.models.User.findOne {
+      where:
+        username: req.params.username
+    }
+    
+    .then (user_data) ->
+      if !user_data
+        throw new Error 'Unknown user'
+      
+      getUser req, res, user_data.dataValues.id
+    
+    .catch (e) ->
+      res.status(400).send { error: e.toString() }
   
   # POST /user/edit
   app.post '/user/edit', (req, res) ->

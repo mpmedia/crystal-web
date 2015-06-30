@@ -23,6 +23,10 @@
       "label": "Last Name",
       "maxLength": 16,
       "type": "text"
+    },
+    "website": {
+      "label": "Website",
+      "type": "text"
     }
   },
   "buttons": {

@@ -1,17 +1,118 @@
 section {
   padding: 70px 0px 0px 0px;
   
-  h2 {
-    background-color: #EEE;
-    font-size: 100px;
-    padding-top: 20px;
-    text-align: center
-  }
-  
-  .image {
+  article {
     background-position: center center;
     background-repeat: no-repeat;
-    background-size: 250px 250px;
-    height: 300px;
+    background-size: 420px 420px;
+    padding: 40px 0px;
+    position: relative;
+    text-align: center;
+    
+    h2 {
+      color: #000;
+      font-size: 100px;
+      padding-top: 20px;
+      text-align: center
+    }
+    
+    h3 {
+      color: #FFF;
+      font-size: 32px;
+    }
+    
+    img {
+      display: block;
+      height: 380px;
+      margin: 0px auto;
+      width: 380px;
+    }
+    
+    a {
+      &.heart {
+        background-image: url(/images/heart-unselected.svg);
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-size: 100px 100px;
+        border: none;
+        color: #000;
+        display: inline-block;
+        font-size: 32px;
+        height: 100px;
+        line-height: 100px;
+        margin-left: -50px;
+        margin-top: -50px;
+        position: absolute;
+        right: 25%;
+        text-align: center;
+        top: 100px;
+        width: 100px;
+        
+        &:hover {
+          background-color: transparent;
+          background-image: url(/images/heart-hover.svg);
+          color: #FFF;
+        }
+        
+        &.selected {
+          background-image: url(/images/heart-selected.svg);
+          
+          &:hover {
+            background-image: url(/images/heart-broken.svg);
+            color: transparent;
+          }
+        }
+      }
+      
+      &.next {
+        background-image: url(/images/module-unselected.svg);
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-size: 100px 100px;
+        border: none;
+        color: #000;
+        font-size: 32px;
+        height: 100px;
+        line-height: 100px;
+        margin-left: -50px;
+        margin-top: -50px;
+        position: absolute;
+        right: 25%;
+        text-align: center;
+        top: 230px;
+        width: 100px;
+        
+        &:hover {
+          background-image: url(/images/module-hover.svg);
+          background-color: transparent;
+          color: #FFF;
+        }
+      }
+      
+      &.rating {
+        background-image: url(/images/rating-unselected.svg);
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-size: 100px 100px;
+        border: none;
+        color: #000;
+        font-size: 32px;
+        height: 100px;
+        line-height: 100px;
+        margin-left: -50px;
+        margin-top: -50px;
+        position: absolute;
+        right: 25%;
+        text-align: center;
+        top: 360px;
+        width: 100px;
+        
+        &:hover {
+          background-image: url(/images/rating-hover.svg);
+          background-color: transparent;
+          color: #FFF;
+        }
+      }
+    }
   }
 }

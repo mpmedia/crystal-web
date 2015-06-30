@@ -20,8 +20,8 @@ h1 {
   border: 10px #FFF solid;
   box-sizing: border-box;
   display: inline-block;
-  height: 170px;
-  padding: 20px 20px 40px 20px;
+  height: 150px;
+  padding: 20px 20px 20px 20px;
   width: 25%;
   
   &:hover {
@@ -33,10 +33,14 @@ h1 {
     border: none;
   }
   
-  img {
+  .image {
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: 90px 90px;
     float: left;
     height: 90px;
     margin-right: 10px;
+    width: 90px;
   }
   
   .name {
