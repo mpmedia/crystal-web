@@ -114,5 +114,66 @@ section {
         }
       }
     }
+    
+    #modules {
+      background-color: #FFF;
+      margin-top: 40px;
+      
+      p {
+        font-size: 48px;
+        padding: 40px;
+      }
+      
+      ul {
+        list-style-type: none;
+        margin: 0px;
+        padding: 0px;
+        
+        li {
+          border-left: 1px #CCC solid;
+          border-right: 1px #CCC solid;
+          box-sizing: border-box;
+          display: inline-block;
+          font-size: 48px;
+          width: 25%;
+          
+          a {
+            display: block;
+            height: 100%;
+            padding: 40px 0px;
+            width: 100%;
+            
+            span {
+              display: block;
+              
+              &.description {
+                font-size: 18px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+#tabs {
+  list-style-type: none;
+  margin: 20px 0px 0px 0px;
+  padding: 0px;
+  white-space: nowrap;
+  
+  li {
+    display: inline-block;
+    
+    a {
+      background-color: #EEE;
+      display: block;
+      padding: 20px;
+      
+      &.selected {
+        background-color: #CCC;
+      }
+    }
   }
 }

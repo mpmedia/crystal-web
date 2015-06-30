@@ -30,7 +30,7 @@ module.exports = (app, db) ->
       include: [
         {
           model: db.models.Collection
-          attributes: ['name']
+          attributes: ['id','name']
         }
         {
           model: db.models.User
@@ -42,6 +42,7 @@ module.exports = (app, db) ->
       for mod in modules
         results.push {
           id: mod.dataValues.id
+          collectionId: mod.dataValues.collection.id
           name: "#{mod.dataValues.collection.name}.#{mod.dataValues.name}"
           type: 'Module'
           user: mod.dataValues.user.username

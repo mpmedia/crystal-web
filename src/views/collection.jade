@@ -6,6 +6,22 @@ block content
     h3= collection.description
     a(href=collection.website, target='_blank')= collection.website
     div!= 'by <a href="users/crystal">crystal</a>'
+    
+    div(id='modules')
+      if collection.modules.length
+        ul
+          for module in collection.modules
+            li
+              a(data-id=module.id, data-description=module.description, data-module=collection.name, data-name=module.name, data-repository=module.repository, href='modules/'+collection.name+'.'+module.name)
+                span(class='name')= module.name
+                span(class='description')= module.description
+          li
+            a(href='#', onclick='return addModule(this)')
+              span(class='name') +
+              span(class='description') add module to this collection
+      else
+        p!= '<b>' + collection.name + '</b> has no modules. <a href="modules/add" onclick="return addModule(this)">Click here</a> to add one.'
+    
     a(class='heart' + (collection.favorite ? ' selected' : ''), href='collections/'+collection.name+'/favorite', onclick='return addFavorite(this)', style='color: #' + collection.color)= collection.favorites
     a(class='next', href='collections/'+collection.name+'/modules', style='color: #' + collection.color)= collection.modules.length
     a(class='rating', href='collections/'+collection.name+'/rating', style='color: #' + collection.color)= collection.rating ? collection.rating : '-'

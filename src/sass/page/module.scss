@@ -1,0 +1,57 @@
+section {
+  overflow: auto;
+  
+  article {
+    background-color: #CCC;
+    box-sizing: border-box;
+    float: left;
+    padding: 20px;
+    width: 70%;
+  }
+  
+  aside {
+    background-color: #FFF;
+    box-sizing: border-box;
+    float: right;
+    padding: 20px;
+    width: 30%;
+  }
+  
+  h2 {
+    a {
+      border: none;
+      
+      &:hover {
+        background-color: transparent;
+      }
+    }
+  }
+  
+  #tabs {
+    list-style-type: none;
+    margin: 0px;
+    padding: 0px;
+    
+    li {
+      display: inline-block;
+      margin-right: 1px;
+      
+      a {
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+        border: none;
+        display: block;
+        padding: 20px;
+        
+        &:hover {
+          background-color: #EEE;
+          color: #000;
+        }
+        
+        &.selected {
+          background-color: #CCC;
+        }
+      }
+    }
+  }
+}

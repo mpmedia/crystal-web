@@ -1,0 +1,44 @@
+extends layout
+block content
+  h2
+    a(href='collections/'+collection.name)
+      img(height=32, src='https://s3.amazonaws.com/crystal-alpha/collections/'+collection.id+'.svg')
+    span= collection.name + '.' + module.name
+    a(href='modules/'+collection.name+'.'+module.name+'/releases', onclick='return changeRelease()') master
+  nav
+    ul(id='tabs')
+      li
+        a(class='selected', href='#readme', onclick='return loadReadme(this)') README
+      li
+        a(href='#license', onclick='return loadLicnese(this)') LICENSE
+      li
+        a(href='#authors', onclick='return loadAuthors(this)') AUTHORS
+      li
+        a(href='#config', onclick='return loadConfig(this)') CONFIG
+  aside
+    h3 Contributors
+    if contributors
+      ul
+        for contributor in contributors
+          li= contributor.name
+    else
+      p There are no contributors.
+    h3 Exports
+    if exports
+      each export_data, export_name in exports
+        div= export_name
+    else
+      p There are no exports.
+    h3 Repository
+    p
+      a(href='https://github.com/'+repository.path, target='_blank')
+        img(class='icon', src='images/repo-github.svg')
+        span= repository.path
+  article(id='readme')
+    p!= readme
+  article(id='config')
+    pre= config
+  article(id='license')
+    p!= license
+  article(id='authors')
+    p= authors

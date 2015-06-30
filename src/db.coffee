@@ -30,7 +30,12 @@ db.models.Collection = db.connection.define 'collection', {
 db.models.FavoriteCollection = db.connection.define 'favorite_collection', {
 }
 
+db.models.FavoriteModule = db.connection.define 'favorite_module', {
+}
+
 db.models.Module = db.connection.define 'module', {
+  description: mysql.STRING
+  #favorites: mysql.INTEGER
   name: mysql.STRING
   rating: mysql.DECIMAL 10, 2
 }
@@ -40,9 +45,9 @@ db.models.ModuleRating = db.connection.define 'module_rating', {
 }
 
 db.models.Repository = db.connection.define 'repository', {
-  identifier: mysql.STRING
   path: mysql.STRING
   url: mysql.STRING
+  uuid: mysql.STRING
 }
 
 db.models.Provider = db.connection.define 'provider', {
@@ -79,12 +84,15 @@ db.models.Account.belongsTo db.models.User
 db.models.Collection.belongsTo db.models.User
 db.models.FavoriteCollection.belongsTo db.models.Collection
 db.models.FavoriteCollection.belongsTo db.models.User
+db.models.FavoriteModule.belongsTo db.models.Module
+db.models.FavoriteModule.belongsTo db.models.User
 db.models.Module.belongsTo db.models.Account
 db.models.Module.belongsTo db.models.Collection
 db.models.Module.belongsTo db.models.Repository
 db.models.Module.belongsTo db.models.User
 db.models.ModuleRating.belongsTo db.models.Module
 db.models.ModuleRating.belongsTo db.models.User
+db.models.Repository.belongsTo db.models.Account
 db.models.Repository.belongsTo db.models.Provider
 db.models.Repository.belongsTo db.models.User
 

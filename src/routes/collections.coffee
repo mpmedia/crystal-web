@@ -61,6 +61,9 @@ module.exports = (app, db) ->
       data.collection = collection_data.dataValues
       
       db.models.Module.findAll {
+        include:
+          attributes: ['id','path','uuid']
+          model: db.models.Repository
         where:
           collectionId: data.collection.id
       }
@@ -70,7 +73,9 @@ module.exports = (app, db) ->
       for module in modules_data
         data.collection.modules.push {
           id: module.dataValues.id
+          description: module.dataValues.description
           name: module.dataValues.name
+          repository: module.dataValues.repository.path
         }
       
       db.models.FavoriteCollection.findOne {
@@ -123,7 +128,6 @@ module.exports = (app, db) ->
     .then (data) ->
       if data
         throw new Error 'Duplicate collection'
-        return
       
       collection = {
         color: form.data.color

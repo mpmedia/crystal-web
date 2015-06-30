@@ -6,6 +6,10 @@
       "label": "Name",
       "type": "text"
     },
+    "description": {
+      "label": "Description",
+      "type": "textarea"
+    },
     "collection": {
       "label": "Collection",
       "type": "select"

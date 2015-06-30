@@ -4,6 +4,15 @@ request  = require 'request'
 # enable promises
 bluebird.promisifyAll request
 
+sortByKey = (array, key) ->
+  array.sort (a, b) ->
+    x = a[key]
+    y = b[key]
+    if typeof x == 'string'
+      x = x.toLowerCase()
+      y = y.toLowerCase()
+    if x < y then -1 else if x > y then 1 else 0
+
 module.exports = (app, db) ->
   # GET /repositories
   app.get '/repositories', (req, res) ->
@@ -49,7 +58,9 @@ module.exports = (app, db) ->
             repos.push {
               providerId: providerId
               uuid: repo.id || repo.uuid
-              url: repo.html_url || repo.full_name
+              url: repo.full_name
             }
+        console.log repos
+        sortByKey repos, 'url'
         
         res.status(200).send repos

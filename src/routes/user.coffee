@@ -6,16 +6,12 @@ EditUser = require '../formulas/forms/EditUser'
 
 module.exports = (app, db) ->
   getUser = (req, res, userId) ->
-    accounts = []
-    collections = []
-    user_id = ""
-    user_company = ""
-    user_email = ""
-    user_location = ""
-    user_name = ""
-    user_url = ""
-    user_username = ""
-    user_website = ""
+    data = {
+      user:
+        accounts: []
+        collections: []
+        repos: []
+    }
     
     db.models.User.findOne {
       where:
@@ -25,14 +21,17 @@ module.exports = (app, db) ->
       if !user
         throw new Error "Please login"
       
-      user_id = user.dataValues.id
-      user_company = user.dataValues.company
-      user_email = user.dataValues.email
-      user_location = user.dataValues.location
-      user_name = user.dataValues.name
-      user_url = user.dataValues.url
-      user_username = user.dataValues.username
-      user_website = user.dataValues.website
+      avatar_hash = crypto.createHash('md5').update(user.dataValues.email).digest 'hex'
+      
+      data.user.id = user.dataValues.id
+      data.user.avatar = "http://www.gravatar.com/avatar/#{avatar_hash}"
+      data.user.company = user.dataValues.company
+      data.user.email = user.dataValues.email
+      data.user.location = user.dataValues.location
+      data.user.name = user.dataValues.name
+      data.user.url = user.dataValues.url
+      data.user.username = user.dataValues.username
+      data.user.website = user.dataValues.website
       
       db.models.Account.findAll {
         attributes: ['login']
@@ -44,9 +43,8 @@ module.exports = (app, db) ->
       }
     
     .then (accounts_data) ->
-      accounts = []
       for account in accounts_data
-        accounts.push account.dataValues
+        data.user.accounts.push account.dataValues
       
       db.models.Collection.findAll {
         where:
@@ -54,9 +52,8 @@ module.exports = (app, db) ->
       }
     
     .then (collections_data) ->
-      collections = []
       for collection in collections_data
-        collections.push collection.dataValues
+        data.user.collections.push collection.dataValues
       
       db.models.Module.findAll {
         where:
@@ -70,29 +67,20 @@ module.exports = (app, db) ->
       }
       
     .then (repository_data) ->
-      repo_choices = []
-      repos = []
+      data.repos = []
       if repository_data.length
         for repo in repository_data
-          repo_choices[repo.id.S] = repo.url.S
-          repos.push {
-            url: repo.url.S
+          data.repos.push {
+            url: repo.dataValues.uuid
           }
             
       avatar_hash = crypto
         .createHash('md5')
-        .update(user_email)
+        .update(data.user.email)
         .digest 'hex'
       
       res.render 'user', {
-        accounts: accounts
         avatar: req.session.avatar
-        collections: collections
-        company: user_company
-        email: user_email
-        location: user_location
-        name: user_name
-        repos: repos
         scripts: [
           'scripts/page/user.js'
         ]
@@ -101,9 +89,7 @@ module.exports = (app, db) ->
         ]
         title: 'Crystal User'
         unverified: true
-        username: user_username
-        url: user_url
-        website: user_website
+        user: data.user
       }
     
     .catch (e) ->

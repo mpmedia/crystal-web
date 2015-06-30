@@ -2,32 +2,32 @@ extends layout
 block content
   aside
     h2
-      span= username
-      if name
-        span= ' (' + name + ')'
-    img(class='image', src=avatar + '?s=500')
+      span= user.username
+      if user.name
+        span= ' (' + user.name + ')'
+    img(class='image', src=user.avatar + '?s=500')
     ul
-      if company
+      if user.company
         li
           img(class='icon', src='/images/company.svg')
-          span(class='label')= company
-      if location
+          span(class='label')= user.company
+      if user.location
         li
           img(class='icon', src='/images/location.svg')
-          span(class='label')= location
-      if email
+          span(class='label')= user.location
+      if user.email
         li
           img(class='icon', src='/images/email.svg')
-          a(class='label', href='mailto:'+email)= email
-      if website
+          a(class='label', href='mailto:'+email)= user.email
+      if user.website
         li
           img(class='icon', src='/images/website.svg')
-          a(class='label', href=website, target='_blank')= website
+          a(class='label', href=website, target='_blank')= user.website
   article
     h3 Accounts
     div(id='accounts')
-      if accounts
-        for a in accounts
+      if user.accounts
+        for a in user.accounts
           a(href='https://github.com/'+a.login, target='_blank')
             img(height=16, src='/images/github-account.svg')
             span= a.login
@@ -37,8 +37,8 @@ block content
         span +
     h3 Collections
     ul(id='collections')
-      if collections
-        for c in collections
+      if user.collections
+        for c in user.collections
           li(data-id=c.id, data-color=c.color, data-description=c.description, data-name=c.name, style='border: 2px #' + c.color + ' solid; background-image: url(https://crystal-alpha.s3.amazonaws.com/collections/' + c.id + '.svg)')
             a(class='view', href='collections/'+c.name)
             a(class='edit', href='#', onclick='return editCollection($(this).parent()[0])')
@@ -49,12 +49,11 @@ block content
         a(class='add', onclick='return addCollection()', href='collections/add')
     h3 Modules
     div(id='modules')
-      if modules
-        for m in modules
+      if user.modules
+        for m in user.modules
           a(href='modules/'+m.name, onclick='return editModule(this)', style='background-color: #' + m.color)
             span= m.name
       else
         div No modules exist.
       li
         a(class='add', onclick='return addModule()', href='modules/add')
-    a(class='button', href='/logout') Logout
