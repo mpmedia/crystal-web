@@ -123,6 +123,7 @@ var editCollection = function(o) {
       $(window).resize();
     },
     success: function(data) {
+      $('#collections li[data-id=' + data.id + ']').css('backgroundImage', 'url(https://s3.amazonaws.com/crystal-alpha/collections/' + data.id + '.svg)');
       $('#collections a[data-id=' + data.id + ']').data('name', data.name);
       $('#collections a[data-id=' + data.id + ']').text(data.name);
       Crystal.Popup.hide();

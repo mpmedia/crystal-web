@@ -3,7 +3,7 @@
   "method": "post",
   "fields": {
     "image": {
-      "label": "Collection",
+      "label": "Image",
       "type": "image"
     },
     "name": {

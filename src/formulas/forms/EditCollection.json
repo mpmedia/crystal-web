@@ -5,6 +5,10 @@
     "id": {
       "formula": "/formulas/fields/id.json"
     },
+    "image": {
+      "label": "Image",
+      "type": "image"
+    },
     "name": {
       "label": "Name",
       "type": "text"

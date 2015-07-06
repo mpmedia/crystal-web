@@ -53,6 +53,9 @@ module.exports = (app, db) ->
     
     bluebird.try () ->
       db.models.Collection.findOne {
+        include:
+          attributes: ['id','username']
+          model: db.models.User
         where:
           name: req.params.name
       }
@@ -272,9 +275,12 @@ module.exports = (app, db) ->
     if !form.isValid()
       res.status(400).send(form.errors)
       return
-      
+    
+    # collect data
+    data = {}
+    
     db.models.Collection.findById(req.body.id)
-    .then((collection) ->
+    .then (collection) ->
       if !collection
         res.status(400).send { error: 'Unknown collection' }
         return
@@ -288,7 +294,28 @@ module.exports = (app, db) ->
       collection.name = form.data.name
       
       return collection.save()
-    )
-    .then((collection) ->
-      res.status(200).send collection.dataValues
-    )
+    
+    .then (collection) ->
+      data.collection = collection.dataValues
+      
+      if !req.files.image
+        return
+      
+      aws.config.accessKeyId = process.env.AWS_S3_USER
+      aws.config.secretAccessKey = process.env.AWS_S3_PASS
+      
+      s3 = new aws.S3 {
+        params:
+          Bucket: 'crystal-alpha'
+          Key: 'collections/' + data.collection.id + '.svg'
+      }
+      
+      bluebird.promisifyAll s3
+      s3.uploadAsync {
+        ACL: 'public-read'
+        Body: fs.readFileSync "#{req.files.image.path}", 'utf8'
+        ContentType: 'image/svg+xml'
+      }
+      
+    .then (image) ->
+      res.status(200).send data.collection

@@ -17,6 +17,7 @@ modules:
   official.license: v0.1.0
   official.npm: v0.1.0
   official.readme: v0.1.0
+  redis.core: v0.1.0
 imports:
   cs-to-js: official.coffeescript.JavaScriptTransformer
   dynamodb: official.dynamodb.ModelGenerator
@@ -27,6 +28,7 @@ imports:
   license: official.license.MITGenerator
   npm: official.npm.ConfigGenerator
   readme: official.readme.ReadmeGenerator
+  redis-config: redis.core.ConfigGenerator
 outputs:
   - generator: express-app
     #filename: app.js
@@ -213,6 +215,10 @@ outputs:
       name: $name
       version: $version
       description: $description
+  - generator: redis
+    spec:
+      daemonize: true
+      port: 6379
 scripts:
   build:
     - sudo npm update
