@@ -117,6 +117,8 @@ $(document).keydown(function(e) {
 });
 
 $(window).load(function() {
+  $('body').css('backgroundImage', 'url(https://s3.amazonaws.com/crystal-web/img/quartz.jpg)');
+  
   $('.close').click(function() {
     $('#content, header').animate({
       width: $(window).width()
@@ -227,6 +229,7 @@ $(window).load(function() {
     return false;
   });
   
+  /*
   $('.login, .user').click(function() {
     if ($('#sidebar').hasClass('open')) {
       $('#content, header').animate({
@@ -254,6 +257,7 @@ $(window).load(function() {
     }
     return false;
   });
+  */
   
   $(window).resize();
 });

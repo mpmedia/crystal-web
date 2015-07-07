@@ -14,6 +14,10 @@
       "label": "Description",
       "type": "textarea"
     },
+    "website": {
+      "label": "Website",
+      "type": "text"
+    },
     "color": {
       "formula": "/formulas/fields/color.json"
     }

@@ -10,7 +10,7 @@ bluebird.promisifyAll request
 
 module.exports = (app, db) ->
   # GET /modules/:name
-  app.get '/modules/:name', (req, res) ->
+  app.get '/modules/:collection_name/:module_name', (req, res) ->
     # prepare headers
     headers = {
       'User-Agent': 'Crystal <support@crystal.sh> (https://crystal.sh)'
@@ -18,9 +18,8 @@ module.exports = (app, db) ->
     
     data = {}
     
-    name = req.params.name.split '.'
-    collection_name = name[0]
-    module_name = name[1]
+    collection_name = req.params.collection_name
+    module_name = req.params.module_name
     
     bluebird.try () ->
       db.models.Collection.findOne {

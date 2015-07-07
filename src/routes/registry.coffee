@@ -14,36 +14,26 @@ module.exports = (app, db) ->
   app.get '/registry', (req, res) ->
     form = new formulator SearchRegistry, { keywords: req.session.keywords }
     
-    if !req.query.keywords and !req.session.keywords
-      res.render 'search', {
-        avatar: req.session.avatar
-        form: form
-        title: 'Search Crystal'
-      }
-      return
-    
-    if req.query.keywords
-      req.session.keywords = req.query.keywords
-    
     results = []
     db.models.Module.findAll({
       include: [
         {
           model: db.models.Collection
-          attributes: ['id','name']
+          attributes: ['id','color','name']
         }
         {
           model: db.models.User
           attributes: ['username']
         }
       ]
-      where: ['module.name like ?', "%#{req.session.keywords}%"]
+      where: ['module.name like ?', "%#{req.query.keywords}%"]
     }).then((modules) ->
       for mod in modules
         results.push {
           id: mod.dataValues.id
+          color: mod.dataValues.collection.color
           collectionId: mod.dataValues.collection.id
-          name: "#{mod.dataValues.collection.name}.#{mod.dataValues.name}"
+          name: "#{mod.dataValues.collection.name}/#{mod.dataValues.name}"
           type: 'Module'
           user: mod.dataValues.user.username
         }
@@ -59,6 +49,7 @@ module.exports = (app, db) ->
       for collection in collections
         results.push {
           id: collection.dataValues.id
+          color: collection.dataValues.color
           name: collection.dataValues.name
           type: 'Collection'
           user: collection.dataValues.user.username

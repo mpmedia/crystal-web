@@ -7,11 +7,11 @@ block content
     if search.results.length
       h3= search.results.length + ' results found.'
       for result in search.results
-        div(class='result')
+        div(class='result', onmouseenter='this.style.backgroundColor = "#' + result.color + '"', onmouseleave='this.style.backgroundColor = "#FFF"' style='border: 10px #' + result.color + ' solid')
           div(class='type')= result.type
-          a(class='image', href='/' + result.type.toLowerCase() + 's/' + result.name, style='background-image: url(https://s3.amazonaws.com/crystal-alpha/collections/' + (result.collectionId ? result.collectionId : result.id) + '.svg)')
           div(class='name')
             a(href='/' + result.type.toLowerCase() + 's/' + result.name)= result.name
+          a(class='image', href='/' + result.type.toLowerCase() + 's/' + result.name, style='background-image: url(https://s3.amazonaws.com/crystal-alpha/collections/' + (result.collectionId ? result.collectionId : result.id) + '.svg)')
           div!= 'by <a href="users/' + result.user + '">' + result.user + '</a>'
     else
       div No results found.

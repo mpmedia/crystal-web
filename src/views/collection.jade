@@ -12,13 +12,15 @@ block content
         ul
           for module in collection.modules
             li
-              a(data-id=module.id, data-description=module.description, data-module=collection.name, data-name=module.name, data-repository=module.repository, href='modules/'+collection.name+'.'+module.name)
+              a(data-id=module.id, data-description=module.description, data-module=collection.name, data-name=module.name, data-repository=module.repository, href='modules/'+collection.name+'/'+module.name)
                 span(class='name')= module.name
                 span(class='description')= module.description
+                span(class='user')= 'by ' + module.username
           li
             a(href='#', onclick='return addModule(this)')
               span(class='name') +
-              span(class='description') add module to this collection
+              span(class='description') Contribute to This Collection
+              span(class='user') &nbsp;
       else
         p!= '<b>' + collection.name + '</b> has no modules. <a href="modules/add" onclick="return addModule(this)">Click here</a> to add one.'
     

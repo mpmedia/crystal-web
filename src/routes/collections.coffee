@@ -64,9 +64,16 @@ module.exports = (app, db) ->
       data.collection = collection_data.dataValues
       
       db.models.Module.findAll {
-        include:
-          attributes: ['id','path','uuid']
-          model: db.models.Repository
+        include: [
+          {
+            attributes: ['id','path','uuid']
+            model: db.models.Repository
+          }
+          {
+            attributes: ['username']
+            model: db.models.User
+          }
+        ]
         where:
           collectionId: data.collection.id
       }
@@ -79,6 +86,7 @@ module.exports = (app, db) ->
           description: module.dataValues.description
           name: module.dataValues.name
           repository: module.dataValues.repository.path
+          username: module.dataValues.user.dataValues.username
         }
       
       db.models.FavoriteCollection.findOne {
@@ -135,6 +143,7 @@ module.exports = (app, db) ->
       collection = {
         color: form.data.color
         name: form.data.name
+        website: form.data.website
         userId: req.session.userId
       }
       if form.data.description and form.data.description.length

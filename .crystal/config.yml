@@ -9,26 +9,25 @@ author:
   url: http://crystal.sh
 copyright: 2015 Crystal
 modules:
-  official.coffeescript: v0.1.0
-  official.dynamodb: v0.1.0
-  official.express: v0.1.0
-  official.gitignore: v0.1.0
-  official.grunt: v0.1.0
-  official.license: v0.1.0
-  official.npm: v0.1.0
-  official.readme: v0.1.0
-  redis.core: v0.1.0
+  coffeescript.js: v0.1.0
+  express.app: v0.1.0
+  express.route: v0.1.0
+  git.ignore: v0.1.0
+  grunt.file: v0.1.0
+  license.mit: v0.1.0
+  npm.package: v0.1.0
+  readme.file: v0.1.0
+  redis.config: v0.1.0
 imports:
-  cs-to-js: official.coffeescript.JavaScriptTransformer
-  dynamodb: official.dynamodb.ModelGenerator
-  express-app: official.express.AppGenerator
-  express-route: official.express.RouteGenerator
-  gitignore: official.gitignore.GitignoreGenerator
-  grunt: official.grunt.GruntfileGenerator
-  license: official.license.MITGenerator
-  npm: official.npm.ConfigGenerator
-  readme: official.readme.ReadmeGenerator
-  redis-config: redis.core.ConfigGenerator
+  cs-to-js: coffeescript.js.Transformer
+  express-app: express.app.Generator
+  express-route: express.route.Generator
+  gitignore: git.ignore.Generator
+  grunt: grunt.file.Generator
+  license: license.mit.Generator
+  npm: npm.package.Generator
+  readme: readme.file.Generator
+  redis: redis.config.Generator
 outputs:
   - generator: express-app
     #filename: app.js

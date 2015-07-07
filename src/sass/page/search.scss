@@ -16,13 +16,14 @@ h1 {
 }
 
 .result {
-  background-color: #EEE;
+  background-color: #FFF;
   border: 10px #FFF solid;
+  border-radius: 200px;
   box-sizing: border-box;
   display: inline-block;
-  height: 150px;
-  padding: 20px 20px 20px 20px;
-  width: 25%;
+  padding: 40px 20px;
+  text-align: center;
+  width: 20%;
   
   &:hover {
     background-color: #FFF;
@@ -31,27 +32,33 @@ h1 {
   
   a {
     border: none;
+    
+    &:hover {
+      background-color: transparent;
+      color: #333;
+    }
   }
   
   .image {
     background-position: center center;
     background-repeat: no-repeat;
     background-size: 90px 90px;
-    float: left;
+    display: block;
     height: 90px;
-    margin-right: 10px;
+    margin: 0px auto;
     width: 90px;
   }
   
   .name {
     clear: right;
     font-size: 24px;
+    padding-bottom: 5px;
   }
   
   .type {
-    color: #999;
-    float: right;
+    color: #FFF;
     font-size: 12px;
+    text-shadow: 1px 1px 1px #666;
     text-transform: uppercase;
   }
 }
