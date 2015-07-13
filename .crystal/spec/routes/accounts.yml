@@ -1,0 +1,7 @@
+uri: /accounts/connect
+method:
+  get:
+    title: Support | Crystal
+    view: support
+    local:
+      avatar: req.session.avatar

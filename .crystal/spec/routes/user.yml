@@ -1,0 +1,9 @@
+method:
+  get:
+    modules:
+      bluebird: bluebird
+      crypto: crypto
+      formulator: formulator
+      EditUser: ../formulas/forms/EditUser
+    title: Crystal User
+    view: user

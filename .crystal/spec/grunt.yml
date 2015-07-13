@@ -1,0 +1,23 @@
+loadNpmTasks:
+  - grunt-contrib-sass
+  - grunt-contrib-watch
+registerTask:
+  default:
+    - sass
+config:
+  pkg: package.json
+  sass:
+    dist:
+      files:
+        - expand: true
+          cwd: src/sass
+          src:
+            - '**/*.scss'
+          dest: src/public/css
+          ext: .css
+      options:
+        sourcemap: none
+        style: compressed
+  watch:
+    files: src/sass/**/*.scss
+    tasks: sass

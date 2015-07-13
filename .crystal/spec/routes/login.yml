@@ -1,0 +1,19 @@
+modules:
+  crypto: crypto
+  formulator: formulator
+  Login: ../formulas/forms/Login
+method:
+  get:
+    content: |
+      form = new formulator Login
+    local:
+      form: form
+    styles:
+      - styles/page/login.css
+    title: Crystal Login
+    view: login
+  post:
+    redirect:
+      type: referer
+$injector:
+  BEFORE_RENDERING: ./injector/login.coffee

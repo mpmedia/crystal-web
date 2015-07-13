@@ -1,0 +1,12 @@
+title: Registry | Crystal
+modules:
+  bluebird: bluebird
+  formulator: formulator
+  marked: marked
+  request: request
+  yaml: js-yaml
+method:
+  get:
+    view: registry
+$injector:
+  BEFORE_RENDERING: ./injector/registryBeforeRendering.coffee

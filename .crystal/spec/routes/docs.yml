@@ -1,0 +1,6 @@
+method:
+  get:
+    title: Crystal Docs
+    view: docs
+    local:
+      avatar: req.session.avatar

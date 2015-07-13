@@ -1,0 +1,5 @@
+method:
+  get:
+    content: req.session.destroy()
+    redirect:
+      type: referer

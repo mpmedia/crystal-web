@@ -1,0 +1,6 @@
+method:
+  get:
+    title: Privacy | Crystal
+    view: privacy
+    local:
+      avatar: req.session.avatar

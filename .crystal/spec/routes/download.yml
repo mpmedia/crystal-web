@@ -1,0 +1,6 @@
+method:
+  get:
+    title: Download | Crystal
+    local:
+      avatar: req.session.avatar
+    view: download

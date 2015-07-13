@@ -1,0 +1,5 @@
+uri: /module/:name
+method:
+  get:
+    model: Module
+    title: Crystal Module

@@ -1,0 +1,6 @@
+method:
+  get:
+    title: Terms of Use | Crystal
+    local:
+      avatar: req.session.avatar
+    view: terms
