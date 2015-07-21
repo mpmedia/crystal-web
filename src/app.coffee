@@ -5,7 +5,7 @@ express       = require 'express'
 path          = require 'path'
 session       = require 'express-session'
 redis         = require 'redis'
-sessionClient = redis.createClient()
+sessionClient = redis.createClient(6379, process.env.CRYSTAL_REDIS_HOST)
 redisStore    = require('connect-redis') session
 multer        = require 'multer'
 
