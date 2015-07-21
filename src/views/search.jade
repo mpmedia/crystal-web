@@ -11,7 +11,7 @@ block content
           div(class='type')= result.type
           div(class='name')
             a(href='/' + result.type.toLowerCase() + 's/' + result.name)= result.name
-          a(class='image', href='/' + result.type.toLowerCase() + 's/' + result.name, style='background-image: url(https://s3.amazonaws.com/crystal-alpha/collections/' + (result.collectionId ? result.collectionId : result.id) + '.svg)')
+          a(class='image', href='/' + result.type.toLowerCase() + 's/' + result.name, style='background-image: url(' + image_url + 'collections/' + (result.collectionId ? result.collectionId : result.id) + '.svg)')
           div!= 'by <a href="users/' + result.user + '">' + result.user + '</a>'
     else
       div No results found.

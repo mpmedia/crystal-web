@@ -81,6 +81,7 @@ module.exports = (app) ->
       
       res.render 'user', {
         avatar: req.session.avatar
+        image_url: if req.host == 'crystal.sh' then 'https://s3.amazonaws.com/crystal-production/' else 'https://s3.amazonaws.com/crystal-alpha/'
         scripts: [
           'scripts/page/user.js'
         ]

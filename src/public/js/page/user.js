@@ -1,6 +1,20 @@
+if (location.host == 'crystal.sh') {
+  var image_url = 'https://s3.amazonaws.com/crystal-production/collections/';
+} else {
+  var image_url = 'https://s3.amazonaws.com/crystal-alpha/collections/';
+}
+
 var addAccount = function() {
+  if (location.host == 'crystal.sh') {
+    var client_id = 'b15727baac5a27dcec10';
+    var redirect_uri = 'https://crystal.sh/accounts/connect/github';
+  } else {
+    var client_id = '1a72d9c6a9602772d577';
+    var redirect_uri = 'http://alpha.crystal.sh:8080/accounts/connect/github';
+  }
+  
   Crystal.Popup.show({
-    content: '<div align="center"><div><img height="200" src="/images/octocat.svg" /></div><a href="https://github.com/login/oauth/authorize?client_id=1a72d9c6a9602772d577&redirect_uri=http://alpha.crystal.sh:8080/accounts/connect/github&scope=user,public_repo">Connect GitHub Account</a></div>'
+    content: '<div align="center"><div><img height="200" src="/images/octocat.svg" /></div><a href="https://github.com/login/oauth/authorize?client_id=' + client_id + '&redirect_uri=' + redirect_uri + '&scope=user,public_repo">Connect GitHub Account</a></div>'
     /*+ '<div align="center"><a href="https://bitbucket.org/site/oauth2/authorize?client_id=ejHGb4Rk32jSPhUVmw&response_type=code">Connect Bitbucket Account</a></div>'*/
   });
   
@@ -30,7 +44,7 @@ var addCollection = function() {
       $(window).resize();
     },
     success: function(data) {
-      $('#collections a').last().before('<li style="background-image: url(https://s3.amazonaws.com/crystal-alpha/collections/' + data.id + '.svg); border: 2px #' + data.color + ' solid"><a href="collections/' + data.id + '"></a></li>');
+      $('#collections a').last().before('<li style="background-image: url(' + image_url + 'collections/' + data.id + '.svg); border: 2px #' + data.color + ' solid"><a href="collections/' + data.id + '"></a></li>');
       Crystal.Popup.hide();
     }
   });
@@ -123,7 +137,7 @@ var editCollection = function(o) {
       $(window).resize();
     },
     success: function(data) {
-      $('#collections li[data-id=' + data.id + ']').css('backgroundImage', 'url(https://s3.amazonaws.com/crystal-alpha/collections/' + data.id + '.svg)');
+      $('#collections li[data-id=' + data.id + ']').css('backgroundImage', 'url(' + image_url + 'collections/' + data.id + '.svg)');
       $('#collections a[data-id=' + data.id + ']').data('name', data.name);
       $('#collections a[data-id=' + data.id + ']').text(data.name);
       Crystal.Popup.hide();

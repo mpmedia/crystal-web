@@ -62,7 +62,7 @@ module.exports = (app) ->
       
       s3 = new aws.S3 {
         params:
-          Bucket: 'crystal-alpha'
+          Bucket: process.env.AWS_S3_BUCKET
           Key: 'collections/' + data.collection.id + '.svg'
       }
       
@@ -115,7 +115,7 @@ module.exports = (app) ->
       
       s3 = new aws.S3 {
         params:
-          Bucket: 'crystal-alpha'
+          Bucket: process.env.AWS_S3_BUCKET
           Key: 'collections/' + data.collection.id + '.svg'
       }
       

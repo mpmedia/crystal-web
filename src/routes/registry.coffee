@@ -13,8 +13,7 @@ module.exports = (app) ->
     # create form
     form = new formulator SearchRegistry, { keywords: req.query.keywords }
     
-    results = []
-    models.Module.findAll {
+    find_module = {
       include: [
         {
           model: models.Collection
@@ -25,8 +24,20 @@ module.exports = (app) ->
           attributes: ['username']
         }
       ]
-      where: ['module.name like ?', "%#{req.query.keywords}%"]
     }
+    
+    find_collection = {
+      include:
+        model: models.User
+        attributes: ['username']
+    }
+    
+    if req.query.keywords && req.query.keywords.length
+      find_module.where = ['Module.name like ?', "%#{req.query.keywords}%"]
+      find_collection.where = ['name like ?', "%#{req.query.keywords}%"]
+    
+    results = []
+    models.Module.findAll find_module
     
     .then (modules) ->
       for mod in modules
@@ -39,12 +50,7 @@ module.exports = (app) ->
           CollectionId: mod.dataValues.Collection.id
         }
         
-      models.Collection.findAll {
-        include:
-          model: models.User
-          attributes: ['username']
-        where: ['name like ?', "%#{req.query.keywords}%"]
-      }
+      models.Collection.findAll find_collection
       
     .then (collections) ->
       for collection in collections
@@ -59,6 +65,7 @@ module.exports = (app) ->
       res.render 'search', {
         avatar: req.session.avatar
         form: form
+        image_url: if req.host == 'crystal.sh' then 'https://s3.amazonaws.com/crystal-production/' else 'https://s3.amazonaws.com/crystal-alpha/'
         keywords: req.query.keywords
         search:
           results: results

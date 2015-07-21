@@ -1,7 +1,7 @@
 extends layout
 block content
   article(style='background-color: #'+collection.color)
-    img(src='https://s3.amazonaws.com/crystal-alpha/collections/'+collection.id+'.svg')
+    img(src=image_url+collection.id+'.svg')
     h2= collection.name
     h3= collection.description
     a(href=collection.website, target='_blank')= collection.website
