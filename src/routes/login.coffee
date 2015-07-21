@@ -21,6 +21,8 @@ module.exports = (app) ->
   app.post '/login', (req, res) ->
     form = new formulator Login, req.body
     
+    data = {}
+    
     models.User.findOne {
       where:
         username: req.body.username
@@ -29,16 +31,16 @@ module.exports = (app) ->
       if !user_data
         throw new Error 'Unknown user. Did you mean to <a href="signup">Sign Up?</a>'
         
-      user = user_data
-      return user.verifyPassword req.body.password, user
+      data.user = user_data
+      return data.user.verifyPassword req.body.password, data.user
     
     .then (validPassword) ->
       if validPassword != true
         throw new Error "Invalid username/password."
       
-      avatar_hash = crypto.createHash('md5').update(user.dataValues.email).digest 'hex'
+      avatar_hash = crypto.createHash('md5').update(data.user.dataValues.email).digest 'hex'
       req.session.avatar = "http://www.gravatar.com/avatar/#{avatar_hash}"
-      req.session.userId = user.dataValues.id
+      req.session.userId = data.user.dataValues.id
       
       if req.header('Referer') && !req.header('Referer').match('/login')
         url = req.header('Referer')
