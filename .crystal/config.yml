@@ -53,7 +53,7 @@ outputs:
       session:
         secret: PhKbgxBJjBOlAylyzeaBilyXdV0GfoQi
         store:
-          host: process.env.REDIS_HOST
+          host: process.env.CRYSTAL_REDIS_HOST
           port: 6379
           type: redis
       static:
