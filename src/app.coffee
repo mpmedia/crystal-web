@@ -45,7 +45,7 @@ app.use multer {
 app.use session({
   store: new redisStore {
     client: sessionClient
-    host: 'redis.crystal.sh'
+    host: process.env.REDIS_HOST
     port: 6379
     saveUninitialized: true
     resave: false
