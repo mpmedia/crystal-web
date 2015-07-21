@@ -2,23 +2,24 @@
 body          = require 'body-parser'
 cookie        = require 'cookie-parser'
 express       = require 'express'
-multer        = require 'multer'
 path          = require 'path'
 session       = require 'express-session'
 redis         = require 'redis'
 sessionClient = redis.createClient()
 redisStore    = require('connect-redis') session
+multer        = require 'multer'
 
 # get db
 db = require './db.coffee'
 
 # create app
 app = express()
+port = 8080
 
 # set app title
 title = 'Crystal - Open Source Code Generator for Every Language and Platform'
 
-# disable etag
+# disable app settings
 app.disable 'etag'
 
 # setup views
@@ -37,9 +38,10 @@ app.use '/styles', express.static("#{__dirname}/public/css")
 # setup middleware
 app.use body.urlencoded { extended: true }
 app.use body.json()
-app.use body()
 app.use cookie()
-app.use multer { dest: './uploads/'}
+app.use multer {
+  dest: './uploads/'
+}
 app.use session({
   store: new redisStore {
     client: sessionClient
@@ -50,36 +52,36 @@ app.use session({
   }
   secret: 'PhKbgxBJjBOlAylyzeaBilyXdV0GfoQi'
 })
+process.on 'uncaughtException', (err) ->
+  switch err.code
+    when 'EADDRINUSE'
+      console.log "Port #{port} is already in use."
+    else
+      console.log err.message
 
 # load routes
-require('./routes/home')(app, db)
-require('./routes/accounts')(app, db)
-require('./routes/collections')(app, db)
-require('./routes/doc')(app, db)
-require('./routes/docs')(app, db)
-require('./routes/download')(app, db)
-require('./routes/hub')(app, db)
-require('./routes/login')(app, db)
-require('./routes/modules')(app, db)
-require('./routes/github2')(app, db)
-require('./routes/logout')(app, db)
-require('./routes/privacy')(app, db)
-require('./routes/registry')(app, db)
-require('./routes/repositories')(app, db)
-require('./routes/signup')(app, db)
-require('./routes/support')(app, db)
-require('./routes/terms')(app, db)
-require('./routes/user')(app, db)
-app.use (req, res, next) ->
-  res.status 404
-  res.render '404', {
-    avatar: req.session.avatar
-    styles: [
-      'styles/page/404.css'
-    ]
-    url: req.url
-  }
+require('./routes/accounts-connect')(app)
+require('./routes/accounts')(app)
+require('./routes/collections-name')(app)
+require('./routes/collections')(app)
+require('./routes/doc')(app)
+require('./routes/docs')(app)
+require('./routes/download')(app)
+require('./routes/home')(app)
+require('./routes/hub')(app)
+require('./routes/login')(app)
+require('./routes/logout')(app)
+require('./routes/module')(app)
+require('./routes/modules')(app)
+require('./routes/privacy')(app)
+require('./routes/registry')(app)
+require('./routes/repositories')(app)
+require('./routes/signup')(app)
+require('./routes/support')(app)
+require('./routes/terms')(app)
+require('./routes/user-email')(app)
+require('./routes/user')(app)
 
 # serve app
 console.log 'Serving...'
-app.listen 8080
+app.listen port

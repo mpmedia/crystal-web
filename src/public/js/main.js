@@ -86,6 +86,7 @@ $(document).keydown(function(e) {
       }
       break;
     }
+    /*
     case 85: {
       if ($('#sidebar').hasClass('open')) {
         $('#content, header').animate({
@@ -113,6 +114,7 @@ $(document).keydown(function(e) {
       }
       break;
     }
+    */
   }
 });
 

@@ -1,5 +1,5 @@
 # create form
-form = new formulator SearchRegistry, { keywords: req.session.keywords }
+form = new formulator SearchRegistry, { keywords: req.query.keywords }
 
 results = []
 models.Module.findAll {
@@ -20,18 +20,18 @@ models.Module.findAll {
   for mod in modules
     results.push {
       id: mod.dataValues.id
-      color: mod.dataValues.collection.color
-      collectionId: mod.dataValues.collection.id
-      name: "#{mod.dataValues.collection.name}/#{mod.dataValues.name}"
+      color: mod.dataValues.Collection.color
+      name: "#{mod.dataValues.Collection.name}/#{mod.dataValues.name}"
       type: 'Module'
-      user: mod.dataValues.user.username
+      user: mod.dataValues.User.username
+      CollectionId: mod.dataValues.Collection.id
     }
     
   models.Collection.findAll {
     include:
       model: models.User
       attributes: ['username']
-    where: ['name like ?', "%#{req.session.keywords}%"]
+    where: ['name like ?', "%#{req.query.keywords}%"]
   }
   
 .then (collections) ->
@@ -41,17 +41,23 @@ models.Module.findAll {
       color: collection.dataValues.color
       name: collection.dataValues.name
       type: 'Collection'
-      user: collection.dataValues.user.username
+      user: collection.dataValues.User.username
     }
     
   res.render 'search', {
     avatar: req.session.avatar
     form: form
-    keywords: req.session.keywords
+    keywords: req.query.keywords
     search:
       results: results
     styles: [
       'styles/page/search.css'
     ]
     title: 'Search Crystal'
+  }
+
+.catch (e) ->
+  res.render 'error', {
+    error: e
+    title: 'Error | Crystal'
   }

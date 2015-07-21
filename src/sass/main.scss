@@ -151,13 +151,10 @@ section {
   }
   
   a {
-    border-bottom: 1px #666 dotted;
     color: #000;
     text-decoration: none;
     
     &:hover {
-      background-color: #000;
-      border-bottom: none;
       color: #FFFF00;
       text-decoration: none;
     }

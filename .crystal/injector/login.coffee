@@ -1,7 +1,7 @@
 {{#equals @key 'post'}}
 form = new formulator Login, req.body
 
-db.models.User.findOne {
+models.User.findOne {
   where:
     username: req.body.username
 }

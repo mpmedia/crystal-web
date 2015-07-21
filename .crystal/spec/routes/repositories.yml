@@ -1,0 +1,21 @@
+modules:
+  bluebird: bluebird
+  request: request
+method:
+  get:
+    title: 'Repositories | Crystal'
+$injector:
+  AFTER_MODULES: |
+    # enable promises
+    bluebird.promisifyAll request
+    
+    sortByKey = (array, key) ->
+      array.sort (a, b) ->
+        x = a[key]
+        y = b[key]
+        if typeof x == 'string'
+          x = x.toLowerCase()
+          y = y.toLowerCase()
+        if x < y then -1 else if x > y then 1 else 0
+
+  BEFORE_RENDERING: ./injector/repositories.hbs

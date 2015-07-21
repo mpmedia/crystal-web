@@ -5,7 +5,8 @@ block content
     h2= collection.name
     h3= collection.description
     a(href=collection.website, target='_blank')= collection.website
-    div!= 'by <a href="users/' + collection.user.username + '">' + collection.user.username + '</a>'
+    if collection.user
+      div!= 'by <a href="users/' + collection.user.username + '">' + collection.user.username + '</a>'
     
     div(id='modules')
       if collection.modules.length

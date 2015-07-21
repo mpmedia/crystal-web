@@ -1,0 +1,16 @@
+modules:
+  aws: aws-sdk
+  bluebird: bluebird
+  formulator: formulator
+  fs: fs
+  AddCollection: ../formulas/forms/AddCollection
+  EditCollection: ../formulas/forms/EditCollection
+method:
+  get:
+    title: 'Collections | Crystal'
+  patch:
+    title: 'Collections | Crystal'
+  post:
+    title: 'Collections | Crystal'
+$injector:
+  BEFORE_RENDERING: ./injector/collections.hbs

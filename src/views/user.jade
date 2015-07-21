@@ -24,8 +24,8 @@ block content
     ul(id='accounts')
       if user.accounts
         for a in user.accounts
-          li(style='background-image: url(/images/github-icon.svg)')
-            a(href='https://github.com/'+a.login, target='_blank')
+          li(class='github')
+            a(href='https://github.com/'+a.login, target='_blank')= a.login
       else
         div No accounts exist.
       li

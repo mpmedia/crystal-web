@@ -14,15 +14,19 @@ method:
       - styles/page/signup.css
     view: signup
   post:
-    view: signup
+    title: Sign Up | Crystal
 modules:
   aws: aws-sdk
   bluebird: bluebird
   crypto: crypto
   formulator: formulator
   uuid: uuid
+  Signup: ../formulas/forms/Signup
 $injector:
   BEFORE_RENDERING: |
+    {{#equals @key 'get'}}
+    form = new formulator Signup
+    {{/equals}}
     {{#equals @key 'post'}}
     form = new formulator Signup, req.body
     
@@ -32,7 +36,7 @@ $injector:
       if !form.isValid()
         throw new Error 'Validation failed.'
     .then () ->
-      db.models.User.findOne {
+      models.User.findOne {
         where:
           email: form.data.email
       }
@@ -40,7 +44,7 @@ $injector:
       if user
         throw new Error 'Email address in use. Please use another.'
       
-      db.models.User.findOne {
+      models.User.findOne {
         where:
           username: form.data.username
       }
@@ -48,7 +52,7 @@ $injector:
       if user
         throw new Error 'Username is taken. Please try another.'
         
-      db.models.User.create {
+      models.User.create {
         email: form.data.email
         username: form.data.username
         verification: verification
@@ -59,6 +63,9 @@ $injector:
       req.session.userId = user.dataValues.id
       return user.setPassword req.body.password
     .then (data) ->
+      aws.config.accessKeyId = process.env.AWS_SES_USER
+      aws.config.secretAccessKey = process.env.AWS_SES_PASS
+      
       ses = new aws.SES {
         apiVersion: '2012-10-17'
         region: 'us-east-1'

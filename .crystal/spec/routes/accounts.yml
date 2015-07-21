@@ -1,7 +1,16 @@
-uri: /accounts/connect
 method:
   get:
-    title: Support | Crystal
-    view: support
-    local:
-      avatar: req.session.avatar
+    title: 'test'
+$injector:
+  BEFORE_RENDERING: |
+    accounts = models.Account.findAll {
+      attributes: ['id','login']
+      where:
+        UserId: req.session.userId
+    }
+    .then (accounts_data) ->
+      accounts = []
+      for account in accounts_data
+        accounts.push account.dataValues
+      
+      res.status(200).send accounts

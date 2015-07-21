@@ -13,7 +13,6 @@ method:
     title: Crystal Login
     view: login
   post:
-    redirect:
-      type: referer
+    title: Crystal Login
 $injector:
   BEFORE_RENDERING: ./injector/login.coffee

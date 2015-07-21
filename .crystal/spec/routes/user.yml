@@ -1,9 +1,20 @@
+modules:
+  bluebird: bluebird
+  crypto: crypto
+  formulator: formulator
+  EditUser: ../formulas/forms/EditUser
 method:
   get:
-    modules:
-      bluebird: bluebird
-      crypto: crypto
-      formulator: formulator
-      EditUser: ../formulas/forms/EditUser
+    local:
+      avatar: req.session.avatar
+      user: user
     title: Crystal User
-    view: user
+$injector:
+  BEFORE_METHODS: ./injector/user.coffee
+  BEFORE_RENDERING: |
+    {{#equals @key 'get'}}
+    if !req.session.userId
+      res.redirect '/'
+    
+    getUser req, res, req.session.userId
+    {{/equals}}

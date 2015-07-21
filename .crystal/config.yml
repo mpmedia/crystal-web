@@ -44,6 +44,10 @@ outputs:
     spec:
       body: true
       cookie: true
+      disable:
+        - etag
+      multer:
+        dest: ./uploads/
       port: 8080
       routes: &express-routes ./spec/routes
       session:
@@ -66,7 +70,7 @@ outputs:
   - generator: express-route
     injector:
       AFTER_MODULES:
-        - models = '../models'
+        - models = require '../models'
         - 
     iterator: routes
     path: src/routes
@@ -99,7 +103,8 @@ scripts:
   build:
     - sudo npm update
     - mkdir ~/.crystal/dev/crystal-web/src/models
-    - ln ~/.crystal/dev/crystal-api/src/models ~/.crystal/dev/crystal-web/src/models
+    - ln -s ~/.crystal/dev/crystal-api/src/models ~/.crystal/dev/crystal-web/src/models
   run:
     - sudo grunt
-    - sudo coffee src/app.coffee
+    - redis-server ./src/config/redis.conf
+    - coffee src/app.coffee

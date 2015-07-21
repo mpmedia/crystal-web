@@ -15,10 +15,13 @@ block content
         a(href='#config') CONFIG
   aside
     h3 Repository
-    p
-      a(href=repository.url, target='_blank')
-        img(class='icon', src='images/repo-github.svg')
-        span= repository.path
+    if repository
+      p
+        a(href=repository.url, target='_blank')
+          img(class='icon', src='images/repo-github.svg')
+          span= repository.path
+    else
+      p This module does not have a repo.
     h3 Exports
     if exports
       each export_data, export_name in exports

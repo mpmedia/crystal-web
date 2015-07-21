@@ -1,17 +1,14 @@
-crypto     = require 'crypto'
+crypto = require 'crypto'
 formulator = require 'formulator'
-
 Login = require '../formulas/forms/Login'
+models = require '../models'
 
-module.exports = (app, db) ->
+module.exports = (app) ->
+  
   # GET /login
   app.get '/login', (req, res) ->
-    # user already signed in
-    if req.session.userId
-      res.redirect '/user'
-    
     form = new formulator Login
-    
+
     res.render 'login', {
       form: form
       styles: [
@@ -19,24 +16,23 @@ module.exports = (app, db) ->
       ]
       title: 'Crystal Login'
     }
-
+  
   # POST /login
-  user = {}
   app.post '/login', (req, res) ->
     form = new formulator Login, req.body
     
-    db.models.User.findOne({
+    models.User.findOne {
       where:
         username: req.body.username
-    })
-    .then((user_data) ->
+    }
+    .then (user_data) ->
       if !user_data
         throw new Error 'Unknown user. Did you mean to <a href="signup">Sign Up?</a>'
         
       user = user_data
       return user.verifyPassword req.body.password, user
-    )
-    .then((validPassword) ->
+    
+    .then (validPassword) ->
       if validPassword != true
         throw new Error "Invalid username/password."
       
@@ -50,8 +46,8 @@ module.exports = (app, db) ->
         url = '/'
         
       res.redirect url
-    )
-    .catch((e) ->
+    
+    .catch (e) ->
       res.render 'login', {
         form: form
         error: e
@@ -61,4 +57,3 @@ module.exports = (app, db) ->
         username: req.body.username
         title: 'Crystal Login'
       }
-    )

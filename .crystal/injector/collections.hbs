@@ -1,0 +1,117 @@
+{{#equals @key 'get'}}
+collections = models.Collection.findAll {
+  attributes: ['id','name']
+  where:
+    UserId: req.session.userId
+}
+.then (collections_data) ->
+  collections = []
+  for collection in collections_data
+    collections.push collection.dataValues
+  
+  res.status(200).send collections
+{{/equals}}
+
+{{#equals @key 'patch'}}
+form = new formulator EditCollection, req.body
+if !form.isValid()
+  res.status(400).send(form.errors)
+  return
+
+# collect data
+data = {}
+
+models.Collection.findById(req.body.id)
+.then (collection) ->
+  if !collection
+    res.status(400).send { error: 'Unknown collection' }
+    return
+  else if collection.dataValues.userId != req.session.userId
+    res.status(400).send { error: 'Not yours to edit' }
+    return
+  
+  collection.color = form.data.color
+  if form.data.description and form.data.description.length
+    collection.description = form.data.description
+  collection.name = form.data.name
+  
+  return collection.save()
+
+.then (collection) ->
+  data.collection = collection.dataValues
+  
+  if !req.files.image
+    return
+  
+  aws.config.accessKeyId = process.env.AWS_S3_USER
+  aws.config.secretAccessKey = process.env.AWS_S3_PASS
+  
+  s3 = new aws.S3 {
+    params:
+      Bucket: 'crystal-alpha'
+      Key: 'collections/' + data.collection.id + '.svg'
+  }
+  
+  bluebird.promisifyAll s3
+  s3.uploadAsync {
+    ACL: 'public-read'
+    Body: fs.readFileSync "#{req.files.image.path}", 'utf8'
+    ContentType: 'image/svg+xml'
+  }
+  
+.then (image) ->
+  res.status(200).send data.collection
+{{/equals}}
+
+{{#equals @key 'post'}}
+form = new formulator AddCollection, req.body
+if !form.isValid()
+  throw new Error 'Validation failed'
+
+data = {}
+
+models.Collection.findOne {
+  where:
+    name: req.body.name
+}
+
+.then (data) ->
+  if data
+    throw new Error 'Duplicate collection'
+  
+  collection = {
+    color: form.data.color
+    name: form.data.name
+    website: form.data.website
+    UserId: req.session.userId
+  }
+  if form.data.description and form.data.description.length
+    collection.description = form.data.description
+  
+  models.Collection.create collection
+
+.then (collection) ->
+  data.collection = collection.dataValues
+
+  aws.config.accessKeyId = process.env.AWS_S3_USER
+  aws.config.secretAccessKey = process.env.AWS_S3_PASS
+  
+  s3 = new aws.S3 {
+    params:
+      Bucket: 'crystal-alpha'
+      Key: 'collections/' + data.collection.id + '.svg'
+  }
+  
+  bluebird.promisifyAll s3
+  s3.uploadAsync {
+    ACL: 'public-read'
+    Body: fs.readFileSync "#{req.files.image.path}", 'utf8'
+    ContentType: 'image/svg+xml'
+  }
+  
+.then (image) ->
+  res.status(200).send data.collection
+
+.catch (e) ->
+  res.status(400).send { error: e.toString() }
+{{/equals}}

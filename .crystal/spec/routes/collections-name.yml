@@ -1,0 +1,11 @@
+uri: /collections/:name
+modules:
+  aws: aws-sdk
+  bluebird: bluebird
+  formulator: formulator
+  fs: fs
+method:
+  get:
+    title: 'Collections | Crystal'
+$injector:
+  BEFORE_RENDERING: ./injector/collections-name.hbs

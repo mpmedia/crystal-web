@@ -5,8 +5,10 @@ modules:
   marked: marked
   request: request
   yaml: js-yaml
+  SearchRegistry: ../formulas/forms/SearchRegistry
 method:
   get:
-    view: registry
+    local:
+      avatar: req.session.avatar
 $injector:
   BEFORE_RENDERING: ./injector/registryBeforeRendering.coffee

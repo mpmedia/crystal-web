@@ -1,10 +1,11 @@
+models = require '../models'
+
 module.exports = (app) ->
+  
   # GET /
   app.get '/', (req, res) ->
     res.render 'home', {
       avatar: req.session.avatar
-      clientID: process.env.GITHUB_CLIENT_ID
-      redirectURI: process.env.GITHUB_REDIRECT_URI
       scripts: [
         'scripts/page/home.js'
       ]

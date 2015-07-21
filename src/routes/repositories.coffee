@@ -1,6 +1,5 @@
 bluebird = require 'bluebird'
-request  = require 'request'
-
+request = require 'request'
 # enable promises
 bluebird.promisifyAll request
 
@@ -13,7 +12,10 @@ sortByKey = (array, key) ->
       y = y.toLowerCase()
     if x < y then -1 else if x > y then 1 else 0
 
-module.exports = (app, db) ->
+models = require '../models'
+
+module.exports = (app) ->
+  
   # GET /repositories
   app.get '/repositories', (req, res) ->
     # prepare headers
@@ -21,8 +23,8 @@ module.exports = (app, db) ->
       'User-Agent': 'Crystal <support@crystal.sh> (https://crystal.sh)'
     }
     
-    db.models.Account.findAll {
-      attributes: ['access_token','providerId','uuid']
+    models.Account.findAll {
+      attributes: ['accessToken','ProviderId','uuid']
       where:
         userId: req.session.userId
     }
@@ -30,11 +32,11 @@ module.exports = (app, db) ->
       requests = []
       for account in accounts_data
         # get url for request
-        url = switch account.dataValues.providerId
+        url = switch account.dataValues.ProviderId
           when 1
-            "https://api.github.com/user/repos?access_token=#{account.dataValues.access_token}&per_page=100"
+            "https://api.github.com/user/repos?access_token=#{account.dataValues.accessToken}&per_page=100"
           when 2
-            "https://api.bitbucket.org/2.0/repositories/#{account.dataValues.uuid}?access_token=#{account.dataValues.access_token}"      
+            "https://api.bitbucket.org/2.0/repositories/#{account.dataValues.uuid}?access_token=#{account.dataValues.accessToken}"      
         
         # get account repos
         requests.push request.getAsync {
@@ -46,6 +48,9 @@ module.exports = (app, db) ->
       .then (results) ->
         repos = []
         for result in results
+          if result[0].statusCode != 200
+            throw new Error 'Unable to fetch repositories'
+            
           result = JSON.parse result[0].body
           
           if result.values[0]
@@ -64,3 +69,5 @@ module.exports = (app, db) ->
         sortByKey repos, 'url'
         
         res.status(200).send repos
+    .catch (e) ->
+      res.status(400).send { error: e.toString() }

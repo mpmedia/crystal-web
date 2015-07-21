@@ -1,0 +1,12 @@
+modules:
+  bluebird: bluebird
+  formulator: formulator
+  marked: marked
+  request: request
+  AddModule: ../formulas/forms/AddModule
+method: post
+$injector:
+  AFTER_MODULES: |
+    # enable promises
+    bluebird.promisifyAll request
+  BEFORE_RENDERING: ./injector/modules.hbs
