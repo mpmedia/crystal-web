@@ -1,13 +1,51 @@
 extends layout
 block content
-  h1 Download
-  ul
-    li
-      a(href='download#mac')
-        img(height=200, src='/images/apple.svg')
-    li
-      a(href='download#win')
-        img(height=200, src='/images/windows.svg')
-    li
-      a(href='download#lin')
-        img(height=200, src='/images/linux.svg')
+  h2 <b>Project Status:</b> Crystal is still in development and is not meant for production systems. Proceed at your own risk.
+  h1 Download Crystal
+  ul(class='choose')
+    li(class='step')
+      h3 1. Choose a Platform
+      div(class='apple')
+        a(class='atom', href='download/platform')
+          span
+        ul
+          li
+            a(class='selected', href='download/platform/mac') Mac
+          li
+            a(href='download/platform/windows') Windows
+          li
+            a(href='download/platform/linux') Linux
+      span(class='name') Mac OS X
+    li(class='step')
+      h3 2. Choose a Provider
+      div(class='npm')
+        a(class='atom', href='download/provider')
+          span
+        ul
+          li
+            a(class='selected', href='download/provider/npm') npm
+          li
+            a(href='download/provider/homebrew') Homebrew
+          li
+            a(href='download/provider/github') GitHub
+      span(class='name') npm
+    li(class='step')
+      h3 3. Choose a Version
+      div(class='quartz')
+        a(class='atom', href='download/version')
+          span
+        ul
+          li
+            a(class='selected', href='download/version/v0.6') v0.6.3 (latest)
+          li
+            a(href='download/version/v0.5') v0.5.0
+          li
+            a(href='download/version/v0.4') v0.4.0
+      span(class='name') v0.6.3 (Latest)
+    li(class='step')
+      h3 4. Download
+      div
+        a(href='download')
+          img(src='/images/quartz-white.svg')
+      span(class='name')
+        a(href='support') Help

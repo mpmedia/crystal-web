@@ -3,4 +3,8 @@ method:
     title: Download | Crystal
     local:
       avatar: req.session.avatar
+    scripts:
+      - scripts/page/download.js
+    styles:
+      - styles/page/download.css
     view: download

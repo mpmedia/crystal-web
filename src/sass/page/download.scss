@@ -1,25 +1,228 @@
+@mixin gradient($from, $to) {
+  background: -webkit-gradient(linear, left top, left bottom, from($from), to($to));
+  background: -moz-linear-gradient(top,  $from, $to);
+  filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#{$from}', endColorstr='#{$to}');
+}
+
+@mixin transition($args...) {
+  -webkit-transition: $args;
+  -moz-transition: $args;
+  -ms-transition: $args;
+  -o-transition: $args;
+  transition: $args;
+}
+
 section {
-  ul {
-    overflow: auto;
+  h1 {
+    color: #000;
+    font-size: 48px;
+    padding: 10px 0px 40px 0px;
+    text-align: center;
+  }
+  
+  h2 {
+    background-color: #FFFFCC;
+    border-radius: 50px;
+    font-size: 24px;
+    font-weight: normal;
+    margin: 0px 0px 20px 0px;
+    padding: 20px;
+    text-align: center;
+  }
+  
+  ul.choose {
+    display: block;
     list-style-type: none;
-    margin: 0px auto;
-    width: 1100px;
+    padding: 0px;
+    text-align: center;
     
-    li {
-      float: left;
-      margin-right: 50px;
+    li.step {
+      box-sizing: border-box;
+      display: inline-block;
+      padding-right: 20px;
+      width: 25%;
       
-      a {
-        border: none;
+      h3 {
+        font-size: 24px;
+        font-weight: normal;
+      }
+      
+      div {
+        @include transition(border 1s ease, opacity 1s ease);
         
-        &:hover {
-          background: none;
+        background-position: center center;
+        background-size: 60% 60%;
+        background-repeat: no-repeat;
+        border: 5px #FFF solid;
+        border-radius: 100%;
+        overflow: hidden;
+        
+        a.atom {
+          display: block;
+          height: 100%;
+          
+          img {
+            vertical-align: middle;
+            width: 60%;
+          }
+          
+          span {
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-size: 60% 60%;
+            display: block;
+            height: 100%;
+          }
         }
         
-        img {
-          height: 300px;
-          width: 300px;
+        &.apple {
+          &:hover, &.selected {
+            border: 5px #666 solid;
+          }
+          
+          a.atom {
+            @include gradient(#666, #000);
+            
+            span {
+              background-image: url(/images/apple.svg);
+            }
+          }
+          
+          ul {
+            background-color: #000;
+          }
         }
+        
+        &.github {
+          &:hover, &.selected {
+            border: 5px #a5a3c0 solid;
+          }
+          
+          a.atom {
+            @include gradient(#a5a3c0, #837fa2);
+            
+            span {
+              background-image: url(/images/github-white.svg);
+            }
+          }
+          
+          ul {
+            background-color: #837fa2;
+          }
+        }
+        
+        &.homebrew {
+          &:hover, &.selected {
+            border: 5px #c48c49 solid;
+          }
+          
+          a.atom {
+            @include gradient(#c48c49, #745626);
+            
+            span {
+              background-image: url(/images/homebrew.svg);
+            }
+          }
+          
+          ul {
+            background-color: #745626;
+          }
+        }
+        
+        &.linux {
+          &:hover, &.selected {
+            border: 5px #ffe594 solid;
+          }
+          
+          a.atom {
+            @include gradient(#ffe594, #ffd235);
+            
+            span {
+              background-image: url(/images/linux-white.svg);
+            }
+          }
+          
+          ul {
+            background-color: #ffd235;
+          }
+        }
+        
+        &.npm {
+          &:hover, &.selected {
+            border: 5px #ef4545 solid;
+          }
+          
+          a.atom {
+            @include gradient(#ef4545, #cb3837);
+            
+            span {
+              background-image: url(/images/npm-white.svg);
+            }
+          }
+          
+          ul {
+            background-color: #cb3837;
+          }
+        }
+        
+        &.quartz {
+          &:hover, &.selected {
+            border: 5px #EEE solid;
+          }
+          
+          a.atom {
+            @include gradient(#EEE, #CCC);
+            
+            span {
+              background-image: url(/images/quartz-white.svg);
+            }
+          }
+          
+          ul {
+            background-color: #CCC;
+          }
+        }
+        
+        &.windows {
+          &:hover, &.selected {
+            border: 5px #39ccff solid;
+          }
+          
+          a.atom {
+            @include gradient(#39ccff, #2daae1);
+            
+            span {
+              background-image: url(/images/windows-white.svg);
+            }
+          }
+          
+          ul {
+            background-color: #2daae1;
+          }
+        }
+        
+        ul {
+          background-color: #000;
+          list-style-type: none;
+          line-height: 90px;
+          height: 100%;
+          padding: 0px;
+          
+          li {
+            a {
+              color: #FFF;
+              
+              &.selected {
+                color: #FFFF00;
+              }
+            }
+          }
+        }
+      }
+      
+      span.name {
+        font-size: 18px;
+        padding-top: 20px;
       }
     }
   }
