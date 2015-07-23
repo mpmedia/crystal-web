@@ -53,7 +53,7 @@ module.exports = (app) ->
             
           result = JSON.parse result[0].body
           
-          if result.values[0]
+          if result.values and result.values[0]
             providerId = 2
             result = result.values
           else
