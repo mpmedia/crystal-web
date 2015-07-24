@@ -1,4 +1,4 @@
-id: crystal.web
+id: crystal/web
 name: Crystal Website
 version: 0.1.0
 description: official website of [Crystal](http://crystal.sh)
