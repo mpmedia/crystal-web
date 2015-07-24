@@ -57,7 +57,6 @@ module.exports = (app) ->
         account: data.account
         avatar: req.session.avatar
         collection: data.collection
-        image_url: if req.host == 'crystal.sh' then 'https://s3.amazonaws.com/crystal-production/' else 'https://s3.amazonaws.com/crystal-alpha/'
         module: data.module
         repository: data.repository
         scripts: [

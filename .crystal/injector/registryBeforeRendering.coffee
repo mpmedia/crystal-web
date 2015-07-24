@@ -32,7 +32,7 @@ models.Module.findAll find_module
     results.push {
       id: mod.dataValues.id
       color: mod.dataValues.Collection.color
-      name: "#{mod.dataValues.Collection.name}/#{mod.dataValues.name}"
+      name: "#{mod.dataValues.Collection.name}.#{mod.dataValues.name}"
       type: 'Module'
       user: mod.dataValues.User.username
       CollectionId: mod.dataValues.Collection.id
@@ -53,7 +53,6 @@ models.Module.findAll find_module
   res.render 'search', {
     avatar: req.session.avatar
     form: form
-    image_url: if req.host == 'crystal.sh' then 'https://s3.amazonaws.com/crystal-production/' else 'https://s3.amazonaws.com/crystal-alpha/'
     keywords: req.query.keywords
     search:
       results: results

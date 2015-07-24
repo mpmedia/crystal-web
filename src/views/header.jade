@@ -1,5 +1,5 @@
 header
-  a(class='logo', href='/', title='Crystal Homepage')
+  a(class='logo', href=url.web, title='Crystal Homepage')
     img(src='images/crystal-logo-icon.svg')
   a(class='menu', href='menu', 'Menu')
     img(src='images/menu.svg')
@@ -7,8 +7,8 @@ header
     a(class='user', href='user', title='My Account')
       img(src=avatar + '?s=50')
   else
-    a(class='login', href='login', title='Crystal Login (or Sign Up)') Login
+    a(class='login', href=url.web+'login', title='Crystal Login (or Sign Up)') Login
   nav
-    a(class='download', href='download', title='Download Crystal') Download
-    a(class='registry', href='registry', title='Crystal Registry') Registry
-    a(class='support', href='support', title='Crystal Support') Support
+    a(class='download', href=url.web+'download', title='Download Crystal') Download
+    a(class='registry', href=url.hub, title='Crystal Hub') Crystal Hub
+    a(class='support', href=url.web+'support', title='Crystal Support') Support

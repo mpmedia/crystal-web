@@ -1,7 +1,7 @@
 extends layout
 block content
   article(style='background-color: #'+collection.color)
-    img(src=image_url+'collections/'+collection.id+'.svg')
+    img(src=url.img+'collections/'+collection.id+'.svg')
     h2= collection.name
     h3= collection.description
     a(href=collection.website, target='_blank')= collection.website
@@ -13,7 +13,7 @@ block content
         ul
           for module in collection.modules
             li
-              a(data-id=module.id, data-description=module.description, data-module=collection.name, data-name=module.name, data-repository=module.repository, href='modules/'+collection.name+'/'+module.name)
+              a(data-id=module.id, data-description=module.description, data-module=collection.name, data-name=module.name, data-repository=module.repository, href=url.hub+collection.name+'/'+module.name)
                 span(class='name')= module.name
                 span(class='description')= module.description
                 span(class='user')= 'by ' + module.username

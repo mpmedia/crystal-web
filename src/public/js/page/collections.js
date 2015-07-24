@@ -7,15 +7,15 @@ var addModule = function() {
     ready: function(form) {
       $.when(
         $.ajax({
-          url: '/accounts',
+          url: url.web + 'accounts',
           dataType: 'json'
         }),
         $.ajax({
-          url: '/collections',
+          url: url.web + 'collections',
           dataType: 'json'
         }),
         $.ajax({
-          url: '/repositories',
+          url: url.web + 'repositories',
           dataType: 'json'
         })
       ).done(function(accounts, collections, repositories) {

@@ -3,11 +3,14 @@ body          = require 'body-parser'
 cookie        = require 'cookie-parser'
 express       = require 'express'
 path          = require 'path'
+multer        = require 'multer'
 session       = require 'express-session'
 redis         = require 'redis'
 sessionClient = redis.createClient(6379, process.env.CRYSTAL_REDIS_HOST)
 redisStore    = require('connect-redis') session
 multer        = require 'multer'
+bluebird      = require 'bluebird'
+models        = require './models'
 
 # get db
 db = require './db.coffee'
@@ -43,6 +46,8 @@ app.use multer {
   dest: './uploads/'
 }
 app.use session({
+  cookie:
+    domain: '.crystal.sh'
   store: new redisStore {
     client: sessionClient
     host: process.env.CRYSTAL_REDIS_HOST
@@ -59,6 +64,14 @@ process.on 'uncaughtException', (err) ->
     else
       console.log err.message
 
+app.locals.url = {
+  api: "#{process.env.CRYSTAL_API_URL}/"
+  hub: "#{process.env.CRYSTAL_HUB_URL}/"
+  img: "#{process.env.CRYSTAL_IMG_URL}/"
+  web: "#{process.env.CRYSTAL_WEB_URL}/"
+}
+
+
 # load routes
 require('./routes/accounts-connect')(app)
 require('./routes/accounts')(app)
@@ -68,7 +81,6 @@ require('./routes/doc')(app)
 require('./routes/docs')(app)
 require('./routes/download')(app)
 require('./routes/home')(app)
-require('./routes/hub')(app)
 require('./routes/login')(app)
 require('./routes/logout')(app)
 require('./routes/module')(app)
@@ -82,6 +94,11 @@ require('./routes/support')(app)
 require('./routes/terms')(app)
 require('./routes/user-email')(app)
 require('./routes/user')(app)
+app.use (req, res, next) ->
+  res.status 404
+  res.render 'error', {
+    error: 'Page Not Found'
+  }
 
 # serve app
 console.log 'Serving...'

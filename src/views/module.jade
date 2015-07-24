@@ -2,8 +2,8 @@ extends layout
 block content
   h2
     a(class='icon', href='collections/'+collection.name)
-      img(src=image_url+'collections/'+collection.id+'.svg')
-    span!= '<a href="collections/' + collection.name + '">' + collection.name + '</a>' + '/' + '<a href="modules/' + collection.name + '/' + module.name + '">' + module.name + '</a>'
+      img(src=url.img+'collections/'+collection.id+'.svg')
+    span!= '<a href="collections/' + collection.name + '">' + collection.name + '</a>' + '.' + '<a href="modules/' + collection.name + '/' + module.name + '">' + module.name + '</a>'
     //a(href='modules/'+collection.name+'.'+module.name+'/releases', onclick='return changeRelease()') master
   nav
     ul(id='tabs')

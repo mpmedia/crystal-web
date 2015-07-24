@@ -1,6 +1,0 @@
-method:
-  get:
-    title: Crystal Hub
-    view: hub
-    local:
-      avatar: req.session.avatar

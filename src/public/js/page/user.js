@@ -1,9 +1,3 @@
-if (location.host == 'crystal.sh') {
-  var image_url = 'https://s3.amazonaws.com/crystal-production/collections/';
-} else {
-  var image_url = 'https://s3.amazonaws.com/crystal-alpha/collections/';
-}
-
 var addAccount = function() {
   if (location.host == 'crystal.sh') {
     var client_id = 'b15727baac5a27dcec10';
@@ -47,7 +41,7 @@ var addCollection = function() {
     success: function(data) {
       var li = $(document.createElement('li'));
       li.css({
-        backgroundImage: 'url(' + image_url + data.id + '.svg)',
+        backgroundImage: 'url(' + url.img + 'collections/' + data.id + '.svg)',
         border: '10px #' + data.color + ' solid'
       });
       li.data(data);
@@ -155,7 +149,7 @@ var editCollection = function(o) {
     success: function(data) {
       var li = $('#collections li:data(id==' + data.id + ')');
       li.data(data);
-      li.css('backgroundImage', 'url(' + image_url + data.id + '.svg)');
+      li.css('backgroundImage', 'url(' + url.img + 'collections/' + data.id + '.svg)');
       li.find('a.view').prop('href', 'collections/' + data.name);
       Crystal.Popup.hide();
     }

@@ -34,7 +34,7 @@ block content
     ul(id='collections')
       if user.collections
         for c in user.collections
-          li(data-id=c.id, data-color=c.color, data-description=c.description, data-name=c.name, onmouseenter='this.style.backgroundColor = "#' + c.color + '"', onmouseleave='this.style.backgroundColor = "#FFF"', style='border: 10px #' + c.color + ' solid; background-image: url(' + image_url + 'collections/' + c.id + '.svg)')
+          li(data-id=c.id, data-color=c.color, data-description=c.description, data-name=c.name, onmouseenter='this.style.backgroundColor = "#' + c.color + '"', onmouseleave='this.style.backgroundColor = "#FFF"', style='border: 10px #' + c.color + ' solid; background-image: url(' + url.img + 'collections/' + c.id + '.svg)')
             a(class='view', href='collections/'+c.name)
             a(class='edit', href='#', onclick='return editCollection($(this).parent()[0])')
             a(class='delete', href='#', onclick='return deleteCollection($(this).parent().data("id"))')

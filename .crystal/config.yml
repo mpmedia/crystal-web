@@ -36,27 +36,34 @@ outputs:
     injector:
       AFTER_MODULES:
         - multer        = require 'multer'
+        - bluebird      = require 'bluebird'
+        - models        = require './models'
         -
         - '# get db'
         - db = require './db.coffee'
+      BEFORE_ROUTES: ./injector/locals.coffee
+      AFTER_ROUTES: ./injector/appAfterRoutes.coffee
     path: src
     processor: yaml
     spec:
       body: true
-      cookie: true
+      cookie:
+        domain: .crystal.sh
       disable:
         - etag
       multer:
         dest: ./uploads/
       port: 8080
-      routes: &express-routes ./spec/routes
+      routes: &express-routes
+        $processor: yaml
+        $value: ./spec/routes
       session:
         secret: PhKbgxBJjBOlAylyzeaBilyXdV0GfoQi
         store:
           host: process.env.CRYSTAL_REDIS_HOST
           port: 6379
           type: redis
-      static:
+      static: &static
         /font: public/font
         /formulas: public/formulas
         /images: public/images
@@ -75,10 +82,79 @@ outputs:
     iterator: routes
     path: src/routes
     processor:
+      - uri
+      - yaml
+    spec:
+      routes:
+        $processor:
+          - yaml
+          - uri
+        $value: ./spec/routes
+  
+  - generator: express-app
+    injector:
+      AFTER_MODULES:
+        - multer        = require 'multer'
+        - bluebird      = require 'bluebird'
+        - models        = require './models'
+        -
+        - '# get db'
+        - db = require './db.coffee'
+      BEFORE_ROUTES: ./injector/locals.coffee
+      AFTER_ROUTES: ./injector/hubAfterRoutes.coffee
+    filename: hub.coffee
+    path: src
+    spec:
+      body: true
+      cookie:
+        domain: .crystal.sh
+      disable:
+        - etag
+      multer:
+        dest: ./uploads/
+      port: 8081
+      routes: &hub-routes
+        hub:
+          uri: /
+          title: Registry | Crystal
+          modules:
+            bluebird: bluebird
+            formulator: formulator
+            marked: marked
+            request: request
+            yaml: js-yaml
+            SearchRegistry: ../formulas/forms/SearchRegistry
+          method:
+            get:
+              local:
+                avatar: req.session.avatar
+          $injector:
+            BEFORE_RENDERING: ./injector/registryBeforeRendering.coffee
+      session:
+        secret: PhKbgxBJjBOlAylyzeaBilyXdV0GfoQi
+        store:
+          host: process.env.CRYSTAL_REDIS_HOST
+          port: 6379
+          type: redis
+      static: *static
+      title: Crystal - Open Source Code Generator for Every Language and Platform
+      view:
+        engine: jade
+      views: src/views
+  
+  - generator: express-route
+    injector:
+      AFTER_MODULES:
+        - models = require '../models'
+        - 
+    iterator: routes
+    path: src/routes
+    processor:
       - yaml
       - uri
     spec:
-      routes: *express-routes
+      routes: *hub-routes
+  
   - generator: gitignore
     spec: gitignore.yml
   - generator: grunt
