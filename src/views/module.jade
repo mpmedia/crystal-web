@@ -16,6 +16,10 @@ block content
       li
         a(href='#config', onclick='return loadConfig(this)') CONFIG
   aside
+    h3 Install
+    code= 'crystal install ' + collection.name + '/' + module.name
+    br
+    br
     h3 Contributors
     if contributors
       ul
