@@ -3,7 +3,7 @@ block content
   h2
     a(href='collections/'+collection.name)
       img(height=32, src=image_url+'collections/'+collection.id+'.svg')
-    span= collection.name + '.' + module.name
+    span= collection.name + '/' + module.name
     a(href='modules/'+collection.name+'.'+module.name+'/releases', onclick='return changeRelease()') master
   nav
     ul(id='tabs')

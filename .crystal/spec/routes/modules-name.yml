@@ -1,0 +1,13 @@
+uri: /modules/:collection/:module
+modules:
+  bluebird: bluebird
+  formulator: formulator
+  marked: marked
+  request: request
+  AddModule: ../formulas/forms/AddModule
+method: get
+$injector:
+  AFTER_MODULES: |
+    # enable promises
+    bluebird.promisifyAll request
+  BEFORE_RENDERING: ./injector/modules-name.hbs
