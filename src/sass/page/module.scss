@@ -24,6 +24,20 @@ section {
       &:hover {
         background-color: transparent;
       }
+      
+      &.icon {
+        margin-right: 10px;
+        
+        img {
+          height: 50px;
+          vertical-align: middle;
+          width: 50px;
+        }
+      }
+    }
+    
+    span {
+      vertical-align: middle;
     }
   }
   

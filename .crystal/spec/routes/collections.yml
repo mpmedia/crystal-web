@@ -6,6 +6,8 @@ modules:
   AddCollection: ../formulas/forms/AddCollection
   EditCollection: ../formulas/forms/EditCollection
 method:
+  delete:
+    title: 'Collections | Crystal'
   get:
     title: 'Collections | Crystal'
   patch:

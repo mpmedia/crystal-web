@@ -105,6 +105,6 @@ scripts:
     - mkdir ~/.crystal/dev/crystal-web/src/models
     - ln -s ~/.crystal/dev/crystal-api/src/models ~/.crystal/dev/crystal-web/src/models
   run:
-    - sudo grunt
-    - redis-server ./src/config/redis.conf
+    #- sudo grunt
+    #- redis-server ./src/config/redis.conf
     - coffee src/app.coffee

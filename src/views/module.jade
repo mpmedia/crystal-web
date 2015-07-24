@@ -1,10 +1,10 @@
 extends layout
 block content
   h2
-    a(href='collections/'+collection.name)
-      img(height=32, src=image_url+'collections/'+collection.id+'.svg')
-    span= collection.name + '/' + module.name
-    a(href='modules/'+collection.name+'.'+module.name+'/releases', onclick='return changeRelease()') master
+    a(class='icon', href='collections/'+collection.name)
+      img(src=image_url+'collections/'+collection.id+'.svg')
+    span!= '<a href="collections/' + collection.name + '">' + collection.name + '</a>' + '/' + '<a href="modules/' + collection.name + '/' + module.name + '">' + module.name + '</a>'
+    //a(href='modules/'+collection.name+'.'+module.name+'/releases', onclick='return changeRelease()') master
   nav
     ul(id='tabs')
       li
@@ -35,10 +35,6 @@ block content
         img(class='icon', src='images/repo-github.svg')
         span= repository.path
   article(id='readme')
-    p!= readme
   article(id='config')
-    pre= config
   article(id='license')
-    p!= license
   article(id='authors')
-    p= authors

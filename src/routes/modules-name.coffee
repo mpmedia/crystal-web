@@ -10,7 +10,7 @@ models = require '../models'
 
 module.exports = (app) ->
   
-  # get /modules/:collection/:module
+  # GET /modules/:collection/:module
   app.get '/modules/:collection/:module', (req, res) ->
     # prepare headers
     headers = {
@@ -19,6 +19,7 @@ module.exports = (app) ->
     
     data = {}
     
+    # get collection/module name
     collection_name = req.params.collection
     module_name = req.params.module
     
@@ -52,45 +53,20 @@ module.exports = (app) ->
       data.repository = data.module.Repository.dataValues
       data.account = data.repository.Account.dataValues
       
-      request.getAsync {
-        headers: headers
-        url: "https://api.github.com/repositories/#{data.repository.uuid}/releases?access_token=#{data.account.accessToken}&per_page=100"
+      res.render 'module', {
+        account: data.account
+        avatar: req.session.avatar
+        collection: data.collection
+        image_url: if req.host == 'crystal.sh' then 'https://s3.amazonaws.com/crystal-production/' else 'https://s3.amazonaws.com/crystal-alpha/'
+        module: data.module
+        repository: data.repository
+        scripts: [
+          'scripts/page/module.js'
+        ]
+        styles: [
+          'styles/page/module.css'
+        ]
       }
-    
-    .then (releases_resp) ->
-      data.releases = []
-      for release in JSON.parse releases_resp[0].body
-        data.releases.push {
-          tag: release.tag_name
-        }
-      
-      request.getAsync {
-        headers: headers
-        url: "https://api.github.com/repositories/#{data.repository.uuid}/readme?access_token=#{data.account.accessToken}&per_page=100"
-      }
-      
-    .then (readme_resp) ->
-      readme = JSON.parse(readme_resp[0].body).content
-      readme = new Buffer readme, 'base64'
-      readme = readme.toString()
-      marked readme, (err, content) ->
-        data.readme = content
-        res.render 'module', {
-          account: data.account
-          avatar: req.session.avatar
-          collection: data.collection
-          image_url: if req.host == 'crystal.sh' then 'https://s3.amazonaws.com/crystal-production/' else 'https://s3.amazonaws.com/crystal-alpha/'
-          module: data.module
-          readme: data.readme
-          releases: data.releases
-          repository: data.repository
-          scripts: [
-            'scripts/page/module.js'
-          ]
-          styles: [
-            'styles/page/module.css'
-          ]
-        }
         
     .catch (e) ->
       res.render 'error', {

@@ -13,6 +13,8 @@ var search_terms = [
 ];
 
 $(window).load(function() {
+  $('body').css('backgroundImage', 'url(https://s3.amazonaws.com/crystal-web/img/quartz.jpg)');
+  
   setInterval(function() {
     if ($(window).width() < 640) {
       return;

@@ -29,12 +29,10 @@ html
     meta(charset='utf-8')
   body
     div(id='crystal')
-      div(id='app')
-        div(id='content')
-          include ./header.jade
-          section
-            block content
-          include ./footer.jade
-        include ./sidebar.jade
+      include ./header.jade
+      section
+        block content
+      include ./footer.jade
+    include ./sidebar.jade
     include ./menu.jade
     include ./google.html

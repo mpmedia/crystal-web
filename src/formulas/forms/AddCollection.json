@@ -8,6 +8,7 @@
     },
     "name": {
       "label": "Name",
+      "required": true,
       "type": "text"
     },
     "description": {

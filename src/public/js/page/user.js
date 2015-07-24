@@ -40,11 +40,25 @@ var addCollection = function() {
       console.log('Loading...');
     },
     error: function(data) {
+      $('#popup .error').show();
       $('#popup .error').text(data.error);
       $(window).resize();
     },
     success: function(data) {
-      $('#collections a').last().before('<li style="background-image: url(' + image_url + 'collections/' + data.id + '.svg); border: 2px #' + data.color + ' solid"><a href="collections/' + data.id + '"></a></li>');
+      var li = $(document.createElement('li'));
+      li.css({
+        backgroundImage: 'url(' + image_url + data.id + '.svg)',
+        border: '10px #' + data.color + ' solid'
+      });
+      li.data(data);
+      li.on('mouseenter', function() {
+        this.style.backgroundColor = '#' + $(this).data('color');
+      });
+      li.on('mouseleave', function() {
+        this.style.backgroundColor = '#FFF';
+      });
+      li.html('<a class="view" href="collections/' + data.name + '"></a><a href="#" onclick="return editCollection($(this).parent()[0])" class="edit"></a><a href="#" onclick="return deleteCollection($(this).parent().data(&quot;id&quot;))" class="delete"></a>');
+      $('#collections li').last().before(li);
       Crystal.Popup.hide();
     }
   });
@@ -102,7 +116,8 @@ var addModule = function() {
       console.log('Loading...');
     },
     error: function(data) {
-      $('#popup .error').text('Unable to update module');
+      $('#popup .error').show();
+      $('#popup .error').text('Unable to add module');
       $(window).resize();
     },
     success: function(data) {
@@ -133,13 +148,15 @@ var editCollection = function(o) {
       console.log('Loading...');
     },
     error: function(data) {
+      $('#popup .error').show();
       $('#popup .error').text('Unable to update collection');
       $(window).resize();
     },
     success: function(data) {
-      $('#collections li[data-id=' + data.id + ']').css('backgroundImage', 'url(' + image_url + 'collections/' + data.id + '.svg)');
-      $('#collections a[data-id=' + data.id + ']').data('name', data.name);
-      $('#collections a[data-id=' + data.id + ']').text(data.name);
+      var li = $('#collections li:data(id==' + data.id + ')');
+      li.data(data);
+      li.css('backgroundImage', 'url(' + image_url + data.id + '.svg)');
+      li.find('a.view').prop('href', 'collections/' + data.name);
       Crystal.Popup.hide();
     }
   });
@@ -165,6 +182,7 @@ var deleteCollection = function(id) {
       console.log('Loading...');
     },
     error: function(data) {
+      $('#popup .error').show();
       $('#popup .error').text(data.error);
       $(window).resize();
     },

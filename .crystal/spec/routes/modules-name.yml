@@ -5,7 +5,10 @@ modules:
   marked: marked
   request: request
   AddModule: ../formulas/forms/AddModule
-method: get
+method:
+  get:
+    styles:
+      - styles/page/module.css
 $injector:
   AFTER_MODULES: |
     # enable promises
