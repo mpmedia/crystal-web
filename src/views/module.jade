@@ -1,9 +1,9 @@
 extends layout
 block content
   h2
-    a(class='icon', href='collections/'+collection.name)
+    a(class='icon', href=url.hub+collection.name)
       img(src=url.img+'collections/'+collection.id+'.svg')
-    span!= '<a href="collections/' + collection.name + '">' + collection.name + '</a>' + '.' + '<a href="modules/' + collection.name + '/' + module.name + '">' + module.name + '</a>'
+    span!= '<a href="' + url.hub + collection.name + '">' + collection.name + '</a>' + '.' + '<a href="' + url.hub + collection.name + '/' + module.name + '">' + module.name + '</a>'
     //a(href='modules/'+collection.name+'.'+module.name+'/releases', onclick='return changeRelease()') master
   nav
     ul(id='tabs')
@@ -17,7 +17,7 @@ block content
         a(href='#config', onclick='return loadConfig(this)') CONFIG
   aside
     h3 Install
-    code= 'crystal install ' + collection.name + '/' + module.name
+    code= 'crystal install ' + collection.name + '.' + module.name
     br
     br
     h3 Contributors

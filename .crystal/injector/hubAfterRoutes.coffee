@@ -2,8 +2,8 @@ app.use (req, res, next) ->
   
   if req.host.match('hub\.crystal\.sh')
     # get collection/module name
-    if req.url.match('.')
-      url = req.url.split '.'
+    if req.url.match('\\.')
+      url = req.url.split '\.'
       collection_name = url[0].substr 1
       module_name = url[1]
     else

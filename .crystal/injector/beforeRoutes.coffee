@@ -5,3 +5,8 @@ app.locals.url = {
   img: "#{process.env.CRYSTAL_IMG_URL}/"
   web: "#{process.env.CRYSTAL_WEB_URL}/"
 }
+
+app.use (req, res, next) ->
+  res.header 'Access-Control-Allow-Origin', '*'
+  res.header 'Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept'
+  next()

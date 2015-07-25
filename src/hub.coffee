@@ -71,6 +71,11 @@ app.locals.url = {
   web: "#{process.env.CRYSTAL_WEB_URL}/"
 }
 
+app.use (req, res, next) ->
+  res.header 'Access-Control-Allow-Origin', '*'
+  res.header 'Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept'
+  next()
+
 
 # load routes
 require('./routes/hub')(app)
@@ -78,8 +83,8 @@ app.use (req, res, next) ->
   
   if req.host.match('hub\.crystal\.sh')
     # get collection/module name
-    if req.url.match('.')
-      url = req.url.split '.'
+    if req.url.match('\\.')
+      url = req.url.split '\.'
       collection_name = url[0].substr 1
       module_name = url[1]
     else

@@ -41,7 +41,7 @@ outputs:
         -
         - '# get db'
         - db = require './db.coffee'
-      BEFORE_ROUTES: ./injector/locals.coffee
+      BEFORE_ROUTES: ./injector/beforeRoutes.coffee
       AFTER_ROUTES: ./injector/appAfterRoutes.coffee
     path: src
     processor: yaml
@@ -100,7 +100,7 @@ outputs:
         -
         - '# get db'
         - db = require './db.coffee'
-      BEFORE_ROUTES: ./injector/locals.coffee
+      BEFORE_ROUTES: ./injector/beforeRoutes.coffee
       AFTER_ROUTES: ./injector/hubAfterRoutes.coffee
     filename: hub.coffee
     path: src
