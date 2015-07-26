@@ -26,14 +26,20 @@ $(window).load(function() {
         break;
       }
       case 'download/platform/mac': {
+        $('#platform .name').text('Mac');
         hideOptions(o, 'apple');
         break;
       }
       case 'download/platform/linux': {
+        $('#platform .name').text('Linux');
         hideOptions(o, 'linux');
         break;
       }
       case 'download/platform/windows': {
+        $('#platform .name').text('Windows');
+        if ($('.homebrew').length) {
+          $('code').text('Mac OS X only');
+        }
         hideOptions(o, 'windows');
         break;
       }
@@ -42,14 +48,24 @@ $(window).load(function() {
         break;
       }
       case 'download/provider/github': {
+        $('#provider .name').text('GitHub');
+        $('code').text('git clone https://github.com/crystal/crystal');
         hideOptions(o, 'github');
         break;
       }
       case 'download/provider/homebrew': {
+        $('#provider .name').text('Homebrew');
+        if ($('.windows').length || $('.linux').length) {
+          $('code').text('Mac OS X only');
+        } else {
+          $('code').text('brew install crystal');
+        }
         hideOptions(o, 'homebrew');
         break;
       }
       case 'download/provider/npm': {
+        $('#provider .name').text('npm');
+        $('code').text('npm install crystal -g');
         hideOptions(o, 'npm');
         break;
       }
