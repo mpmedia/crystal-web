@@ -76,6 +76,12 @@ app.use (req, res, next) ->
   res.header 'Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept'
   next()
 
+if process.env.CRYSTAL_DOMAIN == 'crystal.sh'
+  app.all '*', (req, res, next) ->
+    if req.headers['x-forwarded-port'] == '443'
+      next()
+    else
+      res.redirect "https://#{req.host}#{req.url}"
 
 # load routes
 require('./routes/accounts-connect')(app)
@@ -99,12 +105,6 @@ require('./routes/support')(app)
 require('./routes/terms')(app)
 require('./routes/user-email')(app)
 require('./routes/user')(app)
-if process.env.CRYSTAL_DOMAIN == 'crystal.sh'
-  app.all '*', (req, res, next) ->
-    if req.secure
-      next()
-    res.redirect "https://#{req.host}#{req.url}"
-    
 app.use (req, res, next) ->
   res.status 404
   res.render 'error', {
