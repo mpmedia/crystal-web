@@ -130,8 +130,8 @@ section {
         padding: 0px;
         
         li {
-          border-left: 1px #CCC solid;
-          border-right: 1px #CCC solid;
+          border: 1px #CCC solid;
+          border-top: none;
           box-sizing: border-box;
           display: inline-block;
           font-size: 48px;
@@ -142,6 +142,11 @@ section {
             height: 100%;
             padding: 40px 0px;
             width: 100%;
+            
+            &:hover {
+              background-color: #000;
+              color: #FFF;
+            }
             
             span {
               display: block;

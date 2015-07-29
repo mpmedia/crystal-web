@@ -65,7 +65,6 @@ module.exports = (app) ->
               uuid: repo.id || repo.uuid
               url: repo.full_name
             }
-        console.log repos
         sortByKey repos, 'url'
         
         res.status(200).send repos

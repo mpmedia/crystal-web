@@ -45,39 +45,54 @@ module.exports = (app) ->
       }
       
     .then (results) ->
-      models.Repository.create {
-        path: JSON.parse(results[0].body).full_name
-        uuid: form.data.repository
-        AccountId: data.account.id
-        ProviderId: data.account.ProviderId
-        UserId: req.session.userId
-      }
-      
-    .then (repository_data) ->
-      data.repositoryId = repository_data.dataValues.id
-      
-      models.Module.findOne {
-        where:
-          name: req.body.name
-          CollectionId: form.data.collection
-      }
-      
-    .then (module_data) ->
-      if module_data
-        throw new Error 'Duplicate name'
-      
-      models.Module.create {
-        color: form.data.color
-        description: form.data.description
-        name: form.data.name
-        AccountId: form.data.account
-        CollectionId: form.data.collection
-        RepositoryId: data.RepositoryId
-        UserId: req.session.userId
-      }
+      models.sequelize.transaction (t) ->
+        models.Repository.create {
+          path: JSON.parse(results[0].body).full_name
+          uuid: form.data.repository
+          AccountId: data.account.id
+          ProviderId: data.account.ProviderId
+          UserId: req.session.userId
+        },{
+          transaction: t
+        }
+        
+        .then (repository_data) ->
+          data.repositoryId = repository_data.dataValues.id
+          
+          models.Module.findOne {
+            where:
+              name: req.body.name
+              CollectionId: form.data.collection
+          }
+          
+        .then (module_data) ->
+          if module_data
+            throw new Error 'Duplicate name'
+          
+          models.Module.create {
+            color: form.data.color
+            description: form.data.description
+            name: form.data.name
+            AccountId: form.data.account
+            CollectionId: form.data.collection
+            RepositoryId: data.repositoryId
+            UserId: req.session.userId
+          },{
+            transaction: t
+          }
       
     .then (module) ->
-      res.status(200).send module.dataValues
+      module = models.Module.findOne {
+        attributes: ['id','name','description']
+        include:
+          model: models.User
+          attributes: ['username']
+        where:
+          id: module.dataValues.id
+      }
+    
+    .then (module) ->
+      res.status(201).send module.dataValues
     
     .catch (e) ->
       res.status(400).send { error: e }

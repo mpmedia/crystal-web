@@ -1,5 +1,7 @@
 extends layout
 block content
+  script.
+    var collectionId = !{collection.id};
   article(style='background-color: #'+collection.color)
     img(src=url.img+'collections/'+collection.id+'.svg')
     h2= collection.name

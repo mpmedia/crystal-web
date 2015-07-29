@@ -23,21 +23,30 @@ var addModule = function() {
         collections = collections[0];
         repositories = repositories[0];
         
-        form.fields.account.options = {};
+        form.fields.account.options = [];
         for (var i in accounts) {
-          form.fields.account.options[accounts[i].id] = accounts[i].login;
+          form.fields.account.options.push({
+            text: accounts[i].login,
+            value: accounts[i].id
+          });
         }
         
-        form.fields.collection.options = {};
+        form.data.collection = collectionId;
+        form.fields.collection.options = [];
         for (var i in collections) {
-          form.fields.collection.options[collections[i].id] = collections[i].name;
+          form.fields.collection.options.push({
+            text: collections[i].name,
+            value: collections[i].id
+          });
         }
         
-        form.fields.repository.options = {};
+        form.fields.repository.options = [];
         for (var i in repositories) {
-          form.fields.repository.options[repositories[i].url + '-' + repositories[i].uuid] = repositories[i].url;
+          form.fields.repository.options.push({
+            text: repositories[i].url,
+            value: repositories[i].uuid
+          });
         }
-        console.log(form.fields.repository.options);
         
         Crystal.Popup.show({
           title: 'Add Module',
@@ -53,7 +62,18 @@ var addModule = function() {
       $(window).resize();
     },
     success: function(data) {
-      $('#modules a').last().before('<a href="#" style="background-color: #' + data.color + '">' + data.name + '</a>');
+      var li = $(document.createElement('li'));
+      var a = $(document.createElement('a'));
+      a.prop('data-id', data.id);
+      a.prop('data-description', data.description);
+      a.prop('data-name', data.name);
+      a.prop('href', '#');
+      a.append('<span class="name">' + data.name + '</span>');
+      a.append('<span class="description">' + data.description + '</span>');
+      a.append('<span class="user">by ' + data.User.username + '</span>');
+      li.append(a);
+      
+      $('#modules li').last().before(li);
       Crystal.Popup.hide();
     }
   });
@@ -62,6 +82,9 @@ var addModule = function() {
 };
 
 var addFavorite = function() {
+  window.location.href = '/login';
+  return false;
+  
   var heart = $('.heart');
   
   if (heart.hasClass('selected')) {
