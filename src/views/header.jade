@@ -4,7 +4,7 @@ header
   a(class='menu', href='menu', 'Menu')
     img(src='images/menu.svg')
   if avatar
-    a(class='user', href='user', title='My Account')
+    a(class='user', href=url.web+'user', title='My Account')
       img(src=avatar + '?s=50')
   else
     a(class='login', href=url.web+'login', title='Crystal Login (or Sign Up)') Login
