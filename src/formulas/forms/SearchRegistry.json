@@ -1,5 +1,5 @@
 {
-  "action": "/registry",
+  "action": "/",
   "method": "get",
   "fields": {
     "keywords": {
