@@ -22,7 +22,7 @@ $(window).load(function() {
     
     var data, padding, type = $('header').data('type');
     
-    if ($(window).scrollTop() <= $(window).height() - 130) {
+    if ($(window).scrollTop() <= $('header').height() - 50) {
       if (type == 'expand') {
         return;
       }
@@ -61,7 +61,7 @@ $(window).load(function() {
       return;
     }
     
-    var opacity = 1 - ($(window).scrollTop() / ($(window).height() - $('header').outerHeight() - 250));
+    var opacity = 1 - ($(window).scrollTop() / ($('header').outerHeight() + 80));
     if (opacity < 0) {
       opacity = 0;
     }

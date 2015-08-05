@@ -26,37 +26,27 @@
   background: -ms-linear-gradient(top,  rgba(0,0,0,0) 0%,rgba(0,0,0,1) 100%); /* IE10+ */
   background: linear-gradient(to bottom,  rgba(0,0,0,0) 0%,rgba(0,0,0,1) 100%); /* W3C */
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#000000',GradientType=0 ); /* IE6-9 */
-  color: #FFF;
+  color: #000;
   height: 100vh;
-  text-shadow: 1px 1px 1px #000;
+  text-align: left;
   
-  div {
-    bottom: 100px;
-    position: fixed;
+  .box {
+    color: #FFF;
+    box-sizing: border-box;
+    font-size: 36px;
+    position: absolute;
+    text-align: center;
+    top: 200px;
     width: 100%;
     
-    @media screen and (max-width: 640px) {
-      bottom: auto;
-      position: absolute;
-      top: 250px;
-    }
-    
-    .desc {
+    form {
+      background-color: #FFF;
+      color: #000;
       font-size: 18px;
       margin: 0px auto;
-      padding-bottom: 20px;
-    }
-    
-    .title {
-      color: #FFF;
-      font-family: main;
-      font-size: 24px;
-      padding-bottom: 20px;
-      text-transform: lowercase;
-    }
-    
-    .tag {
-      color: #999;
+      padding: 40px;
+      text-align: left;
+      width: 300px;
     }
   }
 }

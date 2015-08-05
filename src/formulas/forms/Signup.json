@@ -1,4 +1,5 @@
 {
+  "action": "signup",
   "method": "post",
   "fields": {
     "email": {

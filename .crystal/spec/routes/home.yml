@@ -1,4 +1,7 @@
 uri: /
+modules:
+  formulator: formulator
+  Signup: ../formulas/forms/Signup
 method:
   get:
     title: Crystal
@@ -14,3 +17,6 @@ method:
     view: home
     local:
       avatar: req.session.avatar
+      form: form
+$injector:
+  BEFORE_RENDERING: form = new formulator Signup

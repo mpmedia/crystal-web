@@ -2,14 +2,14 @@ extends layout
 
 block content
   div(id="intro")
-    div
+    div(class='box')
       if avatar
-        p(class='title') Crystal v0.6.0 now available
+        p(class='title') Crystal v0.8 now available
         p(class='desc') Create custom Templates, Schemas, Engines + more.
         button(href='signup', onclick='window.location = "/signup"') Download
       else
-        p(class='title') Crystal is a Code Generator that makes<br />any Developer a Full Stack Developer
-        a(class='button signup', href='signup') Sign Up
+        p(class='title') Unified Programming.
+        div!= form
   div(class='banner') Open Source Code Generation
   div(id='hello')
     img(width='100%', src='images/banner.svg')

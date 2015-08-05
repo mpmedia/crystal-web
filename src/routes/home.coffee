@@ -1,11 +1,15 @@
+formulator = require 'formulator'
+Signup = require '../formulas/forms/Signup'
 models = require '../models'
 
 module.exports = (app) ->
   
   # GET /
   app.get '/', (req, res) ->
+    form = new formulator Signup
     res.render 'home', {
       avatar: req.session.avatar
+      form: form
       scripts: [
         'scripts/page/home.js'
       ]
