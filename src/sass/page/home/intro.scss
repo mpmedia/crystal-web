@@ -36,8 +36,36 @@
     font-size: 36px;
     position: absolute;
     text-align: center;
-    top: 200px;
+    top: 560px;
     width: 100%;
+    
+    a {
+      color: #999;
+      
+      &:hover {
+        color: #FFF;
+      }
+    }
+    
+    div {
+      color: #666;
+      font-size: 24px;
+      
+      &:last-of-type {
+        padding-bottom: 20px;
+      }
+    }
+    
+    button:first-of-type {
+      background: none;
+      border: 2px transparent solid;
+      color: #FFF;
+      margin-right: 20px;
+      
+      &:hover {
+        color: #FFFF00;
+      }
+    }
     
     form {
       background-color: #FFF;

@@ -3,39 +3,12 @@ extends layout
 block content
   div(id="intro")
     div(class='box')
-      if avatar
-        p(class='title') Crystal v0.8 now available
-        p(class='desc') Create custom Templates, Schemas, Engines + more.
-        button(href='signup', onclick='window.location = "/signup"') Download
-      else
-        p(class='title') Code-as-a-Service.
-        div!= form
+      p(class='title') Introducing Code-as-a-Service.
+      button(href='editor', onclick='window.location = "/editor"') Live Demo
+      button(href='download', onclick='window.location = "/download"') Download
   div(class='banner') Metaprogramming + Code Generation
   div(id='hello')
     img(width='100%', src='images/banner.svg')
-  div(id='try')
-    h2 Live Demo
-    h3 Give it a try - with a real Crystal server.
-    div(id='input')
-      h4 INPUT
-      textarea= "modules:\n  readme.md"
-      div
-        select
-          option Select a Spec
-          option(value='custom') CUSTOM
-          option(value='authors') Authors Example
-          option(value='express') Express Example
-          option(value='gruntfile') Grunt Example
-          option(value='license') License Example
-          option(value='readme') Readme Example
-          option(value='sequelize') Sequelize Example
-    div(id='generator')
-      button(style='margin-top: 200px') Generate
-    div(id='output')
-      h4 OUTPUT
-      textarea= "# Hello, world.\n\nNice to meet you!"
-      div(id='tabs')
-        a(href="Select a Spec") README.md
   div(id='aws')
     div "Most Impressive Infrastructure"
     div - Amazon Web Services, 2015

@@ -224,4 +224,14 @@ section {
       text-decoration: none;
     }
   }
+  
+  button {
+    border: 2px #000 solid;
+    color: #000;
+    
+    &:hover {
+      background-color: #000;
+      color: #FFF;
+    }
+  }
 }

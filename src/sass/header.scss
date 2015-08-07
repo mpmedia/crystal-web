@@ -110,7 +110,14 @@ header {
   }
   
   .login {
+    background: none;
     border-color: #000;
+    
+    &:hover {
+      background: none;
+      border: 2px transparent solid;
+      color: #FFFF00;
+    }
   }
   
   .menu {

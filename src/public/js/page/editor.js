@@ -177,6 +177,10 @@ var search_terms = [
 var output;
 var files;
 
+var chooseExample = function() {
+  $('body').append('<div>Choose an Example</div>');
+};
+
 $(window).load(function() {
   $('#output button').click(function() {
     var button = $(this);
@@ -346,10 +350,14 @@ $(window).load(function() {
   
   /*
   Crystal.Popup.show({
-    title: 'Welcome to the Crystal Console',
-    content: ''
+    title: '<div align="center">Crystal Editor</div>',
+    content: 
+      '<div align="center" style="padding-bottom: 20px"><img src="/images/editor-black.svg" /></div>' +
+      '<div align="center">Choose example inputs to see<br />Code-as-a-Service in action.</div>' +
+      '<div align="center" style="padding-top: 20px"><button onclick="chooseExample()">OK</button></div>'
   });
   */
+  
   $('#error').hide();
   $(window).resize();
 });
