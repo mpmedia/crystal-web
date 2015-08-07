@@ -179,7 +179,18 @@ var files;
 
 $(window).load(function() {
   $('#output button').click(function() {
-    var json = jsyaml.safeLoad(editor.getDoc().getValue());
+    var button = $(this);
+    
+    button.prop('disabled', 'disabled');
+    button.text('Loading...');
+    
+    try {
+      var json = jsyaml.safeLoad(editor.getDoc().getValue());
+    } catch (e) {
+      $('#error').show();
+      $('#error').text(e);
+      $(window).resize();
+    }
     
     $.ajax({
       data: JSON.stringify(json),
@@ -187,6 +198,11 @@ $(window).load(function() {
       url: url.api + 'generate',
       contentType: 'application/json; charset=utf-8',
       dataType: 'json',
+      error: function(data) {
+        $('#error').show();
+        $('#error').text('Invalid configuration.');
+        $(window).resize();
+      },
       success: function(data) {
         $('#tabs').empty();
         if (output) {
@@ -222,16 +238,22 @@ $(window).load(function() {
           }
           $('#tabs').append('<option>' + file_name + '</option>');
         }
+        
+        button.prop('disabled', null);
+        button.text('Generate');
       }
     });
   });
   
   var editor = CodeMirror.fromTextArea($('#input textarea')[0], {
+    //lineNumbers: true,
     mode: 'yaml',
     theme: 'mdn-like'
   });
   
   var output = CodeMirror.fromTextArea($('#output textarea')[0], {
+    //lineNumbers: true,
+    readOnly: true,
     theme: 'mdn-like'
   });
   
@@ -328,18 +350,21 @@ $(window).load(function() {
     content: ''
   });
   */
-  
+  $('#error').hide();
   $(window).resize();
 });
 
-$(document).keyup(function(e) {
+$(document).keydown(function(e) {
+  $('#error').hide();
+  $(window).resize();
+  
   if (e.keyCode == 71 && e.ctrlKey) {
     $('#output button').click();
   }
 });
 
 $(window).resize(function() {
-  $('.CodeMirror, textarea').css({
-    height: $(window).height() - $('header').outerHeight() - $('.options').outerHeight() - $('#settings').outerHeight() - 40
+  $('textarea, .CodeMirror').css({
+    height: $(window).height() - ($('#error').is(':visible') ? $('#error').outerHeight() : 0) - $('header').outerHeight() - $('.options').outerHeight() - $('#settings').outerHeight()
   });
 });

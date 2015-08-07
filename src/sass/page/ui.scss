@@ -6,15 +6,12 @@ section {
     overflow: auto;
     
     button {
-      border-radius: 50%;
       float: right;
-      height: 32px;
-      width: 32px;
+      margin-top: -11px;
       
-      img {
-        display: block;
-        height: 12px;
-        width: 12px;
+      &[disabled=disabled] {
+        background-color: #999;
+        cursor: no-drop;
       }
     }
     
@@ -73,6 +70,12 @@ section {
       }
     }
     
+    #error {
+      background-color: #FFCCCC;
+      color: #FF0000;
+      padding: 20px;
+    }
+    
     #input {
       border-right: 1px #CCC solid;
       float: left;
@@ -118,7 +121,6 @@ section {
     
     .CodeMirror {
       font-size: 14px !important;
-      padding: 20px;
     }
   }
 }

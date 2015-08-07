@@ -8,6 +8,7 @@ block content
         li
           a(class='help', href='#') Help
       div(id='url') https://api.crystal.sh/generate
+    div(id='error') This is an error.
     div(id='input')
       textarea
       div(class='options')
@@ -32,8 +33,7 @@ block content
         div
           select(id='tabs')
             option Select a File
-          button
-            img(src='/images/generate.svg')
+          button Generate
   //div(id='hints')
   //  div(class='hint') 1. Choose a Configuration as your input
   //  div(class='hint') 2. Edit

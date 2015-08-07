@@ -1,6 +1,6 @@
 method:
   get:
-    title: Console | Crystal
+    title: UI | Crystal
     scripts:
       - components/codemirror/lib/codemirror.js
       - components/codemirror/mode/coffeescript/coffeescript.js
@@ -25,12 +25,11 @@ method:
       - components/codemirror/mode/xml/xml.js
       - components/codemirror/mode/yaml/yaml.js
       - components/js-yaml/dist/js-yaml.js
-      - scripts/page/console.js
+      - scripts/page/ui.js
     styles:
       - components/codemirror/lib/codemirror.css
       - components/codemirror/theme/mdn-like.css
-      - styles/page/console.css
-      - styles/
-    view: console
+      - styles/page/ui.css
+    view: ui
     local:
       avatar: req.session.avatar
