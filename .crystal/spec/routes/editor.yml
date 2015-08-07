@@ -1,6 +1,6 @@
 method:
   get:
-    title: UI | Crystal
+    title: Editor | Crystal
     scripts:
       - components/codemirror/lib/codemirror.js
       - components/codemirror/mode/coffeescript/coffeescript.js
@@ -25,11 +25,11 @@ method:
       - components/codemirror/mode/xml/xml.js
       - components/codemirror/mode/yaml/yaml.js
       - components/js-yaml/dist/js-yaml.js
-      - scripts/page/ui.js
+      - scripts/page/editor.js
     styles:
       - components/codemirror/lib/codemirror.css
       - components/codemirror/theme/mdn-like.css
-      - styles/page/ui.css
-    view: ui
+      - styles/page/editor.css
+    view: editor
     local:
       avatar: req.session.avatar

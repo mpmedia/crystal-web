@@ -34,11 +34,11 @@ header {
       white-space: nowrap;
       width: 32px;
       
-      &.ui {
-        background-image: url(/images/ui.svg);
+      &.editor {
+        background-image: url(/images/editor.svg);
         
         &:hover, &.selected {
-          background-image: url(/images/ui-hover.svg);
+          background-image: url(/images/editor-hover.svg);
         }
       }
       
