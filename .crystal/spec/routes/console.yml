@@ -1,10 +1,6 @@
-uri: /
-modules:
-  formulator: formulator
-  Signup: ../formulas/forms/Signup
 method:
   get:
-    title: Crystal
+    title: Console | Crystal
     scripts:
       - components/codemirror/lib/codemirror.js
       - components/codemirror/mode/coffeescript/coffeescript.js
@@ -29,18 +25,12 @@ method:
       - components/codemirror/mode/xml/xml.js
       - components/codemirror/mode/yaml/yaml.js
       - components/js-yaml/dist/js-yaml.js
-      - scripts/page/home.js
+      - scripts/page/console.js
     styles:
       - components/codemirror/lib/codemirror.css
-      - styles/page/home.css
-      - styles/page/home/contribute.css
-      - styles/page/home/features.css
-      - styles/page/home/generators.css
-      - styles/page/home/intro.css
-      - styles/page/home/usage.css
-    view: home
+      - components/codemirror/theme/mdn-like.css
+      - styles/page/console.css
+      - styles/
+    view: console
     local:
       avatar: req.session.avatar
-      form: form
-$injector:
-  BEFORE_RENDERING: form = new formulator Signup

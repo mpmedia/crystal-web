@@ -7,8 +7,10 @@ header
     a(class='user', href=url.web+'user', title='My Account')
       img(src=avatar + '?s=50')
   else
+    a(class='signup', href=url.web+'signup', title='Crystal Login (or Sign Up)') Sign Up
     a(class='login', href=url.web+'login', title='Crystal Login (or Sign Up)') Login
   nav
-    a(class='download', href=url.web+'download', title='Download Crystal') Download
-    a(class='registry', href=url.hub, title='Crystal Hub') Crystal Hub
-    a(class='support', href=url.web+'support', title='Crystal Support') Support
+    a(class='console' + (title == 'Console | Crystal' ? ' selected' : ''), href=url.web+'console', title='Crystal Console') Console
+    a(class='download' + (title == 'Download | Crystal' ? ' selected' : ''), href=url.web+'download', title='Download Crystal') Download
+    a(class='hub' + (title == 'Search Crystal' ? ' selected' : ''), href=url.hub, title='Crystal Hub') Crystal Hub
+    a(class='support' + (title == 'Support | Crystal' ? ' selected' : ''), href=url.web+'support', title='Crystal Support') Support

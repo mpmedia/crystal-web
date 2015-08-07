@@ -32,6 +32,7 @@ app.set 'views', path.join(__dirname, 'views')
 app.set 'view engine', 'jade'
 
 # setup static dirs
+app.use '/components', express.static("#{__dirname}/public/components")
 app.use '/font', express.static("#{__dirname}/public/font")
 app.use '/formulas', express.static("#{__dirname}/public/formulas")
 app.use '/images', express.static("#{__dirname}/public/images")
@@ -88,6 +89,7 @@ require('./routes/accounts-connect')(app)
 require('./routes/accounts')(app)
 require('./routes/collections-name')(app)
 require('./routes/collections')(app)
+require('./routes/console')(app)
 require('./routes/doc')(app)
 require('./routes/docs')(app)
 require('./routes/download')(app)

@@ -1,4 +1,4 @@
-id: crystal/web
+id: crystal.web
 name: Crystal Website
 version: 0.1.0
 description: official website of [Crystal](http://crystal.sh)
@@ -9,6 +9,8 @@ author:
   url: http://crystal.sh
 copyright: 2015 Crystal
 modules:
+  bower.config: v0.1.0
+  bower.package: v0.1.0
   coffeescript.js: v0.1.0
   express.app: v0.1.0
   express.route: v0.1.0
@@ -20,6 +22,8 @@ modules:
   redis.config: v0.1.0
   yaml.parse: v0.1.0
 imports:
+  bower-config: bower.config.Generator
+  bower-package: bower.package.Generator
   cs-to-js: coffeescript.js.Transformer
   express-app: express.app.Generator
   express-route: express.route.Generator
@@ -32,6 +36,17 @@ imports:
   uri: express.route.URIProcessor
   yaml: yaml.parse.Processor
 outputs:
+  - generator: bower-config
+    spec:
+      directory: src/public/components
+      
+  - generator: bower-package
+    spec:
+      name: $name
+      dependencies:
+        codemirror: 5.5.0
+        js-yaml: 3.3.1
+      
   - generator: express-app
     injector:
       AFTER_MODULES:
@@ -64,6 +79,7 @@ outputs:
           port: 6379
           type: redis
       static: &static
+        /components: public/components
         /font: public/font
         /formulas: public/formulas
         /images: public/images
@@ -178,6 +194,7 @@ outputs:
 scripts:
   build:
     - sudo npm update
+    - bower install
     - mkdir ~/.crystal/dev/crystal-web/src/models
     - ln -s ~/.crystal/dev/crystal-api/src/models ~/.crystal/dev/crystal-web/src/models
   run:

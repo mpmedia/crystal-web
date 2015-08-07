@@ -175,89 +175,10 @@ var search_terms = [
 ];
 
 var output;
+var files;
 
 $(window).load(function() {
-  $('body').css('backgroundImage', 'url(https://s3.amazonaws.com/crystal-web/img/quartz.jpg)');
-  
-  setInterval(function() {
-    if ($(window).width() < 640) {
-      return;
-    }
-    
-    var data, padding, type = $('header').data('type');
-    
-    if ($(window).scrollTop() <= $('header').height() - 50) {
-      if (type == 'expand') {
-        return;
-      }
-      color = '';
-      data = 'expand'
-      padding = 40;
-      
-    } else {
-      if (type == 'collapse') {
-        return;
-      }
-      color = '#000';
-      data = 'collapse'
-      padding = 10;
-    }
-    
-    if (type == 'collapse') {
-      $('header').css('backgroundColor', color);
-    }
-    $('header').data('type', data);
-    $('header').stop().animate({
-      padding: padding
-    },{
-      complete: function() {
-        if (type == 'expand') {
-          $('header').css('backgroundColor', color);
-        }
-        $('header').removeData('animating');
-      }
-    });
-    
-  }, 100);
-  
-  $(window).scroll(function() {
-    if ($(window).width() < 640) {
-      return;
-    }
-    
-    var opacity = 1 - ($(window).scrollTop() / ($('header').outerHeight() + 80));
-    if (opacity < 0) {
-      opacity = 0;
-    }
-    $('#intro').css('opacity', opacity);
-    if (opacity === 0) {
-      $('#intro div').hide();
-    } else {
-      $('#intro div').show();
-    }
-  });
-  
-  setInterval(function() {
-    var search_term = search_terms[search_i];
-    $('#search-term').attr('href', '/gen/' + search_term);
-    $('#search-term').text(search_term);
-    
-    if (search_i == search_terms.length-1) {
-      search_i = 0;
-    } else {
-      search_i++;
-    }
-    
-  }, 2000);
-  
-  $('.image').on('mouseenter', function() {
-    $(this).find('.screenshot').css('width', $(this).find('.icon').outerWidth()).fadeIn();
-  });
-  $('.image').on('mouseleave', function() {
-    $(this).find('.screenshot').fadeOut();
-  });
-  
-  $('#generator button').click(function() {
+  $('#output button').click(function() {
     var json = jsyaml.safeLoad(editor.getDoc().getValue());
     
     $.ajax({
@@ -272,18 +193,17 @@ $(window).load(function() {
           output.getDoc().setValue('');
         }
         
+        files = data.files;
+        
         var i = 0;
         for (var file_name in data.files) {
           if (i == 0) {
-            if (!output) {
-              output = CodeMirror.fromTextArea($('#output textarea')[0]);
-            }
             var file_type;
             switch (true) {
               case file_name.match(/\.coffee$/) !== null:
                 file_type = 'coffeescript';
                 break;
-              case file_name.match(/\.js$/) !== null:
+              case file_name.match(/\.js$/) !== null || file_name.match(/\.json$/) !== null:
                 file_type = 'javascript';
                 break;
               case file_name.match(/\.md$/) !== null:
@@ -300,23 +220,126 @@ $(window).load(function() {
             output.getDoc().setValue(data.files[file_name]);
             i++;
           }
-          file_name = file_name.substr(2);
-          $('#tabs').append('<a href="#">' + file_name + '</a>');
+          $('#tabs').append('<option>' + file_name + '</option>');
         }
       }
     });
   });
   
   var editor = CodeMirror.fromTextArea($('#input textarea')[0], {
-    mode: 'yaml'
+    mode: 'yaml',
+    theme: 'mdn-like'
+  });
+  
+  var output = CodeMirror.fromTextArea($('#output textarea')[0], {
+    theme: 'mdn-like'
   });
   
   $('#input select').on('change', function() {
     editor.getDoc().setValue(jsyaml.safeDump(configs[$(this).val()], null, "  "));
-    $('#generator button').click();
+    $('#output button').click();
   });
   
   $('#input select').val('readme').change();
   
-  $(window).scroll();
+  $('#output select').on('change', function() {
+    var file_name = $(this).val();
+    
+    var file_type;
+    switch (true) {
+      case file_name.match(/\.coffee$/) !== null:
+        file_type = 'coffeescript';
+        break;
+      case file_name.match(/\.js$/) !== null || file_name.match(/\.json$/) !== null:
+        file_type = 'javascript';
+        break;
+      case file_name.match(/\.md$/) !== null:
+        file_type = 'markdown';
+        break;
+      case file_name.match(/\.php$/) !== null:
+        file_type = 'php';
+        break;
+      default:
+        file_type = 'markdown';
+        break;
+    }
+    output.setOption('mode', file_type);
+    output.getDoc().setValue(files[file_name]);
+  });
+  
+  $('.help').click(function(e) {
+    e.preventDefault();
+    
+    $('.hint').show();
+  });
+  
+  $('.cson, .json, .yaml, .xml').click(function(e) {
+    e.preventDefault();
+    
+    var data = {};
+    switch (true) {
+      case $('#formats .selected').children('.cson').length == 1:
+        data = cson.load(
+          editor.getDoc().getValue()
+        );
+        break;
+      case $('#formats .selected').children('.json').length == 1:
+        data = JSON.parse(
+          editor.getDoc().getValue()
+        );
+        break;
+      case $('#formats .selected').children('.yaml').length == 1:
+        data = jsyaml.safeLoad(
+          editor.getDoc().getValue()
+        );
+        break;
+      case $('#formats .selected').children('.xml').length == 1:
+        data = xml.load(
+          editor.getDoc().getValue()
+        );
+        break;
+    }
+    
+    var value = '';
+    switch (true) {
+      case $(this).hasClass('cson'):
+        value = cson.dump(data);
+        break;
+      case $(this).hasClass('json'):
+        value = JSON.stringify(data, null, '  ');
+        break;
+      case $(this).hasClass('yaml'):
+        value = jsyaml.safeDump(data);
+        break;
+      case $(this).hasClass('xml'):
+        value = cson.dump(data);
+        break;
+    }
+    
+    $('.cson, .json, .yaml, .xml').parent().removeClass('selected');
+    $(this).parent().addClass('selected');
+    
+    editor.getDoc().setValue(value);
+  });
+  
+  /*
+  Crystal.Popup.show({
+    title: 'Welcome to the Crystal Console',
+    content: ''
+  });
+  */
+  
+  $(window).resize();
+});
+
+$(document).keyup(function(e) {
+  if (e.keyCode == 71 && e.ctrlKey) {
+    $('#output button').click();
+  }
+});
+
+$(window).resize(function() {
+  $('.CodeMirror, textarea').css({
+    height: $(window).height() - $('header').outerHeight() - $('.options').outerHeight() - $('#settings').outerHeight() - 40
+  });
 });

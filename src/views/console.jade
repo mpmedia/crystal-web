@@ -1,0 +1,40 @@
+extends layout
+block content
+  div(id='try')
+    div(id='settings')
+      ul(id='help')
+        li
+          a(href='https://crystal.readme.io', target='_blank') Docs
+        li
+          a(class='help', href='#') Help
+      div(id='url') https://api.crystal.sh/generate
+    div(id='input')
+      textarea
+      div(class='options')
+        ul(id='formats')
+          li(class='selected')
+            a(class='yaml', href='console/yaml') YAML
+          li
+            a(class='json', href='console/json') JSON
+        div
+          select
+            option Select a Spec
+            option(value='custom') CUSTOM
+            option(value='authors') Authors Example
+            option(value='express') Express Example
+            option(value='gruntfile') Grunt Example
+            option(value='license') License Example
+            option(value='readme') Readme Example
+            option(value='sequelize') Sequelize Example
+    div(id='output')
+      textarea= "# Hello, world.\n\nNice to meet you!"
+      div(class='options')
+        div
+          select(id='tabs')
+            option Select a File
+          button
+            img(src='/images/generate.svg')
+  //div(id='hints')
+  //  div(class='hint') 1. Choose a Configuration as your input
+  //  div(class='hint') 2. Edit
+  //  div(class='hint') 3. Generate 

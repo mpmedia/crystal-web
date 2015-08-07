@@ -1,15 +1,11 @@
-formulator = require 'formulator'
-Signup = require '../formulas/forms/Signup'
 models = require '../models'
 
 module.exports = (app) ->
   
-  # GET /
-  app.get '/', (req, res) ->
-    form = new formulator Signup
-    res.render 'home', {
+  # GET /console
+  app.get '/console', (req, res) ->
+    res.render 'console', {
       avatar: req.session.avatar
-      form: form
       scripts: [
         'components/codemirror/lib/codemirror.js'
         'components/codemirror/mode/coffeescript/coffeescript.js'
@@ -34,16 +30,13 @@ module.exports = (app) ->
         'components/codemirror/mode/xml/xml.js'
         'components/codemirror/mode/yaml/yaml.js'
         'components/js-yaml/dist/js-yaml.js'
-        'scripts/page/home.js'
+        'scripts/page/console.js'
       ]
       styles: [
         'components/codemirror/lib/codemirror.css'
-        'styles/page/home.css'
-        'styles/page/home/contribute.css'
-        'styles/page/home/features.css'
-        'styles/page/home/generators.css'
-        'styles/page/home/intro.css'
-        'styles/page/home/usage.css'
+        'components/codemirror/theme/mdn-like.css'
+        'styles/'
+        'styles/page/console.css'
       ]
-      title: 'Crystal'
+      title: 'Console | Crystal'
     }

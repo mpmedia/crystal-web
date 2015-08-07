@@ -15,15 +15,20 @@ h1 {
   text-align: center;
 }
 
+h2, h3 {
+  text-align: center;
+}
+
 .result {
   background-color: #FFF;
   border: 10px #FFF solid;
   border-radius: 200px;
   box-sizing: border-box;
   display: inline-block;
+  margin: 0.5%;
   padding: 40px 20px;
   text-align: center;
-  width: 20%;
+  width: 24%;
   
   &:hover {
     background-color: #FFF;

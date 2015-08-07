@@ -105,7 +105,12 @@ var Crystal = {
         $('body').append(popup);
       }
       
-      popup.html(opts.content);
+      if (opts.title) {
+        popup.append(
+          '<h1>' + opts.title + '</h1>'
+        );
+      }
+      popup.append(opts.content);
       
       popup.find('.error').hide();
       
